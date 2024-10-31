@@ -1,0 +1,112 @@
+﻿<Window x:Class="MarketDestkop.Views.SignUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MarketDestkop.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="SignUpWindow" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid Background="#FFFCDA32">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Image Source="C:\Users\Quliy_cy96\source\repos\MarketWpfProject\MarketWpfProject\Pictures\profile_3135715.png"
+               Width="80" 
+               Height="80" 
+               Margin="0,0,0,40" 
+               Stretch="UniformToFill" />
+                <TextBlock Text="Let's get you set up" 
+                   FontSize="18" 
+                   FontWeight="Bold" 
+                   Foreground="Black" 
+                   TextAlignment="Center" 
+                   Margin="0,0,0,10"/>
+
+                <TextBlock Text="It should only take a couple of minutes to pair with your watch" 
+                   FontSize="14" 
+                   TextAlignment="Center" 
+                   TextWrapping="Wrap" 
+                   Foreground="Black" 
+                   Height="21" 
+                   Width="354"/>
+
+                <!--<Button Content="→" 
+                Width="40" 
+                Height="40" 
+                Background="Black" 
+                Foreground="White" 
+                BorderBrush="Black" 
+                Margin="0,30,0,0"/>-->
+            </StackPanel>
+        </Grid>
+
+        <Grid Margin="400,0,0,0" Background="White">
+            <StackPanel Margin="30">
+                <TextBox Text="{Binding Name}" 
+                         materialDesign:HintAssist.Hint="Name"  
+                         Margin="0,10,0,0" 
+                         Height="30" />
+
+                <TextBox Text="{Binding Surname}"
+                         materialDesign:HintAssist.Hint="Surname"  
+                         Margin="0,10,0,0" 
+                         Height="30" />
+
+                <StackPanel  Orientation="Horizontal" Margin="0,10,0,0">
+                    <RadioButton Content="Male" 
+                                 GroupName="Gender" 
+                                 IsChecked="{Binding IsMale, Mode=TwoWay}" 
+                                 Margin="0,0,20,0" />
+
+                    <!-- Female RadioButton -->
+                    <RadioButton Content="Female" 
+                                 GroupName="Gender" 
+                                 IsChecked="{Binding IsFemale, Mode=TwoWay}" />
+                </StackPanel>
+                <DatePicker Text="{Binding Birthday}" 
+                            materialDesign:HintAssist.Hint="10/10/1990" 
+                            Margin="0,10,0,0" 
+                            Height="30" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <ComboBox Text="{Binding CountryCode}"
+                              x:Name="countrycode"
+                              Width="50" 
+                              Margin="0,0,10,0" 
+                              Height="30"></ComboBox>
+
+                    <TextBox Text="{Binding Mobile}" 
+                             materialDesign:HintAssist.Hint="Mobile" 
+                             Height="30" 
+                             Width="425" 
+                             Padding="5"/>
+                </StackPanel>
+
+                <TextBox Text="{Binding Email}" 
+                         materialDesign:HintAssist.Hint="Email" 
+                         Margin="0,10,0,0" 
+                         Height="30" />
+
+                <TextBox Text="{Binding Password}" 
+                         materialDesign:HintAssist.Hint="Password" 
+                         Margin="0,10,0,0" 
+                         Height="30" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <Button Content="Cancel" 
+                            Width="100" 
+                            Height="30" 
+                            Background="Red" 
+                            Margin="0,0,20,0"/>
+
+                    <Button Content="Sign Up" 
+                            Width="100" 
+                            Height="30" 
+                            Background="ForestGreen"
+                            Command="{Binding SignUpCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
