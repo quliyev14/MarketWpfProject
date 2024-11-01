@@ -1,5 +1,6 @@
 ﻿using MarketWpfProject.Command;
 using MarketWpfProject.Data;
+using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,7 @@ namespace MarketWpfProject.ViewModels
             SignUpCommand = new RelayCommand(SaveJson);
         }
 
-
-
         #region Propdbs
-
 
         private string? _name;
 
@@ -138,9 +136,9 @@ namespace MarketWpfProject.ViewModels
             }
         }
 
-        private string? _password;
+        private string _password;
 
-        public string? Password
+        public string Password
         {
             get => _password;
             set
@@ -152,16 +150,11 @@ namespace MarketWpfProject.ViewModels
         #endregion
 
 
-
-
-
-
-
         public void SaveJson(object? parametr)
         {
             var users = new List<User>
             {
-                 new User(_name, _surname, new GmailService(_email, _password), _gender, _birthday, _mobile, _countrycode)
+                 new User(Name, Surname, new GmailService(Email, DatasIsHashed.SHA256PasswordHash(Password)), Gender, Birthday, Mobile, CountryCode)
             };
             DB.JsonWrite<User>(path, log, users);
             ClearFields();
@@ -182,9 +175,7 @@ namespace MarketWpfProject.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string? propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void OnPropertyChanged(string? propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
     }
 }

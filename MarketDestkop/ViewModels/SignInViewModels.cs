@@ -50,22 +50,21 @@ namespace MarketWpfProject.ViewModels
         public void SignIn(object? parametr)
         {
             var users = DB.JsonRead<User>(path) ?? new List<User>();
-            string hashpassword = DatasIsHashed.PasswordHash(Password);
 
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
-            else
+            foreach (var user in users)
             {
-                foreach (var user in users)
+                if (user.GmailService.Email == Email && user.GmailService.Password == DatasIsHashed.SHA256PasswordHash(Password))
                 {
-                    if (user.GmailService.Email == _email && user.GmailService.Password == hashpassword)
-                    {
-                        MessageBox.Show("True");
-                    }
+                    MessageBox.Show("True");
+                    return;
                 }
-                MessageBox.Show("False");
             }
+
+            MessageBox.Show("False");
         }
+
 
         public void OpenSignUpWindow(object? parametr)
         {
@@ -75,9 +74,7 @@ namespace MarketWpfProject.ViewModels
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
     }
 }

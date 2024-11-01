@@ -18,17 +18,17 @@ namespace MarketWpfProject.Models
             Gender = gender;
             DateOfBirth = dateOfBirth;
             Mobile = mobile;
-            this.countrymobilecode = countrymobilecode;
+            this.CountryMobileCode = countrymobilecode;
         }
 
         public string? Name { get; init; } = default!;
         public string? Surname { get; init; } = default!;
         public string? Gender { get; init; } = default!;
         public DateOnly? DateOfBirth { get; init; } = default!;
-        public string? countrymobilecode { get; init; } = default!;
+        public string? CountryMobileCode { get; init; } = default!;
         public string? Mobile { get; init; } = default!;
-        public GmailService GmailService { get; init; } = default!;
+        public GmailService GmailService { get; set; } = default!;
 
-        public override string ToString() => $"{Name} {Surname} {GmailService} {Gender} {DateOfBirth} {countrymobilecode} {Mobile} \n";
+        public override string ToString() => $"{Name} {Surname} {GmailService.Email} {GmailService.Password} {Gender} {DateOfBirth} {CountryMobileCode} {Mobile} \n";
     }
 }
