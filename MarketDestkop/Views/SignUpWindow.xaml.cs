@@ -29,7 +29,7 @@ namespace MarketDestkop.Views
 
         private void LoadCountryPhoneNumber()
         {
-            var numbers = new string[]
+            var countryCodes = new string[]
             {
                  "+994(AZ)",
                  "+1 (US)",
@@ -68,7 +68,7 @@ namespace MarketDestkop.Views
                  "+880 (BD)"
             };
 
-            foreach (var number in numbers)
+            foreach (var number in countryCodes)
                 countrycode.Items.Add(number);
         }
     }
