@@ -20,10 +20,12 @@ namespace MarketWpfProject.ViewModels
         private string path = "saved.json";
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
+        public RelayCommand RefreshCommand { get; }
 
         public SignUpViewModels()
         {
             SignUpCommand = new RelayCommand(SaveJson);
+            RefreshCommand = new RelayCommand(RefreshFields);
         }
 
         #region Propdbs
@@ -152,12 +154,18 @@ namespace MarketWpfProject.ViewModels
 
         public void SaveJson(object? parametr)
         {
+            MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             var users = new List<User>
             {
                  new User(Name, Surname, new GmailService(Email, DatasIsHashed.SHA256PasswordHash(Password)), Gender, Birthday, Mobile, CountryCode)
             };
-            DB.JsonWrite<User>(path, log, users);
-            ClearFields();
+
+            if (mbb == MessageBoxResult.Yes)
+            {
+                DB.JsonWrite<User>(path, log, users);
+                ClearFields();
+            }
         }
 
         private void ClearFields()
@@ -172,6 +180,9 @@ namespace MarketWpfProject.ViewModels
             IsFemale = false;
             Birthday = null;
         }
+
+        public void RefreshFields(object? parametr) => ClearFields();
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -53,18 +53,12 @@ namespace MarketWpfProject.ViewModels
 
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
-            foreach (var user in users)
-            {
-                if (user.GmailService.Email == Email && user.GmailService.Password == DatasIsHashed.SHA256PasswordHash(Password))
-                {
-                    MessageBox.Show("True");
-                    return;
-                }
-            }
+            var isAuthenticated = users.Any(user =>
+                user.GmailService.Email == Email &&
+                user.GmailService.Password == DatasIsHashed.SHA256PasswordHash(Password));
 
-            MessageBox.Show("False");
+            MessageBox.Show(isAuthenticated ? "True" : "False");
         }
-
 
         public void OpenSignUpWindow(object? parametr)
         {
