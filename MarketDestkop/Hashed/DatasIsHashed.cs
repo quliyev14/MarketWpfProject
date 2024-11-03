@@ -9,7 +9,7 @@ namespace MarketWpfProject.Hashed
 {
     public static class DatasIsHashed
     {
-        public static string SHA256PasswordHash(string password)
+        public static string WithSHA256PasswordHash(string password)
         {
             var sb = new StringBuilder();
             using (var sha256 = SHA256.Create())

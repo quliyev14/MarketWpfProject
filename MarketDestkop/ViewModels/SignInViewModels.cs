@@ -5,7 +5,6 @@ using MarketWpfProject.Hashed;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Models;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels
@@ -55,7 +54,7 @@ namespace MarketWpfProject.ViewModels
 
             var isAuthenticated = users.Any(user =>
                 user.GmailService.Email == Email &&
-                user.GmailService.Password == DatasIsHashed.SHA256PasswordHash(Password));
+                user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
 
             MessageBox.Show(isAuthenticated ? "True" : "False");
         }

@@ -2,15 +2,8 @@
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels
@@ -158,7 +151,7 @@ namespace MarketWpfProject.ViewModels
 
             var users = new List<User>
             {
-                 new User(Name, Surname, new GmailService(Email, DatasIsHashed.SHA256PasswordHash(Password)), Gender, Birthday, Mobile, CountryCode)
+                 new User(Name, Surname, new GmailService(Email, DatasIsHashed.WithSHA256PasswordHash(Password)), Gender, Birthday, Mobile, CountryCode)
             };
 
             if (mbb == MessageBoxResult.Yes)
