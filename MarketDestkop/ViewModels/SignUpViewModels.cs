@@ -10,6 +10,8 @@ namespace MarketWpfProject.ViewModels
 {
     public class SignUpViewModels : INotifyPropertyChanged
     {
+        private readonly static object _prso = new();
+
         private string path = "saved.json";
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
@@ -156,7 +158,8 @@ namespace MarketWpfProject.ViewModels
 
             if (mbb == MessageBoxResult.Yes)
             {
-                DB.JsonWrite<User>(path, log, users);
+                lock (_prso)
+                    DB.JsonWrite<User>(path, log, users);
                 ClearFields();
             }
         }
@@ -180,6 +183,5 @@ namespace MarketWpfProject.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string? propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     }
 }

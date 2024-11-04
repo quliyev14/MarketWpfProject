@@ -20,10 +20,8 @@
                      Name="CategoryListBox" 
                      Grid.Column="0" 
                      SelectionChanged="CategoryListBox_SelectionChanged">
-    
             </ListBox>
         </ScrollViewer>
-
         <Frame Name="ContentFrame" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -35,7 +35,7 @@
                     Height="37"/>
 
             </StackPanel>
-            <Button VerticalAlignment="Top" Content="Login" Command="{Binding LoginCommand}"  Margin="40,229,40,0" Height="37" Effect="{DynamicResource MaterialDesignShadowDepth2}" Background="#FF7C38F5" />
+            <Button  VerticalAlignment="Top" Content="Login" Command="{Binding LoginCommand}"  Margin="40,229,40,0" Height="37" Effect="{DynamicResource MaterialDesignShadowDepth2}" Background="#FF7C38F5" />
         </Grid>
         <Button  Command="{Binding SignUpCommand}" Background="Green" Foreground="White" Content="Signup" Margin="76,437,76,15" Effect="{DynamicResource MaterialDesignShadowDepth2}" BorderBrush="#FF391678" />
     </Grid>

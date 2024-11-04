@@ -24,5 +24,8 @@ namespace MarketWpfProject.Pages
         {
             InitializeComponent();
         }
+
+
+
     }
 }

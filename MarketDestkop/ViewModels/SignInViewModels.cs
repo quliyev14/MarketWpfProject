@@ -4,6 +4,7 @@ using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Models;
+using MarketWpfProject.Views;
 using System.ComponentModel;
 using System.Windows;
 
@@ -49,21 +50,33 @@ namespace MarketWpfProject.ViewModels
         public void SignIn(object? parametr)
         {
             var users = DB.JsonRead<User>(path) ?? new List<User>();
-
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
             var isAuthenticated = users.Any(user =>
                 user.GmailService.Email == Email &&
                 user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
 
-            MessageBox.Show(isAuthenticated ? "True" : "False");
+            if (isAuthenticated) OpenMainWindow();
+            RefreshMethod();
         }
+
+        public void OpenMainWindow()
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
+
+        private void RefreshMethod()
+        {
+            Email = string.Empty;
+            Password = string.Empty;
+        }
+
 
         public void OpenSignUpWindow(object? parametr)
         {
             var signUpWindow = new SignUpWindow();
             signUpWindow.Show();
-            //signUpWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
