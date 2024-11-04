@@ -4,7 +4,6 @@ using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
 using System.ComponentModel;
-
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels

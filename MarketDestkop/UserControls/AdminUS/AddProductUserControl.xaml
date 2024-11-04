@@ -4,20 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.AdminUS"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Margin="10">
-        <TextBlock Text="Add Product" FontSize="24" Margin="0,0,0,20"/>
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
 
-        <TextBlock Text="Product Name:"/>
-        <TextBox x:Name="ProductNameTextBox" Width="200" Margin="0,0,0,10"/>
+    <Grid Margin="20">
+        <StackPanel Margin="10,10,0,10" HorizontalAlignment="Left" Width="209">
+            <TextBlock HorizontalAlignment="Center" Text="Add Product" FontSize="24" Margin="0,0,0,20"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Product name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="200" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged, 
+                ValidatesOnDataErrors=True}" materialDesign:HintAssist.Hint="Price" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="200" Margin="0,0,0,10"/>
+            <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged, 
+                ValidatesOnDataErrors=True}" materialDesign:HintAssist.Hint="Count" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="200" Margin="0,0,0,10" TextWrapping="Wrap"/>
+            <Button Content="Add Product" Width="200" Height="40" Command="{Binding AddProductCommand}"/>
+        </StackPanel>
 
-        <TextBlock Text="Price:"/>
-        <TextBox x:Name="PriceTextBox" Width="200" Margin="0,0,0,10"/>
+        <StackPanel HorizontalAlignment="Left" Width="504" Margin="256,10,0,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10,0,10,10">
+                <TextBlock Text="Name" Width="130" FontWeight="Bold" Foreground="Black" FontSize="16"/>
+                <TextBlock Text="Price" Width="130" FontWeight="Bold" Foreground="Black" FontSize="16"/>
+                <TextBlock Text="Count" Width="130" FontWeight="Bold" Foreground="Black" FontSize="16"/>
+            </StackPanel>
 
-        <TextBlock Text="Description:"/>
-        <TextBox x:Name="DescriptionTextBox" Width="200" Height="100" Margin="0,0,0,10" TextWrapping="Wrap" AcceptsReturn="True"/>
-
-        <Button Content="Add Product" Width="200" Height="40" />
-    </StackPanel>
+            <ListBox Width="400" HorizontalAlignment="Stretch" Background="White" 
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ItemsSource="{Binding Product}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10,5">
+                            <TextBlock Text="{Binding Name}" Width="130" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="{Binding Price}" Width="130" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="{Binding Count}" Width="130" FontSize="14" Foreground="Gray"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
 </UserControl>
