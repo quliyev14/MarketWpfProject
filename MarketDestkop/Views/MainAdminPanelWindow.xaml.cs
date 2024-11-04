@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MarketWpfProject.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MarketWpfProject.Views
 {
-    /// <summary>
-    /// Interaction logic for MainAdminPanelWindow.xaml
-    /// </summary>
     public partial class MainAdminPanelWindow : Window
     {
         public MainAdminPanelWindow()
         {
             InitializeComponent();
+            var viewModel = new MainAdminPanelViewModel(ContentFrame);
+            DataContext = viewModel;
         }
     }
 }
