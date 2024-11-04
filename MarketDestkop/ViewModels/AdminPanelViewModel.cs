@@ -1,13 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Helper.PathHelper;
-using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
+using MarketWpfProject.Views;
 using System.ComponentModel;
-using System.Windows;
-
 
 namespace MarketWpfProject.ViewModels
 {
@@ -45,7 +42,7 @@ namespace MarketWpfProject.ViewModels
             }
         }
 
-        public void SignIn()
+        private void SignIn()
         {
             var admins = DB.JsonRead<Admin>(path) ?? new List<Admin>();
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
@@ -53,16 +50,15 @@ namespace MarketWpfProject.ViewModels
             foreach (var admin in admins)
             {
                 if (admin.gmailService.Email == Email && admin.gmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password))
-                {
-                    MessageBox.Show("True");
-                    return;
-                }
+                    OpenMainWindowShow();
             }
-            MessageBox.Show("False");
-
-
-            //if (isAuthenticated) OpenMainWindow();
             RefreshMethod();
+        }
+
+        private void OpenMainWindowShow()
+        {
+            var signUpWindow = new MainAdminPanelWindow();
+            signUpWindow.Show();
         }
 
         private void RefreshMethod()
@@ -73,6 +69,5 @@ namespace MarketWpfProject.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     }
 }
