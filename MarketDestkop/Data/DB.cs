@@ -1,12 +1,6 @@
-﻿using System;
-using MarketWpfProject.Helper.PathHelper;
-using MarketWpfProject.Models;
-using System.Collections.Generic;
+﻿using MarketWpfProject.Helper.PathHelper;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace MarketWpfProject.Data
 {

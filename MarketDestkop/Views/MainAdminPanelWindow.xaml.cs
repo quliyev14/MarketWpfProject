@@ -10,22 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MarketWpfProject.Pages
+namespace MarketWpfProject.Views
 {
     /// <summary>
-    /// Interaction logic for FruitVegatablePage.xaml
+    /// Interaction logic for MainAdminPanelWindow.xaml
     /// </summary>
-    public partial class FruitVegatablePage : Page
+    public partial class MainAdminPanelWindow : Window
     {
-        public FruitVegatablePage()
+        public MainAdminPanelWindow()
         {
             InitializeComponent();
         }
-
-
-
     }
 }

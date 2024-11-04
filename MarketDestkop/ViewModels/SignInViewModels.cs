@@ -60,11 +60,6 @@ namespace MarketWpfProject.ViewModels
             RefreshMethod();
         }
 
-        public void OpenMainWindow()
-        {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
 
         private void RefreshMethod()
         {
@@ -72,6 +67,11 @@ namespace MarketWpfProject.ViewModels
             Password = string.Empty;
         }
 
+        public void OpenMainWindow()
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
 
         public void OpenSignUpWindow(object? parametr)
         {

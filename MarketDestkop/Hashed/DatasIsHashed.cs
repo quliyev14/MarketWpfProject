@@ -9,12 +9,12 @@ namespace MarketWpfProject.Hashed
 {
     public static class DatasIsHashed
     {
-        public static string WithSHA256PasswordHash(string password)
+        public static string WithSHA256PasswordHash(string? password)
         {
             var sb = new StringBuilder();
             using (var sha256 = SHA256.Create())
             {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password!));
                 foreach (byte b in bytes)
                     sb.Append(b.ToString("x2"));
                 return sb.ToString();

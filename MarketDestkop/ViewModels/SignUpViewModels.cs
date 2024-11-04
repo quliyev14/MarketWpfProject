@@ -147,7 +147,7 @@ namespace MarketWpfProject.ViewModels
         #endregion
 
 
-        public void SaveJson(object? parametr)
+        private void SaveJson(object? parametr)
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -177,7 +177,7 @@ namespace MarketWpfProject.ViewModels
             Birthday = null;
         }
 
-        public void RefreshFields(object? parametr) => ClearFields();
+        private void RefreshFields(object? parametr) => ClearFields();
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
