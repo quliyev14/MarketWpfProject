@@ -1,13 +1,21 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketWpfProject.Data;
+using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Text.Json;
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 {
     public class AddProductViewModel : INotifyPropertyChanged
     {
+        private static string path = "products.json";
+        private static string log = "products.log";
+
+
         private readonly static object _prso = new();
         public ObservableCollection<Product> Products { get; set; }
         public RelayCommand AddProductCommand { get; set; }
@@ -20,6 +28,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             AddProductCommand = new RelayCommand(AddProduct);
             DeleteCommand = new RelayCommand(DeleteProduct);
             EditCommand = new RelayCommand(EditProduct);
+            LoadProductsFromJson();
         }
 
         private Product _selectedProduct;
@@ -72,14 +81,26 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
         private void AddProduct()
         {
-            var newProduct = new Product
-            (
-                Name = Name,
-                Price = Price,
-                Count = Count
-            );
+            if (!string.IsNullOrWhiteSpace(Name) && Count > 0 && Price > 0)
+            {
+                var newProduct = new Product
+                (
+                    Name = Name,
+                    Price = Price,
+                    Count = Count
+                );
 
-            Products.Add(newProduct);
+                Products.Add(newProduct);
+                DB.JsonWrite<Product>(path, log, Products);
+            }
+            Clear();
+        }
+
+        private void Clear()
+        {
+            Name = string.Empty;
+            Price = 0;
+            Count = 0;
         }
 
         private void DeleteProduct()
@@ -92,6 +113,15 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 return;
             }
             MessageBox.Show("Please Listbox item select");
+        }
+
+        private void LoadProductsFromJson()
+        {
+            var products = DB.JsonRead<Product>(path);
+
+            if (products is not null)
+                foreach (var product in products)
+                    Products.Add(product);
         }
 
         private void EditProduct()
