@@ -1,11 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MarketWpfProject.Data;
-using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
-using System.Text.Json;
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
@@ -108,7 +105,10 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             if (SelectedProduct != null)
             {
                 lock (_prso)
+                {
                     Products.Remove(SelectedProduct);
+                    DB.JsonWrite(path, log, Products);
+                }
                 SelectedProduct = null;
                 return;
             }
