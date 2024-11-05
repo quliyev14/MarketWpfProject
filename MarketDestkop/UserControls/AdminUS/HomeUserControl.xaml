@@ -9,67 +9,95 @@
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
 
     <Grid Margin="20">
-        <!-- Sol Panel: Ürün Ekleme Alanı -->
-        <StackPanel Margin="10,10,0,10" HorizontalAlignment="Left" Width="250">
-            <TextBlock HorizontalAlignment="Center" Text="Add Product" FontSize="24" Margin="0,0,0,20"/>
+        <StackPanel Margin="10,10,0,10" 
+                    HorizontalAlignment="Left" 
+                    Width="250">
+            <TextBlock HorizontalAlignment="Center" 
+                       Text="Add Product" 
+                       FontSize="24" 
+                       Margin="0,0,0,20"/>
 
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
                  materialDesign:HintAssist.Hint="Product name" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Width="220" Margin="0,0,0,10"/>
+                 Width="220" 
+                 Margin="0,0,0,10"/>
 
             <TextBox Text="{Binding Price, UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" 
-                 materialDesign:HintAssist.Hint="Price" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Width="220" Margin="0,0,0,10"/>
+                     materialDesign:HintAssist.Hint="Price" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Width="220" Margin="0,0,0,10"/>
 
             <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged,StringFormat=N0}" 
-                 materialDesign:HintAssist.Hint="Count" 
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Width="220" Margin="0,0,0,10"/>
+                     materialDesign:HintAssist.Hint="Count" 
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Width="220" Margin="0,0,0,10"/>
 
-            <Button Content="Select Image" Command="{Binding SelectImageCommand}" Width="220" Margin="0,10"/>
-            <Image Source="{Binding SelectedImagePath}" Width="220" Height="85" Margin="0,10"/>
+            <Button Content="Select Image" 
+                    Command="{Binding SelectImageCommand}" 
+                    Width="220" 
+                    Margin="0,10"/>
+            <Image Source="{Binding SelectedImagePath}" 
+                   Width="220" 
+                   Height="85" 
+                   Margin="0,10"/>
 
-            <Button Content="Add Product" Width="220" Height="40" Command="{Binding AddProductCommand}"/>
+            <Button Content="Add Product" 
+                    Width="220" 
+                    Height="40" 
+                    Command="{Binding AddProductCommand}"/>
         </StackPanel>
 
-        <!-- Sağ Panel: Ürün Listesi -->
-        <StackPanel HorizontalAlignment="Right" Width="600" Margin="10,10,0,10">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Right" 
+                    Width="600" 
+                    Margin="10,10,0,10">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" 
+                          VerticalScrollBarVisibility="Auto">
                 <ListView Background="White"
-                  ItemsSource="{Binding Products}"
-                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
-                  BorderBrush="#D3D3D3" BorderThickness="1" 
-                  Width="600" Height="389" 
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
-
+                          ItemsSource="{Binding Products}"
+                          SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                          BorderBrush="#D3D3D3" BorderThickness="1" 
+                          Width="600" Height="389" 
+                          ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Image" Width="100">
+                            <GridViewColumn Header="Image" 
+                                            Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding ImagePath}" Width="40" Height="40"/>
+                                        <Image Source="{Binding ImagePath}" 
+                                               Width="40" 
+                                               Height="40"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-
-                            <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header="Price" Width="80" DisplayMemberBinding="{Binding Price}"/>
-                            <GridViewColumn Header="Count" Width="80" DisplayMemberBinding="{Binding Count}"/>
-
-                            <GridViewColumn Width="150" Header="Actions">
+                            <GridViewColumn Header="Name" 
+                                            Width="Auto" 
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Price" 
+                                            Width="100" 
+                                            DisplayMemberBinding="{Binding Price}"/>
+                            <GridViewColumn Header="Count" 
+                                            Width="100" 
+                                            DisplayMemberBinding="{Binding Count}"/>
+                            <GridViewColumn Width="150" 
+                                            Header="Actions">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button Content="Edit" Width="80" Margin="3,0"
-                                        Command="{Binding DataContext.EditCommand, 
-                                        RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        CommandParameter="{Binding}" />
-                                            <Button Content="Delete" Width="80" Margin="3,0"
-                                        Command="{Binding DataContext.DeleteCommand, 
-                                        RelativeSource={RelativeSource AncestorType=ListView}}"
-                                        CommandParameter="{Binding}" />
+                                        <StackPanel Orientation="Horizontal" 
+                                                    HorizontalAlignment="Center">
+                                            <Button Content="Edit" 
+                                                    Width="80" 
+                                                    Margin="3,0"
+                                                    Command="{Binding DataContext.EditCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Content="Delete" 
+                                                    Width="80" 
+                                                    Margin="3,0"
+                                                    Command="{Binding DataContext.DeleteCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

@@ -19,24 +19,52 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle Width="280" Height="300" Fill="White" Effect="{DynamicResource MaterialDesignShadowDepth5}" RadiusX="13.667" RadiusY="13.667"  >
+        <Rectangle Width="280" 
+                   Height="300" 
+                   Fill="White" 
+                   Effect="{DynamicResource MaterialDesignShadowDepth5}" 
+                   RadiusX="13.667" 
+                   RadiusY="13.667"  >
         </Rectangle>
-        <Grid Width="280" Height="288" VerticalAlignment="Top" Margin="35,104,35,0">
-            <TextBlock Text="LOGIN" VerticalAlignment="top" HorizontalAlignment="Center"  Margin="50" FontWeight="Bold" FontSize="20" Foreground="#333399" />
-            <StackPanel VerticalAlignment="Center" Margin="15,0,15,0" Height="100">
+        <Grid Width="280" 
+              Height="288" 
+              VerticalAlignment="Top" 
+              Margin="35,104,35,0">
+            <TextBlock Text="LOGIN" 
+                       VerticalAlignment="top" 
+                       HorizontalAlignment="Center"  
+                       Margin="50" 
+                       FontWeight="Bold" 
+                       FontSize="20" 
+                       Foreground="#333399" />
+            <StackPanel VerticalAlignment="Center" 
+                        Margin="15,0,15,0" 
+                        Height="100">
                 <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"  
-                     materialDesign:HintAssist.Hint="Email" 
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     Height="37"/>
+                         materialDesign:HintAssist.Hint="Email" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Height="37"/>
 
                 <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
-                    materialDesign:HintAssist.Hint="Password" 
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Height="37"/>
+                         materialDesign:HintAssist.Hint="Password" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Height="37"/>
 
             </StackPanel>
-            <Button  VerticalAlignment="Top" Content="Login" Command="{Binding LoginCommand}"  Margin="40,229,40,0" Height="37" Effect="{DynamicResource MaterialDesignShadowDepth2}" Background="#FF7C38F5" />
+            <Button  VerticalAlignment="Top" 
+                     Content="Login" 
+                     Command="{Binding LoginCommand}"  
+                     Margin="40,229,40,0" 
+                     Height="37" 
+                     Effect="{DynamicResource MaterialDesignShadowDepth2}" 
+                     Background="#FF7C38F5" />
         </Grid>
-        <Button  Command="{Binding SignUpCommand}" Background="Green" Foreground="White" Content="Signup" Margin="76,437,76,15" Effect="{DynamicResource MaterialDesignShadowDepth2}" BorderBrush="#FF391678" />
+        <Button  Command="{Binding SignUpCommand}" 
+                 Background="Green" 
+                 Foreground="White" 
+                 Content="Signup" 
+                 Margin="76,437,76,15" 
+                 Effect="{DynamicResource MaterialDesignShadowDepth2}" 
+                 BorderBrush="#FF391678" />
     </Grid>
 </Window>

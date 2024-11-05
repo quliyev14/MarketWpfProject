@@ -22,22 +22,37 @@
                             <GridViewColumn Header="Image" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding ImagePath}" Width="80" Height="80" Margin="10"/>
+                                        <Image Source="{Binding ImagePath}" 
+                                               Width="80" 
+                                               Height="80" 
+                                               Margin="10"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Header="Price" Width="100" DisplayMemberBinding="{Binding Price}"/>
-                            <GridViewColumn Header="Count" Width="100" DisplayMemberBinding="{Binding Count}"/>
-                            <GridViewColumn Width="200" Header="Actions">
+                            <GridViewColumn Header="Name" 
+                                            Width="150" 
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Price" 
+                                            Width="100" 
+                                            DisplayMemberBinding="{Binding Price}"/>
+                            <GridViewColumn Header="Count" 
+                                            Width="100" 
+                                            DisplayMemberBinding="{Binding Count}"/>
+                            <GridViewColumn Width="200" 
+                                            Header="Actions">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button Content="Edit" Width="80" Margin="5,0"
+                                        <StackPanel Orientation="Horizontal" 
+                                                    HorizontalAlignment="Center">
+                                            <Button Content="Edit" 
+                                                    Width="80" 
+                                                    Margin="5,0"
                                                     Command="{Binding DataContext.EditCommand, 
                                                     RelativeSource={RelativeSource AncestorType=ListView}}"
                                                     CommandParameter="{Binding}" />
-                                            <Button Content="Delete" Width="80" Margin="5,0"
+                                            <Button Content="Delete" 
+                                                    Width="80" 
+                                                    Margin="5,0"
                                                     Command="{Binding DataContext.DeleteCommand, 
                                                     RelativeSource={RelativeSource AncestorType=ListView}}"
                                                     CommandParameter="{Binding}" />
