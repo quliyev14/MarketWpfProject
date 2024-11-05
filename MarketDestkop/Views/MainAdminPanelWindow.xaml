@@ -51,21 +51,11 @@
             <Button Content="Add Product" 
             Width="180" Height="50" Margin="0,10"
             Style="{StaticResource RoundButtonStyle}"
-            Command="{Binding AddProductCommand}"/>
+            Command="{Binding HomeCommand}"/>
 
             <Button  Content="All Show Product" 
             Width="180" Height="50" Margin="0,10"
             Style="{StaticResource RoundButtonStyle}"/>
-
-            <Button Content="Edit Product" 
-            Width="180" Height="50" Margin="0,10"
-            Style="{StaticResource RoundButtonStyle}"
-            Command="{Binding EditProductCommand}"/>
-
-            <Button Content="Delete Product" 
-            Width="180" Height="50" Margin="0,10"
-            Style="{StaticResource RoundButtonStyle}"
-            Command="{Binding DeleteProductCommand}"/>
 
             <Button Content="Logout" 
             Width="180" Height="50" Margin="0,10"

@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace MarketWpfProject.UserControls.AdminUS
 {
-    public partial class AddProductUserControl : UserControl
+    public partial class HomeUserControl : UserControl
     {
-        public AddProductUserControl()
+        public HomeUserControl()
         {
             InitializeComponent();
             DataContext = new AddProductViewModel();
