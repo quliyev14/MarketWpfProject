@@ -13,7 +13,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         private static string path = "products.json";
         private static string log = "products.log";
 
-
         private readonly static object _prso = new();
         public ObservableCollection<Product> Products { get; set; }
         public RelayCommand AddProductCommand { get; set; }
@@ -141,14 +140,12 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         }
         private void SelectImage()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp"
             };
             if (openFileDialog.ShowDialog() == true)
-            {
                 ImagePath = openFileDialog.FileName;
-            }
         }
 
         private void EditProduct()

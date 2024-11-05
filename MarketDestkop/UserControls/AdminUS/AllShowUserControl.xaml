@@ -4,15 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.AdminUS"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
-    <Grid>
+
+    <Grid Margin="20">
         <StackPanel>
-            <Button Width="100" Height="100" Background="Red">asas</Button>
-            
-            <Border  Background="#FFECF0F1">
-                <Frame x:Name="ContentFrame" />
-            </Border>
+            <TextBlock Text="All Products" FontSize="24" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListView Background="White"
+                          ItemsSource="{Binding Products}"
+                          SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                          BorderBrush="#D3D3D3" BorderThickness="1"
+                          MaxHeight="300">
+                    <!-- Maksimum yükseklik ayarlandı -->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Image" Width="100">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding ImagePath}" Width="80" Height="80" Margin="10"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Price" Width="100" DisplayMemberBinding="{Binding Price}"/>
+                            <GridViewColumn Header="Count" Width="100" DisplayMemberBinding="{Binding Count}"/>
+                            <GridViewColumn Width="200" Header="Actions">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="Edit" Width="80" Margin="5,0"
+                                                    Command="{Binding DataContext.EditCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Content="Delete" Width="80" Margin="5,0"
+                                                    Command="{Binding DataContext.DeleteCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
         </StackPanel>
     </Grid>
 </UserControl>

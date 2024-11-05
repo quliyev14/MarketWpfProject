@@ -1,4 +1,5 @@
 ﻿using MarketWpfProject.ViewModels;
+using MarketWpfProject.ViewModels.AdminPanelUserControlViewModel;
 using System.Windows.Controls;
 
 namespace MarketWpfProject.UserControls.AdminUS
@@ -8,8 +9,7 @@ namespace MarketWpfProject.UserControls.AdminUS
         public AllShowUserControl()
         {
             InitializeComponent();
-            var viewModel = new MainAdminPanelViewModel(ContentFrame);
-            DataContext = viewModel;
+            DataContext = new AddProductViewModel();
         }
     }
 }
