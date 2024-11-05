@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Moduls;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -18,6 +19,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         public RelayCommand AddProductCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
+        public RelayCommand SelectImageCommand {  get; set; }
 
         public AddProductViewModel()
         {
@@ -25,6 +27,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             AddProductCommand = new RelayCommand(AddProduct);
             DeleteCommand = new RelayCommand(DeleteProduct);
             EditCommand = new RelayCommand(EditProduct);
+            SelectImageCommand = new RelayCommand(SelectImage);
             LoadProductsFromJson();
         }
 
@@ -76,6 +79,18 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             }
         }
 
+        private string? _imagePath;
+
+        public string? ImagePath
+        {
+            get => _imagePath;
+            set
+            {
+                _imagePath = value;
+                OnPropertyChanged(nameof(ImagePath));
+            }
+        }
+
         private void AddProduct()
         {
             if (!string.IsNullOrWhiteSpace(Name) && Count > 0 && Price > 0)
@@ -84,7 +99,8 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 (
                     Name = Name,
                     Price = Price,
-                    Count = Count
+                    Count = Count,
+                    ImagePath = ImagePath
                 );
 
                 Products.Add(newProduct);
@@ -122,6 +138,17 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             if (products is not null)
                 foreach (var product in products)
                     Products.Add(product);
+        }
+        private void SelectImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ImagePath = openFileDialog.FileName;
+            }
         }
 
         private void EditProduct()
