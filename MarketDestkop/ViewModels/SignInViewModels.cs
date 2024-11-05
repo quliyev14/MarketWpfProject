@@ -6,7 +6,6 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Models;
 using MarketWpfProject.Views;
 using System.ComponentModel;
-using System.Windows;
 
 namespace MarketWpfProject.ViewModels
 {

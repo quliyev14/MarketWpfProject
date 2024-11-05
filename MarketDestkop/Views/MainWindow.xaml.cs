@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace MarketWpfProject.Views
 {
     public partial class MainWindow : Window

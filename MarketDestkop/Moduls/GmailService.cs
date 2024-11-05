@@ -1,14 +1,4 @@
-﻿using MarketWpfProject.Exceptions;
-using MarketWpfProject.Hashed;
-using MarketWpfProject.Helper.GmailHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MarketWpfProject.Models
+﻿namespace MarketWpfProject.Models
 {
     //Email = GmailAndPasswordCheck.GPCheck(GP.Email, email);
     //string passwordcheckresult = GmailAndPasswordCheck.GPCheck(GP.Password, password);

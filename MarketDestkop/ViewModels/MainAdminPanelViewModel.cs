@@ -1,5 +1,4 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using MarketWpfProject.UserControls.AdminUS;
 using System.Windows.Controls;
@@ -21,10 +20,6 @@ namespace MarketWpfProject.ViewModels
         }
 
         private void Home() => _frame.Navigate(new HomeUserControl());
-
-        private void DeleteProduct() => _frame.Navigate(new DeleteProductUserControl());
-
-        private void EditProduct() => _frame.Navigate(new EditProductUserControl());
 
         private void ExitWindow() => Application.Current.Shutdown();
     }

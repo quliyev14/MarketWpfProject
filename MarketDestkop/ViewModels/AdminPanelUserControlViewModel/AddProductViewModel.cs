@@ -2,20 +2,36 @@
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 {
     public class AddProductViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Product> Product { get; set; }
-
+        private readonly static object _prso = new();
+        public ObservableCollection<Product> Products { get; set; }
         public RelayCommand AddProductCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
 
         public AddProductViewModel()
         {
-            Product = new ObservableCollection<Product>();
+            Products = new ObservableCollection<Product>();
             AddProductCommand = new RelayCommand(AddProduct);
+            DeleteCommand = new RelayCommand(DeleteProduct);
+            EditCommand = new RelayCommand(EditProduct);
+        }
 
+        private Product _selectedProduct;
+
+        public Product SelectedProduct
+        {
+            get => _selectedProduct;
+            set
+            {
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+            }
         }
 
         private string? _name;
@@ -54,7 +70,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             }
         }
 
-
         private void AddProduct()
         {
             var newProduct = new Product
@@ -64,7 +79,24 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 Count = Count
             );
 
-            Product.Add(newProduct);
+            Products.Add(newProduct);
+        }
+
+        private void DeleteProduct()
+        {
+            if (SelectedProduct != null)
+            {
+                lock (_prso)
+                    Products.Remove(SelectedProduct);
+                SelectedProduct = null;
+                return;
+            }
+            MessageBox.Show("Please Listbox item select");
+        }
+
+        private void EditProduct()
+        {
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

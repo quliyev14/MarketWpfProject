@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MarketWpfProject.Models
+﻿namespace MarketWpfProject.Models
 {
     public class User
     {
@@ -18,7 +11,7 @@ namespace MarketWpfProject.Models
             Gender = gender;
             DateOfBirth = dateOfBirth;
             Mobile = mobile;
-            this.CountryMobileCode = countrymobilecode;
+            CountryMobileCode = countrymobilecode;
         }
 
         public string? Name { get; init; } = default!;

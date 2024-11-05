@@ -38,7 +38,8 @@
             <ListView Width="600" Height="389" 
                   Background="White" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding Product}"
+                  ItemsSource="{Binding Products}"
+                  SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                   BorderBrush="#D3D3D3" BorderThickness="1">
 
                 <ListView.Resources>
@@ -87,13 +88,13 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Button Content="Edit" Width="80" Margin="5,0" 
-                                            Command="{Binding DataContext.EditCommand, 
-                                            RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                            CommandParameter="{Binding}" />
-                                        <Button Content="Delete" Width="80" Margin="5,0" 
-                                            Command="{Binding DataContext.DeleteCommand, 
-                                            RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                            CommandParameter="{Binding}" />
+                                        Command="{Binding DataContext.EditCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding}" />
+                                        <Button Content="Delete" Width="80" Margin="5,0"
+                                        Command="{Binding DataContext.DeleteCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ListView}}"
+                                        CommandParameter="{Binding}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
