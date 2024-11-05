@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Moduls;
+using MarketWpfProject.Views;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -150,7 +151,8 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
         private void EditProduct()
         {
-
+            var editWindow = new EditWindow(SelectedProduct);
+            editWindow.Show();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

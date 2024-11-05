@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.AdminUS"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"                           
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
-
     <Grid Margin="20">
         <StackPanel>
             <TextBlock Text="All Products" FontSize="24" FontWeight="Bold" 
@@ -18,7 +17,6 @@
                           SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                           BorderBrush="#D3D3D3" BorderThickness="1"
                           MaxHeight="300">
-                    <!-- Maksimum yükseklik ayarlandı -->
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Image" Width="100">
