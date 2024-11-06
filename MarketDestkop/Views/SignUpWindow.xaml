@@ -12,7 +12,7 @@
         <Grid Background="#FFFCDA32">
             <StackPanel HorizontalAlignment="Left" 
                         VerticalAlignment="Center">
-                <Image Source="C:\Users\Quliy_cy96\source\repos\MarketWpfProject\MarketWpfProject\Pictures\profile_3135715.png"
+                <Image Source="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-No-Background.png"
                Width="80" 
                Height="80" 
                Margin="0,0,0,40" 
