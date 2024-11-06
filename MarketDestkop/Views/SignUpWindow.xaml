@@ -100,7 +100,8 @@
                             Width="100" 
                             Height="30" 
                             Background="Red" 
-                            Margin="0,0,20,0"/>
+                            Margin="0,0,20,0"
+                            Command="{Binding CanselCommand}"/>
 
 
                     <Button Content="Sign Up" 

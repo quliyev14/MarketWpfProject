@@ -1,7 +1,9 @@
-﻿using MarketWpfProject.Command;
+﻿using MarketDestkop.Views;
+using MarketWpfProject.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
+using MarketWpfProject.Views;
 using System.ComponentModel;
 
 using System.Windows;
@@ -16,11 +18,14 @@ namespace MarketWpfProject.ViewModels
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }
+        public RelayCommand CanselCommand { get; }
+
 
         public SignUpViewModels()
         {
             SignUpCommand = new RelayCommand(SaveJson);
             RefreshCommand = new RelayCommand(RefreshFields);
+            CanselCommand = new RelayCommand(CanselWindow);
         }
 
         #region Propdbs
@@ -146,7 +151,6 @@ namespace MarketWpfProject.ViewModels
         }
         #endregion
 
-
         private void SaveJson(object? parametr)
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -177,8 +181,11 @@ namespace MarketWpfProject.ViewModels
             Birthday = null;
         }
 
-        private void RefreshFields(object? parametr) => ClearFields();
+        private void CanselWindow(object? parametr) => CanselSignUpWindow();
 
+        private void CanselSignUpWindow() => System.Windows.Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
+
+        private void RefreshFields(object? parametr) => ClearFields();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
