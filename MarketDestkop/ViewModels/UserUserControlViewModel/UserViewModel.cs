@@ -4,7 +4,9 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text.Json;
 using System.Windows;
+using System.Xml;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
@@ -32,6 +34,22 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
+            AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
+        }
+
+        public string? UserName { get; set; } 
+        public RelayCommand<Product> AddToPacketCommand { get; set; }
+
+        private void AddProductToUserPacket(Product product)
+        {
+            string userFileName = $"{UserName}_packet.json";
+
+            if (PathCheck.OpenOrClosed("products.json"))
+            {
+                DB.JsonWrite(userFileName, "user.log", product.ToString().ToList());
+                MessageBox.Show("Ürün başarıyla eklendi.");
+
+            }
         }
 
         private void LoadProduct()

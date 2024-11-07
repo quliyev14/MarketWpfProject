@@ -33,7 +33,7 @@
             <ItemsControl ItemsSource="{Binding Products}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -49,8 +49,9 @@
                                     <Button Content="+" Width="30" Command="{Binding IncreaseQuantityCommand}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}" />
                                 </StackPanel>
                                 <Button Content="Add Packet" Width="110" Height="40" FontSize="14" Margin="5"
-                                        Command="{Binding AddToPacketCommand}" CommandParameter="{Binding}"
-                                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                                        Command="{Binding DataContext.AddToPacketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}" 
+                                        Style="{StaticResource MaterialDesignRaisedButton}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
