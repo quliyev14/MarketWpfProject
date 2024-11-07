@@ -14,14 +14,13 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" VerticalAlignment="Top" Margin="10">
+            <Button Content="Products" Command="{Binding ProductsCommand}" CommandParameter="Category1UserControl" Margin="5"/>
+            <Button Content="My Basket" Command="{Binding MyBasketCommand}" CommandParameter="Category2UserControl" Margin="5"/>
+            <Button Content="Sign Out" Command="{Binding SignOutCommand}" CommandParameter="Category2UserControl" Margin="5"/>
+        </StackPanel>
 
-        <ScrollViewer>
-            <ListBox SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                     Name="CategoryListBox" 
-                     Grid.Column="0" 
-                     SelectionChanged="CategoryListBox_SelectionChanged">
-            </ListBox>
-        </ScrollViewer>
         <Frame Name="ContentFrame" Grid.Column="1"/>
     </Grid>
+
 </Window>

@@ -20,13 +20,13 @@
                      Width="300" Height="45" Margin="0,0,10,0"
                      VerticalContentAlignment="Center" Padding="10"
                      BorderBrush="#D3D3D3" BorderThickness="1"
-                     HorizontalContentAlignment="Left"  />
+                     HorizontalContentAlignment="Left"/>
             <Button Content="Search"
                     Command="{Binding SearchCommand}"
                     Width="80" Height="45"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     Padding="5,0" Margin="0,0,10,0"
-                    Style="{StaticResource MaterialDesignFlatButton}" />
+                    Style="{StaticResource MaterialDesignFlatButton}"/>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -40,12 +40,9 @@
                     <DataTemplate>
                         <Border BorderBrush="#D3D3D3" BorderThickness="1" Margin="5" Width="180" Height="250" Padding="10" Background="White">
                             <StackPanel HorizontalAlignment="Center">
-                                <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5" />
-
+                                <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>
-
                                 <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="12" TextAlignment="Center" Margin="5,0,5,5"/>
-
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                                     <Button Content="-" Width="30" Command="{Binding DecreaseQuantityCommand}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}" />
                                     <TextBlock Text="{Binding Quantity}" Width="30" TextAlignment="Center"/>

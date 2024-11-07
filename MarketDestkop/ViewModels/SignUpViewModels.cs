@@ -3,7 +3,6 @@ using MarketWpfProject.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
-using MarketWpfProject.Views;
 using System.ComponentModel;
 
 using System.Windows;

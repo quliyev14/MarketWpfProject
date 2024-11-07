@@ -8,7 +8,7 @@ namespace MarketWpfProject.UserControls.UserUS
         public ProductUS()
         {
             InitializeComponent();
-            this.DataContext = new UserViewModel();
+            DataContext = new UserViewModel();
         }
     }
 }
