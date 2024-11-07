@@ -4,9 +4,7 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text.Json;
 using System.Windows;
-using System.Xml;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
@@ -27,7 +25,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(SearchTb));
             }
         }
-
         public RelayCommand SearchCommand { get; set; }
 
         public UserViewModel()
@@ -37,19 +34,26 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
         }
 
-        public string? UserName { get; set; } 
+        public string? UserName { get; set; }
         public RelayCommand<Product> AddToPacketCommand { get; set; }
+
+        public SignInViewModels SignInViewModels;
 
         private void AddProductToUserPacket(Product product)
         {
-            string userFileName = $"{UserName}_packet.json";
+            string FullName = "mypacket";
 
-            if (PathCheck.OpenOrClosed("products.json"))
+            string userFileName = $"{FullName}.json";
+            var productList = new List<Product>();
+
+            if (PathCheck.OpenOrClosed(userFileName))
             {
-                DB.JsonWrite(userFileName, "user.log", product.ToString().ToList());
-                MessageBox.Show("Ürün başarıyla eklendi.");
-
+                var existingProducts = DB.JsonRead<Product>(userFileName)?.ToList();
+                if (existingProducts is not null)
+                    productList.AddRange(existingProducts);
             }
+            productList.Add(product);
+            DB.JsonWrite(userFileName, "user.log", productList);
         }
 
         private void LoadProduct()

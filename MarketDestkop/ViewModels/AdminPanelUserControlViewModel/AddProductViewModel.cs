@@ -139,6 +139,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 foreach (var product in products)
                     Products.Add(product);
         }
+
         private void SelectImage()
         {
             var openFileDialog = new OpenFileDialog

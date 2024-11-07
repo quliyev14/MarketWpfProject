@@ -11,8 +11,8 @@ namespace MarketWpfProject.ViewModels
 {
     public class SignInViewModels : INotifyPropertyChanged
     {
+        private static readonly object _psro = new object();
         private const string path = "saved.json";
-
         public RelayCommand LoginCommand { get; }
         public RelayCommand SignUpCommand { get; }
 
@@ -48,17 +48,19 @@ namespace MarketWpfProject.ViewModels
 
         public void SignIn(object? parametr)
         {
-            var users = DB.JsonRead<User>(path) ?? new List<User>();
-            if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
+            lock (_psro)
+            {
+                var users = DB.JsonRead<User>(path) ?? new List<User>();
+                if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
-            var isAuthenticated = users.Any(user =>
-                user.GmailService.Email == Email &&
-                user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
+                var isAuthenticated = users.Any(user =>
+                    user.GmailService.Email == Email &&
+                    user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
 
-            if (isAuthenticated) OpenMainWindow();
-            RefreshMethod();
+                if (isAuthenticated) OpenMainWindow();
+                RefreshMethod();
+            }
         }
-
 
         private void RefreshMethod()
         {

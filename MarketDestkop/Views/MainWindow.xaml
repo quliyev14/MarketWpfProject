@@ -19,8 +19,6 @@
             <Button Content="My Basket" Command="{Binding MyBasketCommand}" CommandParameter="Category2UserControl" Margin="5"/>
             <Button Content="Sign Out" Command="{Binding SignOutCommand}" CommandParameter="Category2UserControl" Margin="5"/>
         </StackPanel>
-
         <Frame Name="ContentFrame" Grid.Column="1"/>
     </Grid>
-
 </Window>
