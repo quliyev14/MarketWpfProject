@@ -74,8 +74,8 @@
                             Height="30" 
                             Background="Red" 
                             Margin="0,0,20,0"
-                            TabIndex="6"/>
-
+                            TabIndex="6"
+                            Command="{Binding CancelCommand}"/>
 
                     <Button Content="Sign Up" 
                             Width="100" 

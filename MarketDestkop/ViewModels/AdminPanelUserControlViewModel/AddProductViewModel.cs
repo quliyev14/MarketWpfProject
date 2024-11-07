@@ -19,7 +19,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         public RelayCommand AddProductCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
-        public RelayCommand SelectImageCommand {  get; set; }
+        public RelayCommand SelectImageCommand { get; set; }
 
         public AddProductViewModel()
         {
@@ -152,8 +152,17 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
         private void EditProduct()
         {
-            var editWindow = new EditWindow(SelectedProduct);
-            editWindow.Show();
+            if (SelectedProduct != null)
+            {
+                lock (_prso)
+                {
+                    var editWindow = new EditWindow(SelectedProduct);
+                    editWindow.Show();
+                }
+                SelectedProduct = null;
+                return;
+            }
+            MessageBox.Show("Please Listbox item select");
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

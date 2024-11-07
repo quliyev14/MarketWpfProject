@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketDestkop.Views;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
+using MarketWpfProject.Views;
 using System.ComponentModel;
 using System.Windows;
 
@@ -16,12 +18,15 @@ namespace MarketWpfProject.ViewModels
         private string log = "admin.log";
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }
+        public RelayCommand CancelCommand { get; }
+
 
 
         public SuperAdminViewModel()
         {
             RefreshCommand = new RelayCommand(ClearFields);
             SignUpCommand = new RelayCommand(SaveJson);
+            CancelCommand = new RelayCommand(WindowCansel);
         }
 
 
@@ -97,6 +102,8 @@ namespace MarketWpfProject.ViewModels
             Email = string.Empty;
             Password = string.Empty;
         }
+
+        private void WindowCansel() => System.Windows.Application.Current.Windows.OfType<SuperAdminPanelWindow>().FirstOrDefault()?.Close();
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
