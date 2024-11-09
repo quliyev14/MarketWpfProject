@@ -57,10 +57,16 @@ namespace MarketWpfProject.ViewModels
                     user.GmailService.Email == Email &&
                     user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
 
-                if (isAuthenticated) OpenMainWindow();
+                if (isAuthenticated)
+                {
+                    OpenMainWindow();
+                    RegisterCloseWindow();
+                }
                 RefreshMethod();
             }
         }
+
+        private void RegisterCloseWindow() => System.Windows.Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();
 
         private void RefreshMethod()
         {
