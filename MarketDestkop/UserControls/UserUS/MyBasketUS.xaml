@@ -29,7 +29,7 @@
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>
                                 <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="12" TextAlignment="Center" Margin="5,0,5,5"/>
 
-                                <Button Content="Delete" Width="110" Height="40" FontSize="14" Margin="5"
+                                <Button Content="Delete" Width="110" Height="40" FontSize="14" Margin="5" Background="Red"
                                 Command="{Binding DataContext.DeleteFromBasketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" 
                                 Style="{StaticResource MaterialDesignRaisedButton}"/>

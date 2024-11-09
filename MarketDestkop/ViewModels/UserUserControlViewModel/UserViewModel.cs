@@ -14,8 +14,13 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         public ObservableCollection<Product> Products { get; set; } = new ObservableCollection<Product>();
 
-        private string? _searchTb;
+        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
 
+        public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
+        public RelayCommand<Product> AddToPacketCommand { get; set; }
+
+        private string? _searchTb;
         public string? SearchTb
         {
             get => _searchTb;
@@ -25,20 +30,32 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(SearchTb));
             }
         }
-        public RelayCommand SearchCommand { get; set; }
 
         public UserViewModel()
         {
+            //Quantity = 1;
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
+            IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
+            DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
         }
 
-        public string? UserName { get; set; }
-        public RelayCommand<Product> AddToPacketCommand { get; set; }
+        public void IncreaseQuantity(Product product)
+        {
+            product.Quantity++;  
+            OnPropertyChanged(nameof(Products)); 
+        }
 
-        public SignInViewModels SignInViewModels;
-
+        public void DecreaseQuantity(Product product)
+        {
+            product.Quantity = 1 ;
+            if (product.Quantity > 1)  
+            {
+                product.Quantity--;  
+                OnPropertyChanged(nameof(Products));  
+            }
+        }
         private void AddProductToUserPacket(Product product)
         {
             string FullName = "mypacket";
@@ -55,7 +72,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             productList.Add(product);
             DB.JsonWrite(userFileName, "user.log", productList);
         }
-
         private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(path))
@@ -65,7 +81,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                     Products.Add(product);
             }
         }
-
         private void SearchProduct()
         {
             if (string.IsNullOrEmpty(SearchTb))
