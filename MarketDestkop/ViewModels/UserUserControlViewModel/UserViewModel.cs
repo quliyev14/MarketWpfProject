@@ -31,9 +31,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             }
         }
 
+        public Product product1 { get; set; }
+
         public UserViewModel()
         {
-            //Quantity = 1;
+            //Quantity = product1?.Quantity ?? 0;
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
@@ -43,19 +45,20 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         public void IncreaseQuantity(Product product)
         {
-            product.Quantity++;  
-            OnPropertyChanged(nameof(Products)); 
+            MessageBox.Show($"{product1.Quantity}");
+            product.Quantity++;
+            OnPropertyChanged(nameof(Products));
         }
 
         public void DecreaseQuantity(Product product)
         {
-            product.Quantity = 1 ;
-            if (product.Quantity > 1)  
+            if (product.Quantity > 1)
             {
-                product.Quantity--;  
-                OnPropertyChanged(nameof(Products));  
+                product.Quantity--;
+                OnPropertyChanged(nameof(Products));
             }
         }
+
         private void AddProductToUserPacket(Product product)
         {
             string FullName = "mypacket";

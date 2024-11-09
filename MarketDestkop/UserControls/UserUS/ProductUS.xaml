@@ -8,10 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000" Background="White">
 
-    <UserControl.DataContext>
-        <Binding Path="Product" />
-    </UserControl.DataContext>
-    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -54,7 +50,7 @@
                                             CommandParameter="{Binding}" 
                                             Style="{StaticResource MaterialDesignFlatButton}"/>
 
-                                    <TextBlock Text="{Binding DataContext.Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    <TextBlock Text="{Binding product1.Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                Width="50" Height="30" TextAlignment="Center"
                                                VerticalAlignment="Center" FontSize="16" FontWeight="Bold"
                                                Background="LightGray" Foreground="Black" Margin="5,0" />
