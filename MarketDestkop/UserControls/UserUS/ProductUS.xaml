@@ -40,6 +40,16 @@
                     <DataTemplate>
                         <Border BorderBrush="#D3D3D3" BorderThickness="1" Margin="5" Width="180" Height="250" Padding="10" Background="White">
                             <StackPanel HorizontalAlignment="Center">
+                                <!--<Button VerticalAlignment="Top" 
+                                        HorizontalAlignment="Right" 
+                                        Content="Hearth" 
+                                        Width="20" 
+                                        Height="20" 
+                                        Margin="5"
+                                        FontSize="14" 
+                                        Background="Black"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"/>-->
+
                                 <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>
                                 <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="12" TextAlignment="Center" Margin="5,0,5,5"/>
@@ -50,10 +60,10 @@
                                             CommandParameter="{Binding}" 
                                             Style="{StaticResource MaterialDesignFlatButton}"/>
 
-                                    <TextBlock Text="{Binding product1.Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                               Width="50" Height="30" TextAlignment="Center"
-                                               VerticalAlignment="Center" FontSize="16" FontWeight="Bold"
-                                               Background="LightGray" Foreground="Black" Margin="5,0" />
+                                    <TextBox Text="{Binding Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                               Width="50" Height="30" TextAlignment="Center"  
+                                               VerticalAlignment="Center" FontSize="16" FontWeight="Bold" 
+                                               Background="LightGray" Foreground="Black" Margin="5,0"/> 
 
                                     <Button Content="+" Width="30" Height="30" Background="DarkSeaGreen" Foreground="White"
                                             Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -65,6 +75,7 @@
                                         Command="{Binding DataContext.AddToPacketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                         CommandParameter="{Binding}" 
                                         Style="{StaticResource MaterialDesignRaisedButton}"/>
+
                             </StackPanel>
                         </Border>
                     </DataTemplate>
