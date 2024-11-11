@@ -1,10 +1,11 @@
-﻿namespace MarketWpfProject.Models
+﻿using MarketWpfProject.Exceptions;
+using MarketWpfProject.Hashed;
+using MarketWpfProject.Helper.GmailHelper;
+
+namespace MarketWpfProject.Models
 {
-    //Email = GmailAndPasswordCheck.GPCheck(GP.Email, email);
-    //string passwordcheckresult = GmailAndPasswordCheck.GPCheck(GP.Password, password);
-    //Password = passwordcheckresult is not null ? DatasIsHashed.PasswordHash(passwordcheckresult) : null;
-    //if (Password is null || Password is null)
-    //    throw new ArgumentMailNullException("Gmail or Password is null");
+
+
     public class GmailService
     {
         public enum GP
@@ -15,8 +16,10 @@
 
         public GmailService(string? email, string? password)
         {
-            Email = email;
-            Password = password;
+            Email = GmailAndPasswordCheck.GPCheck(GP.Email, email);
+            Password = GmailAndPasswordCheck.GPCheck(GP.Password, password);
+            if (Email is null || Password is null)
+                throw new ArgumentMailNullException("Gmail or Password is null");
         }
 
         public string? Email { get; set; }

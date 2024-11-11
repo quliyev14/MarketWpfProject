@@ -11,8 +11,8 @@ namespace MarketWpfProject.Hashed
             using (var sha256 = SHA256.Create())
             {
                 byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password!));
-                foreach (byte b in bytes)
-                    sb.Append(b.ToString("x2"));
+                foreach (byte @byte in bytes)
+                    sb.Append(@byte.ToString("x2"));
                 return sb.ToString();
             }
         }

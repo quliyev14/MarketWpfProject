@@ -156,7 +156,9 @@ namespace MarketWpfProject.ViewModels
 
             var users = new List<User>
             {
-                 new User(Name, Surname, new GmailService(Email, DatasIsHashed.WithSHA256PasswordHash(Password)), Gender, Birthday, Mobile, CountryCode)
+                 new User(Name, Surname, new GmailService(
+                          Email, DatasIsHashed.WithSHA256PasswordHash(Password)),
+                          Gender, Birthday, Mobile, CountryCode)
             };
 
             if (mbb == MessageBoxResult.Yes)
