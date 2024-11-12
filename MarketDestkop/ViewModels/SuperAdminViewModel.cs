@@ -81,15 +81,15 @@ namespace MarketWpfProject.ViewModels
         private void SaveJson()
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            var admins = new List<Admin>
-            {
-                new Admin(Name,Surname,new GmailService(Email,DatasIsHashed.WithSHA256PasswordHash(Password)))
-            };
+            //var admins = new List<Admin>
+            //{
+            //    new Admin(Name,Surname,new GmailService(Email,DatasIsHashed.WithSHA256PasswordHash(Password)))
+            //};
 
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_psro)
-                    DB.JsonWrite<Admin>(path, log, admins);
+                    //DB.JsonWrite<Admin>(path, log, admins);
                 ClearFields();
             }
             return;

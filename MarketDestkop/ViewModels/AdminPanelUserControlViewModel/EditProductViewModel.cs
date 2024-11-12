@@ -13,65 +13,35 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
-        private readonly Product _product;
+        private Product _product;
+        public Product Product { get => _product; set { _product = value; OnPropertyChanged(nameof(Product)); } }
 
+        private Product _originalProduct;  
         public EditProductViewModel(Product selectedProduct)
         {
-            _product = selectedProduct;
-            Name = selectedProduct.Name;
-            Price = selectedProduct.Price;
-            Count = selectedProduct.Count;
+            _originalProduct = selectedProduct;
+            Product = selectedProduct.Clone();
             SaveCommand = new RelayCommand(SaveProduct);
             CancelCommand = new RelayCommand(CancelEditWindow);
-        }
-
-        private string? _name;
-        public string? Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-        private decimal? _price;
-        public decimal? Price
-        {
-            get => _price;
-            set
-            {
-                _price = value;
-                OnPropertyChanged(nameof(Price));
-            }
-        }
-        private int _count;
-        public int Count
-        {
-            get => _count;
-            set
-            {
-                _count = value;
-                OnPropertyChanged(nameof(Count));
-            }
         }
 
         private void SaveProduct()
         {
             var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
-            var existingProduct = products.FirstOrDefault(p => p.Name == _product.Name && p.Price == _product.Price && p.Count == _product.Count);
-
+            var existingProduct = products.FirstOrDefault(p => 
+                                                          p.Name == _originalProduct.Name &&
+                                                          p.Price == _originalProduct.Price &&
+                                                          p.Count == _originalProduct.Count);
             if (existingProduct != null)
             {
-                existingProduct.Name = Name;
-                existingProduct.Price = Price;
-                existingProduct.Count = Count;
+                existingProduct.Name = Product.Name;
+                existingProduct.Price = Product.Price;
+                existingProduct.Count = Product.Count;
 
                 DB.JsonWrite(path, log, products);
             }
             CancelEditWindow();
         }
-
 
         private void CancelEditWindow() => System.Windows.Application.Current.Windows.OfType<EditWindow>().FirstOrDefault()?.Close();
 

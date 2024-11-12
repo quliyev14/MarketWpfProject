@@ -11,12 +11,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     public class UserViewModel : INotifyPropertyChanged
     {
         private string path = "products.json";
-
-        public ObservableCollection<Product> Products { get; set; } = new ObservableCollection<Product>();
-
+        public ObservableCollection<Product> Products { get; set; } = new();
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
-
         public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
         public RelayCommand<Product> AddToPacketCommand { get; set; }
 
@@ -32,7 +29,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
 
         private int _quantity = 1;
-
         public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
         public UserViewModel()
@@ -40,23 +36,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
-            IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
-            DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
+            //IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
+            //DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
         }
 
-        public void IncreaseQuantity(Product product)
-        {
-            product.Quantity++;
-        }
+        //public void IncreaseQuantity(Product product)
+        //{
+        //    product.Quantity++;
+        //}
 
-        public void DecreaseQuantity(Product product)
-        {
-            if (product.Quantity > 1)
-            {
-                product.Quantity--;
-                OnPropertyChanged(nameof(Products));
-            }
-        }
+        //public void DecreaseQuantity(Product product)
+        //{
+        //    if (product.Quantity > 1)
+        //    {
+        //        product.Quantity--;
+        //        OnPropertyChanged(nameof(Products));
+        //    }
+        //}
 
         private void AddProductToUserPacket(Product product)
         {
