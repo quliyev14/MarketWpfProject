@@ -10,9 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="Argon" Version="0.24.2" />
+    <PackageReference Include="Autofac" Version="8.1.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="SimpleInjector" Version="5.5.0" />
+    <PackageReference Include="Unity" Version="5.11.10" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,8 +4,6 @@ namespace MarketDestkop
 {
     public partial class App : Application
     {
-
-
-
+        
     }
 }
