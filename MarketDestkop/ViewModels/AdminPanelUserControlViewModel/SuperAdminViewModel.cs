@@ -1,14 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using MarketDestkop.Views;
-using MarketWpfProject.Data;
-using MarketWpfProject.Hashed;
-using MarketWpfProject.Models;
-using MarketWpfProject.Moduls;
 using MarketWpfProject.Views;
 using System.ComponentModel;
 using System.Windows;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 {
     public class SuperAdminViewModel : INotifyPropertyChanged
     {
@@ -20,15 +15,12 @@ namespace MarketWpfProject.ViewModels
         public RelayCommand RefreshCommand { get; }
         public RelayCommand CancelCommand { get; }
 
-
-
         public SuperAdminViewModel()
         {
             RefreshCommand = new RelayCommand(ClearFields);
             SignUpCommand = new RelayCommand(SaveJson);
             CancelCommand = new RelayCommand(WindowCansel);
         }
-
 
         private string? _name;
 
@@ -90,7 +82,7 @@ namespace MarketWpfProject.ViewModels
             {
                 lock (_psro)
                     //DB.JsonWrite<Admin>(path, log, admins);
-                ClearFields();
+                    ClearFields();
             }
             return;
         }
@@ -103,7 +95,7 @@ namespace MarketWpfProject.ViewModels
             Password = string.Empty;
         }
 
-        private void WindowCansel() => System.Windows.Application.Current.Windows.OfType<SuperAdminPanelWindow>().FirstOrDefault()?.Close();
+        private void WindowCansel() => Application.Current.Windows.OfType<SuperAdminPanelWindow>().FirstOrDefault()?.Close();
 
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -7,7 +7,7 @@ using MarketWpfProject.Models;
 using MarketWpfProject.Views;
 using System.ComponentModel;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class SignInViewModels : INotifyPropertyChanged
     {

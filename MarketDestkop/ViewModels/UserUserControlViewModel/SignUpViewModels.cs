@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 using System.Windows;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class SignUpViewModels : INotifyPropertyChanged
     {
@@ -164,7 +164,7 @@ namespace MarketWpfProject.ViewModels
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_prso)
-                    DB.JsonWrite<User>(path, log, users);
+                    DB.JsonWrite(path, log, users);
                 ClearFields();
             }
         }
@@ -184,7 +184,7 @@ namespace MarketWpfProject.ViewModels
 
         private void CanselWindow(object? parametr) => CanselSignUpWindow();
 
-        private void CanselSignUpWindow() => System.Windows.Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
+        private void CanselSignUpWindow() => Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
 
         private void RefreshFields(object? parametr) => ClearFields();
 

@@ -1,4 +1,5 @@
 ﻿using MarketWpfProject.ViewModels;
+using MarketWpfProject.ViewModels.UserUserControlViewModel;
 using System.Windows;
 
 namespace MarketDestkop.Views

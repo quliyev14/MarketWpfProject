@@ -6,7 +6,7 @@ using MarketWpfProject.Moduls;
 using MarketWpfProject.Views;
 using System.ComponentModel;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 {
     public class AdminPanelViewModel : INotifyPropertyChanged
     {

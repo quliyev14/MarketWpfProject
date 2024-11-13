@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using MarketWpfProject.UserControls.AdminUS;
 using System.Windows.Controls;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 {
     public class MainAdminPanelViewModel
     {
@@ -12,7 +12,6 @@ namespace MarketWpfProject.ViewModels
         public RelayCommand ExitWindowCommmand { get; set; }
 
         private readonly Frame _frame;
-
         public MainAdminPanelViewModel(Frame frame)
         {
             _frame = frame;

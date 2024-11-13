@@ -7,7 +7,6 @@ namespace MarketWpfProject.Data
     public static class DB
     {
         private static readonly object _psro = new object();
-
         public static IEnumerable<T>? JsonRead<T>(string path) =>
                 PathCheck.OpenOrClosed(path)
                 ? JsonSerializer.Deserialize<IEnumerable<T>>(File.ReadAllText(path))

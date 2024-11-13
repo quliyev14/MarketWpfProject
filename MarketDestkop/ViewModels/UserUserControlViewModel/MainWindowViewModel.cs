@@ -5,7 +5,7 @@ using MarketWpfProject.Views;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MarketWpfProject.ViewModels
+namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class MainWindowViewModel
     {
@@ -29,7 +29,7 @@ namespace MarketWpfProject.ViewModels
         private void GoBackRegisterWindow()
         {
             OpenRegisterWindow();
-            System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
+            Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
         }
 
         private void OpenRegisterWindow()
@@ -41,7 +41,7 @@ namespace MarketWpfProject.ViewModels
         {
             MessageBoxResult mbr = MessageBox.Show("Sign Out?", "Sign Out", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (mbr == MessageBoxResult.Yes)
-                System.Windows.Application.Current.Shutdown();
+                Application.Current.Shutdown();
         }
     }
 }
