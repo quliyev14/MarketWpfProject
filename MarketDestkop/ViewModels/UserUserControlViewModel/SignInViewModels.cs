@@ -5,6 +5,7 @@ using MarketWpfProject.Hashed;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Models;
 using MarketWpfProject.Views;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -12,38 +13,19 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     public class SignInViewModels : INotifyPropertyChanged
     {
         private static readonly object _psro = new object();
+
         private const string path = "saved.json";
         public RelayCommand LoginCommand { get; }
         public RelayCommand SignUpCommand { get; }
+
+        private User _user;
+        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
 
         public SignInViewModels()
         {
             LoginCommand = new RelayCommand(SignIn);
             SignUpCommand = new RelayCommand(OpenSignUpWindow);
-        }
-
-        private string _email;
-
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
-
-        private string _password;
-
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
+            User = new();
         }
 
         public void SignIn(object? parametr)
@@ -54,25 +36,19 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
                 var isAuthenticated = users.Any(user =>
-                    user.GmailService.Email == Email &&
-                    user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password));
+                    user.GmailService.Email == User.GmailService.Email &&
+                    user.GmailService.Password == DatasIsHashed.WithSHA256PasswordHash(User.GmailService.Password));
 
                 if (isAuthenticated)
                 {
                     OpenMainWindow();
                     RegisterCloseWindow();
                 }
-                RefreshMethod();
+                User = new();
             }
         }
 
         private void RegisterCloseWindow() => System.Windows.Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();
-
-        private void RefreshMethod()
-        {
-            Email = string.Empty;
-            Password = string.Empty;
-        }
 
         public void OpenMainWindow()
         {

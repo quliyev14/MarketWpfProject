@@ -36,25 +36,25 @@
         <Grid Margin="400,0,0,0" 
               Background="White">
             <StackPanel Margin="30">
-                <TextBox Text="{Binding Name}" 
+                <TextBox Text="{Binding Admin.Name}" 
                          materialDesign:HintAssist.Hint="Name"  
                          Margin="0,10,0,0" 
                          Height="30"
                          TabIndex="1"/>
 
-                <TextBox Text="{Binding Surname}"
+                <TextBox Text="{Binding Admin.Surname}"
                          materialDesign:HintAssist.Hint="Surname"  
                          Margin="0,10,0,0" 
                          Height="30" 
                          TabIndex="2"/>
 
-                <TextBox Text="{Binding Email}" 
+                <TextBox Text="{Binding Admin.GmailService.Email}" 
                          materialDesign:HintAssist.Hint="Email" 
                          Margin="0,10,0,0" 
                          Height="30" 
                          TabIndex="3"/>
 
-                <TextBox Text="{Binding Password}" 
+                <TextBox Text="{Binding Admin.GmailService.Password}" 
                          materialDesign:HintAssist.Hint="Password" 
                          Margin="0,10,0,0" 
                          Height="30" 

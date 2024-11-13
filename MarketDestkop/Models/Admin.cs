@@ -2,10 +2,11 @@
 
 namespace MarketWpfProject.Moduls
 {
-    public record Admin(string? name, string? surname, GmailService gmailService)
+    public class Admin
     {
-        public override string ToString() => $"{name} {surname} {gmailService.Email} {gmailService.Password}\n";
+        public string? Name { get; set; } = string.Empty;
+        public string? Surname { get; set; } = string.Empty;
+        public GmailService? GmailService { get; set; } = new();
+        public Admin Clone() => new() { Name = Name, Surname = Surname, GmailService = GmailService };
     }
-
-    // name and surname equlas init;
 }

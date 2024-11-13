@@ -46,7 +46,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 OnPropertyChanged(nameof(SelectedProduct));
             }
         }
-
         private void AddProduct()
         {
             if (!string.IsNullOrWhiteSpace(Product.Name) && Product.Count > 0 && Product.Price > 0)
@@ -61,7 +60,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 DB.JsonWrite<Product>(path, log, Products);
             }
         }
-
         private void DeleteProduct()
         {
             if (SelectedProduct != null)

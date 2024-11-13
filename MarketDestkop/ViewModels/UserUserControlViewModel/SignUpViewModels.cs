@@ -3,8 +3,8 @@ using MarketWpfProject.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -18,67 +18,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }
         public RelayCommand CanselCommand { get; }
+        public ObservableCollection<User> Users { get; set; }
 
+        private User _user;
+        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
 
         public SignUpViewModels()
         {
+            Users = new ObservableCollection<User>();
             SignUpCommand = new RelayCommand(SaveJson);
-            RefreshCommand = new RelayCommand(RefreshFields);
             CanselCommand = new RelayCommand(CanselWindow);
+            RefreshCommand = new RelayCommand(ClearFields);
+            User = new();
         }
 
         #region Propdbs
 
-        private string? _name;
-
-        public string? Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
-        private string? _surname;
-
-        public string? Surname
-        {
-            get => _surname;
-            set
-            {
-                _surname = value;
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
-
-        private string? _countrycode;
-
-        public string? CountryCode
-        {
-            get => _countrycode;
-            set
-            {
-                _countrycode = value;
-                OnPropertyChanged(nameof(CountryCode));
-            }
-        }
-
-        private string? _mobile;
-
-        public string? Mobile
-        {
-            get => _mobile;
-            set
-            {
-                _mobile = value;
-                OnPropertyChanged(nameof(Mobile));
-            }
-        }
-
         private string? _gender;
-
         public string? Gender
         {
             get => _gender;
@@ -103,7 +59,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                     Gender = "Male";
             }
         }
-
         public bool IsFemale
         {
             get => Gender == "Female";
@@ -113,80 +68,39 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                     Gender = "Female";
             }
         }
-
-        private DateOnly? _birthday;
-        public DateOnly? Birthday
-        {
-            get => _birthday;
-            set
-            {
-                _birthday = value;
-                OnPropertyChanged(nameof(Birthday));
-            }
-        }
-
-        private string? _email;
-
-        public string? Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
-
-        private string _password;
-
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
         #endregion
 
         private void SaveJson(object? parametr)
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            var users = new List<User>
+            var user = new User()
             {
-                 new User(Name, Surname, new GmailService(
-                          Email, DatasIsHashed.WithSHA256PasswordHash(Password)),
-                          Gender, Birthday, Mobile, CountryCode)
+                Name = User.Name,
+                Surname = User.Surname,
+                GmailService = new GmailService() { Email = User.GmailService.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User.GmailService.Password) },
+                Gender = this.Gender,
+                DateTime = User.DateTime,
+                Mobile = User.Mobile,
+                CountryMobileCode = User.CountryMobileCode
             };
+
+            Users.Add(user);
 
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_prso)
-                    DB.JsonWrite(path, log, users);
-                ClearFields();
+                    DB.JsonWrite(path, log, Users);
             }
+            ClearFields(parametr);
         }
 
-        private void ClearFields()
-        {
-            Name = string.Empty;
-            Surname = string.Empty;
-            Email = string.Empty;
-            Password = string.Empty;
-            Mobile = string.Empty;
-            CountryCode = string.Empty;
-            IsMale = false;
-            IsFemale = false;
-            Birthday = null;
-        }
+        private void ClearFields(object? paraetr) => User = new();
 
         private void CanselWindow(object? parametr) => CanselSignUpWindow();
 
         private void CanselSignUpWindow() => Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
 
-        private void RefreshFields(object? parametr) => ClearFields();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

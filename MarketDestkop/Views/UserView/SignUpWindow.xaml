@@ -37,12 +37,12 @@
         <Grid Margin="400,0,0,0" 
               Background="White">
             <StackPanel Margin="30">
-                <TextBox Text="{Binding Name}" 
+                <TextBox Text="{Binding User.Name}" 
                          materialDesign:HintAssist.Hint="Name"  
                          Margin="0,10,0,0" 
                          Height="30" />
 
-                <TextBox Text="{Binding Surname}"
+                <TextBox Text="{Binding User.Surname}"
                          materialDesign:HintAssist.Hint="Surname"  
                          Margin="0,10,0,0" 
                          Height="30" />
@@ -59,34 +59,34 @@
                                  GroupName="Gender" 
                                  IsChecked="{Binding IsFemale, Mode=TwoWay}" />
                 </StackPanel>
-                <DatePicker Text="{Binding Birthday}" 
+                <DatePicker Text="{Binding User.DateTime}" 
                             materialDesign:HintAssist.Hint="10/10/1990" 
                             Margin="0,10,0,0" 
                             Height="30" />
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <ComboBox Text="{Binding CountryCode}"
+                    <ComboBox Text="{Binding User.CountryCode}"
                               x:Name="countrycode"
                               Width="50" 
                               Margin="0,0,10,0" 
                               Height="30"></ComboBox>
 
-                    <TextBox Text="{Binding Mobile}" 
+                    <TextBox Text="{Binding User.Mobile}" 
                              materialDesign:HintAssist.Hint="Mobile" 
                              Height="30" 
                              Width="425" 
                              Padding="5"/>
                 </StackPanel>
 
-                <TextBox Text="{Binding Email}" 
+                <TextBox Text="{Binding User.GmailService.Email}" 
                          materialDesign:HintAssist.Hint="Email" 
                          Margin="0,10,0,0" 
-                         Height="30" />
+                         Height="30"/>
 
-                <TextBox Text="{Binding Password}" 
+                <TextBox Text="{Binding User.GmailService.Password}" 
                          materialDesign:HintAssist.Hint="Password" 
                          Margin="0,10,0,0" 
-                         Height="30" />
+                         Height="30"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Button Content="Refresh" 

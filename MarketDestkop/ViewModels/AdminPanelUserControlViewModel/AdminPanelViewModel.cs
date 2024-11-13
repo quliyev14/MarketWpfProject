@@ -13,33 +13,14 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         private string path = "admin.json";
         public RelayCommand LoginCommand { get; set; }
 
+        private Admin? _admin;
+        public Admin? Admin { get => _admin; set { _admin = value; OnPropertyChanged(nameof(Admin)); } }
+
+
         public AdminPanelViewModel()
         {
             LoginCommand = new RelayCommand(SignIn);
-        }
-
-        private string? _email;
-
-        public string? Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
-
-        private string? _password;
-
-        public string? Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
+            Admin = new();
         }
 
         private void SignIn()
@@ -49,7 +30,8 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
             foreach (var admin in admins)
             {
-                if (admin.gmailService.Email == Email && admin.gmailService.Password == DatasIsHashed.WithSHA256PasswordHash(Password))
+                if (admin.GmailService?.Email == Admin?.GmailService?.Email &&
+                    admin.GmailService?.Password == DatasIsHashed.WithSHA256PasswordHash(Admin?.GmailService?.Password))
                     OpenMainWindowShow();
             }
             RefreshMethod();
@@ -61,11 +43,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             signUpWindow.Show();
         }
 
-        private void RefreshMethod()
-        {
-            Email = string.Empty;
-            Password = string.Empty;
-        }
+        private void RefreshMethod() => Admin = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

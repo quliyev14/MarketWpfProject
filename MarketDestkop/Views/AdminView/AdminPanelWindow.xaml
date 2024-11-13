@@ -41,12 +41,12 @@
             <StackPanel VerticalAlignment="Center" 
                         Margin="15,0,15,0" 
                         Height="100">
-                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"  
+                <TextBox Text="{Binding Admin.GmailService.Email, UpdateSourceTrigger=PropertyChanged}"  
                          materialDesign:HintAssist.Hint="Email" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Height="37"/>
 
-                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox Text="{Binding Admin.GmailService.Password, UpdateSourceTrigger=PropertyChanged}" 
                          materialDesign:HintAssist.Hint="Password" 
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Height="37"/>

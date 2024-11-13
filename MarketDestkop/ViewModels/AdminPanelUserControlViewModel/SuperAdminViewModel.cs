@@ -1,5 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketWpfProject.Data;
+using MarketWpfProject.Hashed;
+using MarketWpfProject.Models;
+using MarketWpfProject.Moduls;
 using MarketWpfProject.Views;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
@@ -15,88 +20,45 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         public RelayCommand RefreshCommand { get; }
         public RelayCommand CancelCommand { get; }
 
+        private Admin _admin;
+        public Admin Admin { get => _admin; set { _admin = value; OnPropertyChanged(nameof(Admin)); } }
+
+        public ObservableCollection<Admin> Admins { get; set; }
+
         public SuperAdminViewModel()
         {
+            Admins = new ObservableCollection<Admin>();
             RefreshCommand = new RelayCommand(ClearFields);
             SignUpCommand = new RelayCommand(SaveJson);
             CancelCommand = new RelayCommand(WindowCansel);
-        }
-
-        private string? _name;
-
-        public string? Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
-        private string? _surname;
-
-        public string? Surname
-        {
-            get => _surname;
-            set
-            {
-                _surname = value;
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
-
-        private string? _email;
-
-        public string? Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged(nameof(Email));
-            }
-        }
-
-        private string _password;
-
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
+            Admin = new();
         }
 
         private void SaveJson()
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            //var admins = new List<Admin>
-            //{
-            //    new Admin(Name,Surname,new GmailService(Email,DatasIsHashed.WithSHA256PasswordHash(Password)))
-            //};
+
+            var admin = new Admin()
+            {
+                Name = Admin.Name,
+                Surname = Admin.Surname,
+                GmailService = new GmailService() { Email = Admin.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(Admin.GmailService?.Password) },
+            };
+
+            Admins.Add(admin);
 
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_psro)
-                    //DB.JsonWrite<Admin>(path, log, admins);
-                    ClearFields();
+                    DB.JsonWrite<Admin>(path, log, Admins);
             }
+            ClearFields();
             return;
         }
 
-        private void ClearFields()
-        {
-            Name = string.Empty;
-            Surname = string.Empty;
-            Email = string.Empty;
-            Password = string.Empty;
-        }
+        private void ClearFields() => Admin = new();
 
         private void WindowCansel() => Application.Current.Windows.OfType<SuperAdminPanelWindow>().FirstOrDefault()?.Close();
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
