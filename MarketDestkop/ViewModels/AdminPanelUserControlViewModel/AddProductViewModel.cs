@@ -50,15 +50,17 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         {
             if (!string.IsNullOrWhiteSpace(Product.Name) && Product.Count > 0 && Product.Price > 0)
             {
-                Products.Add(new Product
+                var product = new Product
                 {
                     Name = Product.Name,
                     Price = Product.Price,
-                    Count = Product.Count,
                     ImagePath = Product.ImagePath,
-                });
+                    Count = Product.Count
+                };
+                Products.Add(product);
                 DB.JsonWrite<Product>(path, log, Products);
             }
+            Product = new();
         }
         private void DeleteProduct()
         {

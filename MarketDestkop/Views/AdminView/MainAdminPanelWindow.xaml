@@ -44,7 +44,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!--Left-->
         <StackPanel Background="#FF2C3E50" 
                     VerticalAlignment="Stretch" >
             <TextBlock Text="Profile" 
