@@ -28,31 +28,13 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             }
         }
 
-        private int _quantity = 1;
-        public int Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(Quantity)); } }
 
         public UserViewModel()
         {
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
-            //IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
-            //DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
         }
-
-        //public void IncreaseQuantity(Product product)
-        //{
-        //    product.Quantity++;
-        //}
-
-        //public void DecreaseQuantity(Product product)
-        //{
-        //    if (product.Quantity > 1)
-        //    {
-        //        product.Quantity--;
-        //        OnPropertyChanged(nameof(Products));
-        //    }
-        //}
 
         private void AddProductToUserPacket(Product product)
         {
@@ -92,15 +74,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             if (PathCheck.OpenOrClosed(path))
             {
-                var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var matchedProducts = DB.JsonRead<Product>(path)?.Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
 
-                var matchedProducts = products.Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList();
-
-                if (matchedProducts.Any())
-                    foreach (var product in matchedProducts)
-                        Products.Add(product);
-                else
-                    MessageBox.Show("No products found with this search term.");
+                if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
             }
             SearchTb = string.Empty;
         }
