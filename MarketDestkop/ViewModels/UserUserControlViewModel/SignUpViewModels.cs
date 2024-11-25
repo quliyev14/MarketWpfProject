@@ -13,7 +13,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     {
         private readonly static object _prso = new();
 
-        private string path = "saved.json";
+        private string path = "U.json";
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketDestkop;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
@@ -36,9 +37,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private async void AddProductToUserPacket(Product product)
         {
-            string FullName = "mypacket";
+            string userFileName = $"{App.CurrentUser?.Name}{App.CurrentUser?.Surname}.json";
 
-            string userFileName = $"{FullName}.json";
             var productList = new List<Product>();
 
             if (PathCheck.OpenOrClosed(userFileName))

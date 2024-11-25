@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketDestkop;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
@@ -7,7 +8,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class MyBasketViewModel
     {
-        private readonly string path = "mypacket.json";
+        private readonly string _userpath = $"{App.CurrentUser?.Name}{App.CurrentUser?.Surname}.json";
         public List<Product> Products { get; set; }
         public RelayCommand<Product> DeleteFromBasketCommand { get; set; }
         public MyBasketViewModel()
@@ -20,21 +21,21 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             if (Products is not null)
             {
-                var products = await DB.JsonRead<Product>(path) ?? new List<Product>();
+                var products = await DB.JsonRead<Product>(_userpath) ?? new List<Product>();
 
                 if (products is not null)
                 {
                     Products.Remove(product);
-                    DB.JsonWrite<Product>(path, Products);
+                    DB.JsonWrite<Product>(_userpath, Products);
                 }
             }
         }
 
         private async void LoadProduct()
         {
-            if (PathCheck.OpenOrClosed(path))
+            if (PathCheck.OpenOrClosed(_userpath))
             {
-                var products = await DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var products = await DB.JsonRead<Product>(_userpath) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }
