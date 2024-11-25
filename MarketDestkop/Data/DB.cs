@@ -1,5 +1,4 @@
-﻿using MarketWpfProject.Helper.PathHelper;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
 
 namespace MarketWpfProject.Data
@@ -7,14 +6,8 @@ namespace MarketWpfProject.Data
     public static class DB
     {
         private static readonly object _psro = new object();
-        public static IEnumerable<T>? JsonRead<T>(string path) =>
-                PathCheck.OpenOrClosed(path)
-                ? JsonSerializer.Deserialize<IEnumerable<T>>(File.ReadAllText(path))
-                : throw new FileNotFoundException(nameof(path));
-
-        public static void ProductWriteLog<T>(in string log, IEnumerable<T> objects) => WriteLog<T>(log, objects);
-
-        private static void WriteLog<T>(in string log, IEnumerable<T> objects)
+        public static void ProductWriteLog<T>(string log, IEnumerable<T> objects) => WriteLog<T>(log, objects);
+        private static void WriteLog<T>(string log, IEnumerable<T> objects)
         {
             using (var sw = new StreamWriter(log, true))
             {
@@ -24,20 +17,24 @@ namespace MarketWpfProject.Data
                 enumerator.Dispose();
             }
         }
-
-        public static void JsonWrite<T>(string path, in string log, IEnumerable<T> objects)
+        public static async void JsonWrite<T>(string path, IEnumerable<T> obj) =>
+               await File.WriteAllTextAsync(path,
+                   JsonSerializer.Serialize(obj, new JsonSerializerOptions() { WriteIndented = true }));
+        public static async Task<List<T>> JsonRead<T>(string path)
         {
-            lock (_psro)
+            if (File.Exists(path))
             {
-                var jsonOptions = new JsonSerializerOptions() { WriteIndented = true };
-                if (!PathCheck.OpenOrClosed(path))
+                var rata = await File.ReadAllTextAsync(path);
+                if (string.IsNullOrWhiteSpace(rata))
+                    return new();
+                else
                 {
-                    File.WriteAllText(path, JsonSerializer.Serialize(objects, jsonOptions));
-                    objects = JsonRead<T>(path)!;
+                    var users = JsonSerializer.Deserialize<List<T>>(rata) ?? new List<T>();
+                    return users;
                 }
-                File.WriteAllText(path, JsonSerializer.Serialize(objects, jsonOptions));
-                ProductWriteLog(log, objects);
             }
+            else
+                return new();
         }
     }
 }

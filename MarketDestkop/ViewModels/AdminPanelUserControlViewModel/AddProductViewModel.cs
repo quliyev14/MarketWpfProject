@@ -58,7 +58,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                     Count = Product.Count
                 };
                 Products.Add(product);
-                DB.JsonWrite<Product>(path, log, Products);
+                DB.JsonWrite<Product>(path, Products);
             }
             Product = new();
         }
@@ -69,7 +69,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 lock (_prso)
                 {
                     Products.Remove(SelectedProduct);
-                    DB.JsonWrite(path, log, Products);
+                    DB.JsonWrite<Product>(path, Products);
                 }
                 SelectedProduct = null;
                 return;
@@ -77,15 +77,14 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             MessageBox.Show("Please Listbox item select");
         }
 
-        private void LoadProductsFromJson()
+        private async void LoadProductsFromJson()
         {
-            var products = DB.JsonRead<Product>(path);
+            var products = await DB.JsonRead<Product>(path);
 
             if (products is not null)
                 foreach (var product in products)
                     Products.Add(product);
         }
-
         private void SelectImage()
         {
             var openFileDialog = new OpenFileDialog

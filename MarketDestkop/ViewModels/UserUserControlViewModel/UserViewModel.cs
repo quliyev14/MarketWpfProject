@@ -27,8 +27,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(SearchTb));
             }
         }
-
-
         public UserViewModel()
         {
             LoadProduct();
@@ -36,7 +34,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
         }
 
-        private void AddProductToUserPacket(Product product)
+        private async void AddProductToUserPacket(Product product)
         {
             string FullName = "mypacket";
 
@@ -45,40 +43,40 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             if (PathCheck.OpenOrClosed(userFileName))
             {
-                var existingProducts = DB.JsonRead<Product>(userFileName)?.ToList();
+                var existingProducts = await DB.JsonRead<Product>(userFileName);
                 if (existingProducts is not null)
                     productList.AddRange(existingProducts);
             }
             productList.Add(product);
-            DB.JsonWrite(userFileName, "user.log", productList);
+            DB.JsonWrite(userFileName, productList);
         }
-        private void LoadProduct()
+        private async void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(path))
             {
-                var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var products = await DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }
         }
-        private void SearchProduct()
+        private async void SearchProduct()
         {
-            if (string.IsNullOrEmpty(SearchTb))
-            {
-                Products.Clear();
-                LoadProduct();
-                return;
-            }
+            //if (string.IsNullOrEmpty(SearchTb))
+            //{
+            //    Products.Clear();
+            //    LoadProduct();
+            //    return;
+            //}
 
-            Products.Clear();
+            //Products.Clear();
 
-            if (PathCheck.OpenOrClosed(path))
-            {
-                var matchedProducts = DB.JsonRead<Product>(path)?.Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
+            //if (PathCheck.OpenOrClosed(path))
+            //{
+            //    var matchedProducts = await DB.JsonRead<Product>(path).ToString()?.Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
 
-                if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
-            }
-            SearchTb = string.Empty;
+            //    if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
+            //}
+            //SearchTb = string.Empty;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

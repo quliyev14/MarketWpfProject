@@ -74,6 +74,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (string.IsNullOrEmpty(Users.ToString())) return;
+
             var user = new User()
             {
                 Name = User.Name,
@@ -90,20 +92,16 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_prso)
-                    DB.JsonWrite(path, log, Users);
+                    DB.JsonWrite<User>(path, Users);
             }
             ClearFields(parametr);
         }
 
         private void ClearFields(object? paraetr) => User = new();
-
         private void CanselWindow(object? parametr) => CanselSignUpWindow();
-
         private void CanselSignUpWindow() => Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
 
-
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged(string? propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

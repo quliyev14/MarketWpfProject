@@ -16,16 +16,15 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         private Admin? _admin;
         public Admin? Admin { get => _admin; set { _admin = value; OnPropertyChanged(nameof(Admin)); } }
 
-
         public AdminPanelViewModel()
         {
             LoginCommand = new RelayCommand(SignIn);
             Admin = new();
         }
 
-        private void SignIn()
+        private async void SignIn()
         {
-            var admins = DB.JsonRead<Admin>(path) ?? new List<Admin>();
+            var admins = await DB.JsonRead<Admin>(path) ?? new List<Admin>();
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
             foreach (var admin in admins)
@@ -42,7 +41,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             var signUpWindow = new MainAdminPanelWindow();
             signUpWindow.Show();
         }
-
         private void RefreshMethod() => Admin = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;

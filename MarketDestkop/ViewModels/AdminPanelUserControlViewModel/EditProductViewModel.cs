@@ -16,7 +16,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         private Product _product;
         public Product Product { get => _product; set { _product = value; OnPropertyChanged(nameof(Product)); } }
 
-        private Product _originalProduct;  
+        private Product _originalProduct;
         public EditProductViewModel(Product selectedProduct)
         {
             _originalProduct = selectedProduct;
@@ -25,10 +25,10 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             CancelCommand = new RelayCommand(CancelEditWindow);
         }
 
-        private void SaveProduct()
+        private async void SaveProduct()
         {
-            var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
-            var existingProduct = products.FirstOrDefault(p => 
+            var products = await DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
+            var existingProduct = products.FirstOrDefault(p =>
                                                           p.Name == _originalProduct.Name &&
                                                           p.Price == _originalProduct.Price &&
                                                           p.Count == _originalProduct.Count);
@@ -38,7 +38,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 existingProduct.Price = Product.Price;
                 existingProduct.Count = Product.Count;
 
-                DB.JsonWrite(path, log, products);
+                DB.JsonWrite(path, products);
             }
             CancelEditWindow();
         }

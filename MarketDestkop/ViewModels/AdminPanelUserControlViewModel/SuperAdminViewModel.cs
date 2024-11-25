@@ -23,11 +23,12 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         private Admin _admin;
         public Admin Admin { get => _admin; set { _admin = value; OnPropertyChanged(nameof(Admin)); } }
 
-        public ObservableCollection<Admin> Admins { get; set; }
+        //public ObservableCollection<Admin> Admins { get; set; }
+        public ObservableCollection<Admin> admins { get; set; }
 
         public SuperAdminViewModel()
         {
-            Admins = new ObservableCollection<Admin>();
+            admins = new ObservableCollection<Admin>();
             RefreshCommand = new RelayCommand(ClearFields);
             SignUpCommand = new RelayCommand(SaveJson);
             CancelCommand = new RelayCommand(WindowCansel);
@@ -45,12 +46,12 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 GmailService = new GmailService() { Email = Admin.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(Admin.GmailService?.Password) },
             };
 
-            Admins.Add(admin);
+            admins.Add(admin);
 
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_psro)
-                    DB.JsonWrite<Admin>(path, log, Admins);
+                    DB.JsonWrite<Admin>(path,admins);
             }
             ClearFields();
             return;
