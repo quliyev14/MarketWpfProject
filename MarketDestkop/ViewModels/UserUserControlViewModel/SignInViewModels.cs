@@ -41,10 +41,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             {
                 App.CurrentUser = authenticatedUser;
                 OpenMainWindow();
+                RegisterCloseWindow();
             }
-
-            ClearMethod();
-            RegisterCloseWindow();
+            //ClearMethod();
         }
 
         private void RegisterCloseWindow() => System.Windows.Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();

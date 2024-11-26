@@ -47,18 +47,18 @@
                          Margin="0,10,0,0" 
                          Height="30" />
 
-                <StackPanel Orientation="Horizontal" 
+                <!--<StackPanel Orientation="Horizontal" 
                             Margin="0,10,0,0">
                     <RadioButton Content="Male" 
                                  GroupName="Gender" 
-                                 IsChecked="{Binding IsMale, Mode=TwoWay}" 
+                                 IsChecked="{Binding User.Male, Mode=TwoWay}" 
                                  Margin="0,0,20,0" />
 
-                    <!-- Female RadioButton -->
+                    --><!-- Female RadioButton --><!--
                     <RadioButton Content="Female" 
                                  GroupName="Gender" 
-                                 IsChecked="{Binding IsFemale, Mode=TwoWay}" />
-                </StackPanel>
+                                 IsChecked="{Binding User.IsFemale, Mode=TwoWay}" />
+                </StackPanel>-->
                 <DatePicker Text="{Binding User.DateTime}" 
                             materialDesign:HintAssist.Hint="10/10/1990" 
                             Margin="0,10,0,0" 

@@ -13,15 +13,15 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     {
         private readonly static object _prso = new();
 
-        private string path = "U.json";
+        private string path = "Users.json";
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }
         public RelayCommand CanselCommand { get; }
         public ObservableCollection<User> Users { get; set; }
 
-        private User _user;
-        public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
+        private User? _user;
+        public User? User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
 
         public SignUpViewModels()
         {
@@ -32,69 +32,31 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             User = new();
         }
 
-        #region Propdbs
-
-        private string? _gender;
-        public string? Gender
-        {
-            get => _gender;
-            set
-            {
-                if (_gender != value)
-                {
-                    _gender = value;
-                    OnPropertyChanged(nameof(Gender));
-                    OnPropertyChanged(nameof(IsMale));
-                    OnPropertyChanged(nameof(IsFemale));
-                }
-            }
-        }
-
-        public bool IsMale
-        {
-            get => Gender == "Male";
-            set
-            {
-                if (value)
-                    Gender = "Male";
-            }
-        }
-        public bool IsFemale
-        {
-            get => Gender == "Female";
-            set
-            {
-                if (value)
-                    Gender = "Female";
-            }
-        }
-        #endregion
-
         private void SaveJson(object? parametr)
         {
-            MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (string.IsNullOrEmpty(Users.ToString())) return;
+            //if (User is null) MessageBox.Show("User is null Please auto fill");
 
             var user = new User()
             {
-                Name = User.Name,
-                Surname = User.Surname,
-                GmailService = new GmailService() { Email = User.GmailService.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User.GmailService.Password) },
-                Gender = this.Gender,
-                DateTime = User.DateTime,
-                Mobile = User.Mobile,
-                CountryMobileCode = User.CountryMobileCode
+                Name = User?.Name,
+                Surname = User?.Surname,
+                GmailService = new GmailService() { Email = User?.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User?.GmailService?.Password) },
+                DateTime = User?.DateTime,
+                Mobile = User?.Mobile,
+                CountryMobileCode = User?.CountryMobileCode
             };
 
             Users.Add(user);
 
-            if (mbb == MessageBoxResult.Yes)
-            {
-                lock (_prso)
-                    DB.JsonWrite<User>(path, Users);
-            }
-            ClearFields(parametr);
+            //if (mbb == MessageBoxResult.Yes)
+            //{
+            //lock (_prso)
+            DB.JsonWrite<User>(path, Users);
+            //ClearFields(parametr);
+            //}
+
         }
 
         private void ClearFields(object? paraetr) => User = new();
