@@ -15,7 +15,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
         private static string path = "products.json";
         private static string log = "products.log";
-
         public ObservableCollection<Product> Products { get; set; }
 
         private Product _product;

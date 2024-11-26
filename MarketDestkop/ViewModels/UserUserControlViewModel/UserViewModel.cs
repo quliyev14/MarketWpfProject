@@ -5,7 +5,6 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
@@ -33,9 +32,21 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             LoadProduct();
             SearchCommand = new RelayCommand(SearchProduct);
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
+            IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
+            DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
         }
 
-        private async void AddProductToUserPacket(Product product)
+        private void IncreaseQuantity(Product product)
+        {
+
+        }
+
+        private void DecreaseQuantity(Product product)
+        {
+
+        }
+
+        private void AddProductToUserPacket(Product product)
         {
             string userFileName = $"{App.CurrentUser?.Name}{App.CurrentUser?.Surname}.json";
 
@@ -43,23 +54,25 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             if (PathCheck.OpenOrClosed(userFileName))
             {
-                var existingProducts =  DB.JsonRead<Product>(userFileName);
+                var existingProducts = DB.JsonRead<Product>(userFileName);
                 if (existingProducts is not null)
                     productList.AddRange(existingProducts);
             }
             productList.Add(product);
             DB.JsonWrite(userFileName, productList);
         }
-        private  void LoadProduct()
+
+
+        private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(path))
             {
-                var products =  DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }
         }
-        private  void SearchProduct()
+        private void SearchProduct()
         {
             //if (string.IsNullOrEmpty(SearchTb))
             //{
