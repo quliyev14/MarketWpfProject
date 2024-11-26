@@ -77,9 +77,9 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             MessageBox.Show("Please Listbox item select");
         }
 
-        private async void LoadProductsFromJson()
+        private  void LoadProductsFromJson()
         {
-            var products = await DB.JsonRead<Product>(path);
+            var products =  DB.JsonRead<Product>(path);
 
             if (products is not null)
                 foreach (var product in products)

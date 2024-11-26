@@ -17,11 +17,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
             LoadProduct();
         }
-        private async void MyBasketDelete(Product product)
+        private void MyBasketDelete(Product product)
         {
             if (Products is not null)
             {
-                var products = await DB.JsonRead<Product>(_userpath) ?? new List<Product>();
+                var products = DB.JsonRead<Product>(_userpath) ?? new List<Product>();
 
                 if (products is not null)
                 {
@@ -31,11 +31,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             }
         }
 
-        private async void LoadProduct()
+        private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(_userpath))
             {
-                var products = await DB.JsonRead<Product>(_userpath) ?? throw new ArgumentNullException("Argument is null!");
+                var products = DB.JsonRead<Product>(_userpath) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }

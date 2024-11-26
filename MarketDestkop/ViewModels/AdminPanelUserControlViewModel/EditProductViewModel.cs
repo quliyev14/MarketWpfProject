@@ -27,7 +27,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
 
         private async void SaveProduct()
         {
-            var products = await DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
+            var products =  DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
             var existingProduct = products.FirstOrDefault(p =>
                                                           p.Name == _originalProduct.Name &&
                                                           p.Price == _originalProduct.Price &&

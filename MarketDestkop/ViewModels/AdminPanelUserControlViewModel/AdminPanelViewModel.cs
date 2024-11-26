@@ -22,9 +22,9 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             Admin = new();
         }
 
-        private async void SignIn()
+        private void SignIn()
         {
-            var admins = await DB.JsonRead<Admin>(path) ?? new List<Admin>();
+            var admins = DB.JsonRead<Admin>(path) ?? new List<Admin>();
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
             foreach (var admin in admins)

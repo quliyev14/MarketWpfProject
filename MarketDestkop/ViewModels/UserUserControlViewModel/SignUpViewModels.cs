@@ -5,6 +5,7 @@ using MarketWpfProject.Hashed;
 using MarketWpfProject.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -32,11 +33,13 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             User = new();
         }
 
-        private void SaveJson(object? parametr)
+        private  void SaveJson(object? parametr)
         {
             //MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             //if (User is null) MessageBox.Show("User is null Please auto fill");
+
+            var users =  DB.JsonRead<User>(path) ?? throw new FileNotFoundException();
 
             var user = new User()
             {
@@ -48,12 +51,12 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 CountryMobileCode = User?.CountryMobileCode
             };
 
-            Users.Add(user);
+            users.Add(user);
 
             //if (mbb == MessageBoxResult.Yes)
             //{
             //lock (_prso)
-            DB.JsonWrite<User>(path, Users);
+            DB.JsonWrite<User>(path, users);
             //ClearFields(parametr);
             //}
 

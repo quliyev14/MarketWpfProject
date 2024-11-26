@@ -43,23 +43,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             if (PathCheck.OpenOrClosed(userFileName))
             {
-                var existingProducts = await DB.JsonRead<Product>(userFileName);
+                var existingProducts =  DB.JsonRead<Product>(userFileName);
                 if (existingProducts is not null)
                     productList.AddRange(existingProducts);
             }
             productList.Add(product);
             DB.JsonWrite(userFileName, productList);
         }
-        private async void LoadProduct()
+        private  void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(path))
             {
-                var products = await DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var products =  DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }
         }
-        private async void SearchProduct()
+        private  void SearchProduct()
         {
             //if (string.IsNullOrEmpty(SearchTb))
             //{

@@ -25,9 +25,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             User = new();
         }
 
-        public async void SignIn(object? parametr)
+        public void SignIn(object? parametr)
         {
-            var users = await DB.JsonRead<User>(path) ?? new List<User>();
+            var users = DB.JsonRead<User>(path) ?? new List<User>();
 
             if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
 
