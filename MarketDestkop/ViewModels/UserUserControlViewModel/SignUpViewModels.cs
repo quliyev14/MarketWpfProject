@@ -33,13 +33,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             User = new();
         }
 
-        private  void SaveJson(object? parametr)
+        private void SaveJson(object? parametr)
         {
-            //MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            //if (User is null) MessageBox.Show("User is null Please auto fill");
-
-            var users =  DB.JsonRead<User>(path) ?? throw new FileNotFoundException();
+            var users = DB.JsonRead<User>(path) ?? throw new FileNotFoundException(nameof(path));
 
             var user = new User()
             {
@@ -50,19 +48,16 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 Mobile = User?.Mobile,
                 CountryMobileCode = User?.CountryMobileCode
             };
-
             users.Add(user);
-
-            //if (mbb == MessageBoxResult.Yes)
-            //{
-            //lock (_prso)
-            DB.JsonWrite<User>(path, users);
-            //ClearFields(parametr);
-            //}
-
+            if (mbb == MessageBoxResult.Yes)
+            {
+                lock (_prso)
+                    DB.JsonWrite<User>(path, users);
+                ClearFields(parametr);
+            }
         }
 
-        private void ClearFields(object? paraetr) => User = new();
+        private void ClearFields(object? parametr) => User = new();
         private void CanselWindow(object? parametr) => CanselSignUpWindow();
         private void CanselSignUpWindow() => Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();
 
