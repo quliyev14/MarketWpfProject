@@ -56,20 +56,21 @@
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                                     <Button Content="-" Width="30" Height="30" Background="DarkSeaGreen" 
-                                            Command="{Binding DataContext.DecreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}" 
-                                            Style="{StaticResource MaterialDesignFlatButton}"/>
+            Command="{Binding DecreaseQuantityCommand}"
+            CommandParameter="{Binding}" 
+            Style="{StaticResource MaterialDesignFlatButton}" />
 
-                                    <TextBox Text="{Binding Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                               Width="50" Height="30" TextAlignment="Center"  
-                                               VerticalAlignment="Center" FontSize="16" FontWeight="Bold" 
-                                               Background="LightGray" Foreground="Black" Margin="5,0"/> 
+                                    <TextBox Text="{Binding Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+             Width="50" Height="30" TextAlignment="Center"  
+             VerticalAlignment="Center" FontSize="16" FontWeight="Bold" 
+             Background="LightGray" Foreground="Black" Margin="5,0"/>
 
                                     <Button Content="+" Width="30" Height="30" Background="DarkSeaGreen" Foreground="White"
-                                            Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}" 
-                                            Style="{StaticResource MaterialDesignFlatButton}" />
+            Command="{Binding IncreaseQuantityCommand}"
+            CommandParameter="{Binding}" 
+            Style="{StaticResource MaterialDesignFlatButton}" />
                                 </StackPanel>
+
 
                                 <Button Content="Add Packet" Width="110" Height="40" FontSize="14" Margin="5" Background="DarkSeaGreen"
                                         Command="{Binding DataContext.AddToPacketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"

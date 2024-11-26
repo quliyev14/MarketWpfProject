@@ -16,6 +16,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
         public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
         public RelayCommand<Product> AddToPacketCommand { get; set; }
+        public Product Product { get; set; }
 
         private string? _searchTb;
         public string? SearchTb
@@ -27,6 +28,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(SearchTb));
             }
         }
+
+        //private int? _quantity = 0;
+        //public int? Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(_quantity)); } }
         public UserViewModel()
         {
             LoadProduct();
@@ -38,12 +42,20 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private void IncreaseQuantity(Product product)
         {
-
+            if (product != null && product.Quantity < product.Count)
+            {
+                product.Quantity++;
+                OnPropertyChanged(nameof(Products));
+            }
         }
 
         private void DecreaseQuantity(Product product)
         {
-
+            if (product != null && product.Quantity > 0)
+            {
+                product.Quantity--;
+                OnPropertyChanged(nameof(Products));
+            }
         }
 
         private void AddProductToUserPacket(Product product)
