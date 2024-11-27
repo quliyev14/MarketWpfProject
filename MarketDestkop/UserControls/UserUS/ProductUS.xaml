@@ -40,15 +40,12 @@
                     <DataTemplate>
                         <Border BorderBrush="#D3D3D3" BorderThickness="1" Margin="5" Width="180" Height="250" Padding="10" Background="White">
                             <StackPanel HorizontalAlignment="Center">
-                                <!--<Button VerticalAlignment="Top" 
-                                        HorizontalAlignment="Right" 
-                                        Content="Hearth" 
-                                        Width="20" 
-                                        Height="20" 
-                                        Margin="5"
-                                        FontSize="14" 
-                                        Background="Black"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"/>-->
+                                <CheckBox IsChecked="{Binding IsFavorite, Mode=TwoWay}" 
+                                      Content="" Width="30" Height="30" Background="DarkSeaGreen" Foreground="Black"
+                                      Command="{Binding ToggleFavoriteCommand}" 
+                                      CommandParameter="{Binding}"
+                                      Style="{StaticResource MaterialDesignFlatButton}" 
+                                      VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,5,0"/>
 
                                 <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>
@@ -56,27 +53,25 @@
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
                                     <Button Content="-" Width="30" Height="30" Background="DarkSeaGreen" 
-            Command="{Binding DecreaseQuantityCommand}"
-            CommandParameter="{Binding}" 
-            Style="{StaticResource MaterialDesignFlatButton}" />
+                                        Command="{Binding DecreaseQuantityCommand}"
+                                        CommandParameter="{Binding}" 
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
 
                                     <TextBox Text="{Binding Quantity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-             Width="50" Height="30" TextAlignment="Center"  
-             VerticalAlignment="Center" FontSize="16" FontWeight="Bold" 
-             Background="LightGray" Foreground="Black" Margin="5,0"/>
+                                         Width="50" Height="30" TextAlignment="Center"  
+                                         VerticalAlignment="Center" FontSize="16" FontWeight="Bold" 
+                                         Background="LightGray" Foreground="Black" Margin="5,0"/>
 
                                     <Button Content="+" Width="30" Height="30" Background="DarkSeaGreen" Foreground="White"
-            Command="{Binding IncreaseQuantityCommand}"
-            CommandParameter="{Binding}" 
-            Style="{StaticResource MaterialDesignFlatButton}" />
+                                        Command="{Binding IncreaseQuantityCommand}"
+                                        CommandParameter="{Binding}" 
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
                                 </StackPanel>
 
-
                                 <Button Content="Add Packet" Width="110" Height="40" FontSize="14" Margin="5" Background="DarkSeaGreen"
-                                        Command="{Binding DataContext.AddToPacketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding}" 
-                                        Style="{StaticResource MaterialDesignRaisedButton}"/>
-
+                                    Command="{Binding DataContext.AddToPacketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
