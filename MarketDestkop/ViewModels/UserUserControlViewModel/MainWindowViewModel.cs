@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketDestkop;
 using MarketDestkop.Views;
 using MarketWpfProject.UserControls.UserUS;
 using MarketWpfProject.Views;
@@ -15,6 +16,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand GoBackCommand { get; }
 
         private readonly Frame? _frame;
+
+        public string? Name { get; }
+        public string? Surname { get; }
+        public string? UserFullName { get; }
+
         public MainWindowViewModel(Frame frame)
         {
             _frame = frame;
@@ -22,6 +28,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             MyBasketCommand = new RelayCommand(OpenMyBasketUserControl);
             SignOutCommand = new RelayCommand(UserSignOut);
             GoBackCommand = new RelayCommand(GoBackRegisterWindow);
+            Name = App.CurrentUser?.Name;
+            Surname = App.CurrentUser?.Surname;
+            UserFullName = $"{App.CurrentUser?.Name?[0]} {App.CurrentUser?.Surname?[0]}";
         }
 
         private void OpenProductsUserControl() => _frame?.Navigate(new ProductUS());
@@ -31,7 +40,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             OpenRegisterWindow();
             Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
         }
-
         private void OpenRegisterWindow()
         {
             var rw = new RegisterWindow();

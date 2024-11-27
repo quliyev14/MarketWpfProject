@@ -16,23 +16,31 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" VerticalAlignment="Center"  Background="#F0F4F8" Height="584">
+        <StackPanel Grid.Column="0" VerticalAlignment="Top" Background="#F0F4F8" Height="584" >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 0, 0, 30">
+                <Border Background="Transparent" Width="80" Height="80" CornerRadius="40" BorderBrush="#FF3F51B5" BorderThickness="2">
+                    <TextBlock Text="{Binding UserFullName}" Foreground="#FF3F51B5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+                </Border>
+                <StackPanel Orientation="Vertical" Margin="15, 0, 0, 0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#333"/>
+                    <TextBlock Text="{Binding Surname}" FontSize="16" FontWeight="Bold" Foreground="#333"/>
+                    <TextBlock Text="Online" FontSize="12" Foreground="#4CAF50" Margin="0,5,0,0"/>
+                </StackPanel>
+            </StackPanel>
+
             <TextBlock Text="Main" FontSize="16" FontWeight="SemiBold" Margin="10,10,0,5" Foreground="#555"/>
             <Button Command="{Binding ProductsCommand}" CommandParameter="Category1UserControl" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5">
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="C:\Users\elgun\MarketWpfProject\MarketDestkop\Images\market-analysis_16870477.png"  Width="20" Height="20" Margin="0,0,10,0"/>-->
                     <TextBlock Text="Products" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding MyBasketCommand}" CommandParameter="Category2UserControl" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/basket.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                     <TextBlock Text="My Basket" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding OrderHistoryCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/history.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                     <TextBlock Text="Order History" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
@@ -40,52 +48,31 @@
             <TextBlock Text="User" FontSize="16" FontWeight="SemiBold" Margin="10,20,0,5" Foreground="#555"/>
             <Button Command="{Binding ProfileSettingsCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/profile.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                     <TextBlock Text="Profile Settings" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding WishlistCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
                 <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/wishlist.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                     <TextBlock Text="Favorites / Wishlist" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <TextBlock Text="Help / Settings" FontSize="16" FontWeight="SemiBold" Margin="10,20,0,5" Foreground="#555"/>
-            <Button Command="{Binding NotificationsCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/notifications.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
-                    <TextBlock Text="Notifications" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Command="{Binding HelpCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/help.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
-                    <TextBlock Text="Help / Support" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Command="{Binding SettingsCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                <StackPanel Orientation="Horizontal">
-                    <!--<Image Source="Images/settings.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
-                    <TextBlock Text="Settings" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-
             <StackPanel VerticalAlignment="Bottom" Margin="5">
-                <Button Command="{Binding SignOutCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5"  Foreground="#C62828">
+                <Button Command="{Binding SignOutCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Foreground="#C62828">
                     <StackPanel Orientation="Horizontal">
-                        <!--<Image Source="Images/signout.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                         <TextBlock Text="Sign Out" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding GoBackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5"  Foreground="#1E88E5">
+                <Button Command="{Binding GoBackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Foreground="#1E88E5">
                     <StackPanel Orientation="Horizontal">
-                        <!--<Image Source="Images/goback.png" Width="20" Height="20" Margin="0,0,10,0"/>-->
                         <TextBlock Text="Go Back" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
         </StackPanel>
-        <Frame Name="ContentFrame" Grid.Column="1"/>
+
+        <Grid Grid.Column="1">
+            <Frame Name="ContentFrame" />
+        </Grid>
     </Grid>
 </Window>
