@@ -86,7 +86,6 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
         <Frame Name="ContentFrame" Grid.Column="1"/>
     </Grid>
 </Window>
