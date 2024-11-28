@@ -74,7 +74,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             DB.JsonWrite(userFileName, productList);
         }
 
-
         private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(path))
@@ -86,28 +85,25 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
         private void SearchProduct()
         {
-            //if (string.IsNullOrEmpty(SearchTb))
-            //{
-            //    Products.Clear();
-            //    LoadProduct();
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(SearchTb))
+            {
+                Products.Clear();
+                LoadProduct();
+                return;
+            }
 
-            //Products.Clear();
+            Products.Clear();
 
-            //if (PathCheck.OpenOrClosed(path))
-            //{
-            //    var matchedProducts = await DB.JsonRead<Product>(path).ToString()?.Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
+            if (PathCheck.OpenOrClosed(path))
+            {
+                var matchedProducts = DB.JsonRead<Product>(path).Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
 
-            //    if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
-            //}
-            //SearchTb = string.Empty;
+                if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
+            }
+            SearchTb = string.Empty;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
