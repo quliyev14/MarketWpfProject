@@ -16,6 +16,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private const string path = "Users.json";
         public RelayCommand LoginCommand { get; }
         public RelayCommand SignUpCommand { get; }
+
         private User _user;
         public User User { get => _user; set { _user = value; OnPropertyChanged(nameof(User)); } }
         public SignInViewModels()
@@ -40,6 +41,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             else
             {
                 App.CurrentUser = authenticatedUser;
+                App.Password = User.GmailService?.Password;
                 OpenMainWindow();
                 RegisterCloseWindow();
             }

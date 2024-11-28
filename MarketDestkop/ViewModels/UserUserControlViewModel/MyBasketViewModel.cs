@@ -8,7 +8,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class MyBasketViewModel
     {
-        private readonly string _userpath = $"{App.CurrentUser?.Name}{App.CurrentUser?.Surname}.json";
+        private readonly string _userpath = $"{App.CurrentUser?.GmailService.Email}.json";
         public List<Product> Products { get; set; }
         public RelayCommand<Product> DeleteFromBasketCommand { get; set; }
         public MyBasketViewModel()

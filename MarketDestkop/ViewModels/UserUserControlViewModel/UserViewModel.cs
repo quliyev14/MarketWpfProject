@@ -48,7 +48,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(Products));
             }
         }
-
         private void DecreaseQuantity(Product product)
         {
             if (product != null && product.Quantity > 0)
@@ -60,7 +59,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private void AddProductToUserPacket(Product product)
         {
-            string userFileName = $"{App.CurrentUser?.Name}{App.CurrentUser?.Surname}.json";
+            string userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
 
             var productList = new List<Product>();
 

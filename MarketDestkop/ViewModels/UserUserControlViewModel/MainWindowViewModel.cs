@@ -3,12 +3,13 @@ using MarketDestkop;
 using MarketDestkop.Views;
 using MarketWpfProject.UserControls.UserUS;
 using MarketWpfProject.Views;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         public RelayCommand ProductsCommand { get; }
         public RelayCommand MyBasketCommand { get; }
@@ -18,9 +19,14 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private readonly Frame? _frame;
 
-        public string? Name { get; }
-        public string? Surname { get; }
-        public string? UserFullName { get; }
+        private string? _name;
+        public string? Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
+
+        private string? _surname;
+        public string? Surname { get => _surname; set { _surname = value; OnPropertyChanged(nameof(Surname)); } }
+
+        private string? _userfullname;
+        public string? UserFullName { get => _userfullname; set { _userfullname = value; OnPropertyChanged(nameof(UserFullName)); } }
 
         public MainWindowViewModel(Frame frame)
         {
@@ -54,5 +60,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (mbr == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string? propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -49,9 +49,9 @@
 
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
             <TextBlock Text="Password:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <TextBox Text="{Binding User.GmailService.Password}"  Width="250" Margin="5" VerticalAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
+            <TextBox Text="{Binding User.GmailService.Password}"  Width="250" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <Button Grid.Row="8" Content="Save" Width="120" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Background="#4CAF50" Foreground="White" BorderBrush="Transparent" FontSize="16" FontWeight="Bold" Padding="10,5"/>
+        <Button Command="{Binding SaveCommand}" Grid.Row="8" Content="Save" Width="120" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Background="#4CAF50" Foreground="White" BorderBrush="Transparent" FontSize="16" FontWeight="Bold" Padding="10,5"/>
     </Grid>
 </UserControl>
