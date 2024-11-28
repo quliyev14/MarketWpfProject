@@ -21,24 +21,6 @@ namespace MarketWpfProject.Data
                await File.WriteAllTextAsync(path,
                    JsonSerializer.Serialize(obj, new JsonSerializerOptions() { WriteIndented = true }));
 
-
-        //public static async Task<List<T>> JsonRead<T>(string path)
-        //{
-        //    if (File.Exists(path))
-        //    {
-        //        var rata = await File.ReadAllTextAsync(path);
-        //        if (string.IsNullOrWhiteSpace(rata))
-        //            return new();
-        //        else
-        //        {
-        //            var users = JsonSerializer.Deserialize<List<T>>(rata) ?? new List<T>();
-        //            return users;
-        //        }
-        //    }
-        //    else
-        //        return new();
-        //}
-
         public static List<T> JsonRead<T>(string path)
         {
             if (File.Exists(path))

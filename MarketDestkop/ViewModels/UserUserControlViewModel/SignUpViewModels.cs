@@ -1,4 +1,5 @@
-﻿using MarketDestkop.Views;
+﻿using MarketDestkop;
+using MarketDestkop.Views;
 using MarketWpfProject.Command;
 using MarketWpfProject.Data;
 using MarketWpfProject.Hashed;
@@ -14,7 +15,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     {
         private readonly static object _prso = new();
 
-        private string path = "Users.json";
+        private string _userPath = App.UserPath;
+
         private string log = "users.log";
         public RelayCommand SignUpCommand { get; }
         public RelayCommand RefreshCommand { get; }
@@ -37,7 +39,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            var users = DB.JsonRead<User>(path) ?? throw new FileNotFoundException(nameof(path));
+            var users = DB.JsonRead<User>(_userPath) ?? throw new FileNotFoundException(nameof(_userPath));
 
             var user = new User()
             {
@@ -52,11 +54,10 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (mbb == MessageBoxResult.Yes)
             {
                 lock (_prso)
-                    DB.JsonWrite<User>(path, users);
+                    DB.JsonWrite<User>(_userPath, users);
                 ClearFields(parametr);
             }
         }
-
         private void ClearFields(object? parametr) => User = new();
         private void CanselWindow(object? parametr) => CanselSignUpWindow();
         private void CanselSignUpWindow() => Application.Current.Windows.OfType<SignUpWindow>().FirstOrDefault()?.Close();

@@ -13,7 +13,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class SignInViewModels : INotifyPropertyChanged
     {
-        private const string path = "Users.json";
+        private string _userPath = App.UserPath;
         public RelayCommand LoginCommand { get; }
         public RelayCommand SignUpCommand { get; }
 
@@ -28,9 +28,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         public void SignIn(object? parametr)
         {
-            var users = DB.JsonRead<User>(path) ?? new List<User>();
+            var users = DB.JsonRead<User>(_userPath) ?? new List<User>();
 
-            if (!PathCheck.OpenOrClosed(path)) throw new FieldAccessException(nameof(path));
+            if (!PathCheck.OpenOrClosed(_userPath)) throw new FieldAccessException(nameof(_userPath));
 
             var authenticatedUser = users.FirstOrDefault(user =>
                 user.GmailService.Email == User.GmailService.Email &&
@@ -45,7 +45,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OpenMainWindow();
                 RegisterCloseWindow();
             }
-            //ClearMethod();
         }
 
         private void RegisterCloseWindow() => System.Windows.Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();

@@ -19,7 +19,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             AllShowCommand = new RelayCommand(AllShow);
             ExitWindowCommmand = new RelayCommand(ExitWindow);
         }
-
         private void Home() => _frame?.Navigate(new HomeUserControl());
         private void AllShow() => _frame?.Navigate(new AllShowUserControl());
         private void ExitWindow() => Application.Current.Shutdown();

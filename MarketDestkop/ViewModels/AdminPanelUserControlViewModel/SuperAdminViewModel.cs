@@ -58,7 +58,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         }
 
         private void ClearFields() => Admin = new();
-
         private void WindowCansel() => Application.Current.Windows.OfType<SuperAdminPanelWindow>().FirstOrDefault()?.Close();
 
         public event PropertyChangedEventHandler? PropertyChanged;

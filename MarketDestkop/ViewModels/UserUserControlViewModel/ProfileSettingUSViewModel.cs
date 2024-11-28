@@ -10,6 +10,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class ProfileSettingUSViewModel : INotifyPropertyChanged
     {
+        private string _userPath = App.UserPath;
         public RelayCommand SaveCommand { get; }
 
         private User? _user;
@@ -26,11 +27,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             if (User is null) return;
 
-            var users = DB.JsonRead<User>("Users.json");
+            var users = DB.JsonRead<User>(_userPath);
 
             foreach (var existingUser in users)
             {
-                if (existingUser.GmailService.Email == User.GmailService.Email) 
+                if (existingUser.GmailService.Email == User.GmailService.Email)
                 {
                     existingUser.Name = User.Name;
                     existingUser.Surname = User.Surname;
@@ -40,7 +41,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 }
             }
 
-            DB.JsonWrite("Users.json", users);
+            DB.JsonWrite(_userPath, users);
             MessageBox.Show("Operation succesfully completed!", "Succesfuly", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

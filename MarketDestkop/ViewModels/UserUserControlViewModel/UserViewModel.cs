@@ -19,15 +19,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public Product Product { get; set; }
 
         private string? _searchTb;
-        public string? SearchTb
-        {
-            get => _searchTb;
-            set
-            {
-                _searchTb = value;
-                OnPropertyChanged(nameof(SearchTb));
-            }
-        }
+        public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
         //private int? _quantity = 0;
         //public int? Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(_quantity)); } }
