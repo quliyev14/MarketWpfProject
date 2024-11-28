@@ -33,7 +33,8 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
             <TextBlock Text="Date:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <DatePicker Text="{Binding User.DateTime}"  Width="250" Margin="5" VerticalAlignment="Center"/>
+            <DatePicker SelectedDate="{Binding User.DateTime, UpdateSourceTrigger=PropertyChanged}" 
+                Width="250" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
