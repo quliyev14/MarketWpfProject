@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.UserUS"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -36,23 +37,18 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
-            <TextBlock Text="Country / Phone code:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <TextBox Text="{Binding User.CountryMobileCode}"  Width="250" Margin="5" VerticalAlignment="Center"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
             <TextBlock Text="Phone:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <TextBox Text="{Binding User.Mobile}"  Width="250" Margin="5" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
             <TextBlock Text="Email:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
             <TextBox Text="{Binding User.GmailService.Email}"  Width="250" Margin="5" VerticalAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
             <TextBlock Text="Password:" Width="120" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <TextBox Text="{Binding User.GmailService.Password}"  Width="250" Margin="5" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding User.GmailService.Password}"  Width="250" Margin="5" VerticalAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
         </StackPanel>
 
         <Button Grid.Row="8" Content="Save" Width="120" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0" Background="#4CAF50" Foreground="White" BorderBrush="Transparent" FontSize="16" FontWeight="Bold" Padding="10,5"/>
