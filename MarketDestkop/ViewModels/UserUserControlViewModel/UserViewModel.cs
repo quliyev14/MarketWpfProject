@@ -37,7 +37,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 product.Quantity++;
             }
         }
-
         private void DecreaseQuantity(Product product)
         {
             if (product != null && product.Quantity > 1)

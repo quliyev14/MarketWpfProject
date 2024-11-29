@@ -30,7 +30,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 }
             }
         }
-
         private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(_userpath))
