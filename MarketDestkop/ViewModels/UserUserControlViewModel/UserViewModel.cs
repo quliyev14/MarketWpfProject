@@ -11,7 +11,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     public class UserViewModel : INotifyPropertyChanged
     {
         private string _productPath = App.ProductPath;
-        private string userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
+        private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         public ObservableCollection<Product> Products { get; set; } = new();
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
@@ -44,20 +44,18 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 product.Quantity--;
             }
         }
-
         private void AddProductToUserPacket(Product product)
         {
             var productList = new List<Product>();
-            if (PathCheck.OpenOrClosed(userFileName))
+            if (PathCheck.OpenOrClosed(_userFileName))
             {
-                var existingProducts = DB.JsonRead<Product>(userFileName);
+                var existingProducts = DB.JsonRead<Product>(_userFileName);
                 if (existingProducts is not null)
                     productList.AddRange(existingProducts);
             }
             productList.Add(product);
-            DB.JsonWrite(userFileName, productList);
+            DB.JsonWrite(_userFileName, productList);
         }
-
         private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(_productPath))

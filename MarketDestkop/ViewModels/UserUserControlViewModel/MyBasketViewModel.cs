@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper.PathHelper;
@@ -6,16 +8,68 @@ using MarketWpfProject.Moduls;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
-    public class MyBasketViewModel
+    public class MyBasketViewModel : INotifyPropertyChanged
     {
         private readonly string _userpath = $"{App.CurrentUser?.GmailService.Email}.json";
-        public List<Product> Products { get; set; }
+        public ObservableCollection<Product> Products { get; set; }
         public RelayCommand<Product> DeleteFromBasketCommand { get; set; }
+        public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
+        public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
+        public RelayCommand SearchCommand { get; set; }
+
+        private string? _searchTb;
+        public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
+
+        private decimal? _totalPrice;
+        public decimal? TotalPrice { get => _totalPrice; set { _totalPrice = value; OnPropertyChanged(nameof(TotalPrice)); } }
         public MyBasketViewModel()
         {
-            Products = new List<Product>();
+            Products = new ObservableCollection<Product>();
+            SearchCommand = new RelayCommand(MyBasketSearchProduct);
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
+            IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
+            DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
             LoadProduct();
+            MyBasketProductTotalPrice();
+        }
+
+        private void MyBasketProductTotalPrice()
+        {
+            TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
+        }
+
+        private void IncreaseQuantity(Product product)
+        {
+            if (product != null && product.Quantity < 30)
+            {
+                product.Quantity++;
+            }
+        }
+        private void DecreaseQuantity(Product product)
+        {
+            if (product != null && product.Quantity > 1)
+            {
+                product.Quantity--;
+            }
+        }
+        private void MyBasketSearchProduct()
+        {
+            if (string.IsNullOrEmpty(SearchTb))
+            {
+                Products.Clear();
+                LoadProduct();
+                return;
+            }
+
+            Products.Clear();
+
+            if (PathCheck.OpenOrClosed(_userpath))
+            {
+                var matchedProducts = DB.JsonRead<Product>(_userpath).Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
+
+                if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
+            }
+            SearchTb = string.Empty;
         }
         private void MyBasketDelete(Product product)
         {
@@ -39,5 +93,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                     Products.Add(product);
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
