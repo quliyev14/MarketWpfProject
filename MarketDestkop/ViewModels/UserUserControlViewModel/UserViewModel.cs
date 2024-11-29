@@ -10,19 +10,17 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class UserViewModel : INotifyPropertyChanged
     {
-        private string path = "products.json";
+        private string _productPath = App.ProductPath;
+        private string userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         public ObservableCollection<Product> Products { get; set; } = new();
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
         public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
         public RelayCommand<Product> AddToPacketCommand { get; set; }
-        public Product Product { get; set; }
 
         private string? _searchTb;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
-        //private int? _quantity = 0;
-        //public int? Quantity { get => _quantity; set { _quantity = value; OnPropertyChanged(nameof(_quantity)); } }
         public UserViewModel()
         {
             LoadProduct();
@@ -34,27 +32,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private void IncreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity < product.Count)
+            if (product != null && product.Quantity < 30)
             {
                 product.Quantity++;
-                OnPropertyChanged(nameof(Products));
             }
         }
+
         private void DecreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity > 0)
+            if (product != null && product.Quantity > 1)
             {
                 product.Quantity--;
-                OnPropertyChanged(nameof(Products));
             }
         }
 
         private void AddProductToUserPacket(Product product)
         {
-            string userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
-
             var productList = new List<Product>();
-
             if (PathCheck.OpenOrClosed(userFileName))
             {
                 var existingProducts = DB.JsonRead<Product>(userFileName);
@@ -67,9 +61,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private void LoadProduct()
         {
-            if (PathCheck.OpenOrClosed(path))
+            if (PathCheck.OpenOrClosed(_productPath))
             {
-                var products = DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("Argument is null!");
+                var products = DB.JsonRead<Product>(_productPath) ?? throw new ArgumentNullException("Argument is null!");
                 foreach (var product in products)
                     Products.Add(product);
             }
@@ -85,9 +79,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             Products.Clear();
 
-            if (PathCheck.OpenOrClosed(path))
+            if (PathCheck.OpenOrClosed(_productPath))
             {
-                var matchedProducts = DB.JsonRead<Product>(path).Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
+                var matchedProducts = DB.JsonRead<Product>(_productPath).Where(p => p.Name!.ToLower().Contains(SearchTb.ToLower())).ToList() ?? throw new Exception();
 
                 if (matchedProducts.Any()) matchedProducts.ForEach(p => Products.Add(p));
             }
