@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000" Background="White">
-    
+
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -71,17 +71,33 @@
                             <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Grid.Column="2"/>
 
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3">
-                                <Button Width="30" Height="30" FontSize="14" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                            Command="{Binding DataContext.DecreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            CommandParameter="{Binding}">
-                                    <TextBlock Text="-" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Button>
-                                <TextBlock Text="{Binding Quantity}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-                                <Button Width="30" Height="30" FontSize="14" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                            Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                            CommandParameter="{Binding}">
-                                    <TextBlock Text="+" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Button>
+
+
+
+                                <!---->
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3">
+                                    <!-- Decrease Quantity Button -->
+                                    <Button Width="30" Height="30" FontSize="14" Padding="0" Margin="2" 
+            Command="{Binding DataContext.DecreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            CommandParameter="{Binding}" 
+            Content="-" Background="#4CAF50" Foreground="White" BorderBrush="#4CAF50" BorderThickness="1"/>
+
+                                    <!-- Quantity Display -->
+                                    <TextBlock Text="{Binding Quantity}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+
+                                    <!-- Increase Quantity Button -->
+                                    <Button Width="30" Height="30" FontSize="14" Padding="0" Margin="2" 
+            Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            CommandParameter="{Binding}" 
+            Content="+" Background="#4CAF50" Foreground="White" BorderBrush="#4CAF50" BorderThickness="1"/>
+                                </StackPanel>
+
+
+
+                                <!---->
+
+
+
                             </StackPanel>
 
                             <TextBlock Text="{Binding TotalPrice, StringFormat='{}{0:C}'}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Grid.Column="4"/>
@@ -101,9 +117,4 @@
             <TextBlock Text="Toplam Fiyat: {Binding TotalPrice, StringFormat='{}{0:C}'}" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" HorizontalAlignment="Right" Width="Auto"/>
         </StackPanel>
     </Grid>
-
-
-
-
-
 </UserControl>
