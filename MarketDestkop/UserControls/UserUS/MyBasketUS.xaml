@@ -45,8 +45,8 @@
             <TextBlock Text="Name" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
             <TextBlock Text="Price" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
             <TextBlock Text="Count" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Text="Total price" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-            <TextBlock Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--<TextBlock Text="Total price" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>-->
+            <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -104,15 +104,15 @@
 
                             </StackPanel>
 
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <!--<StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock Text="{Binding DataContext.TotalPrice, RelativeSource={RelativeSource AncestorType=UserControl}, StringFormat=':{0:C}'}" 
                                         FontSize="14" FontWeight="Bold" Foreground="Black" />
-                            </StackPanel>
+                            </StackPanel>-->
 
                             <Button Content="X" Width="40" Height="30" FontSize="14" Margin="5" Background="Red"
                                     Command="{Binding DataContext.DeleteFromBasketCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}" 
-                                    Style="{StaticResource MaterialDesignRaisedButton}" Grid.Column="5"/>
+                                    Style="{StaticResource MaterialDesignRaisedButton}" Grid.Column="4"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

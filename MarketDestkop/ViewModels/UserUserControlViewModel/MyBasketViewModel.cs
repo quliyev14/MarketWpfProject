@@ -25,6 +25,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public MyBasketViewModel()
         {
             Products = new ObservableCollection<Product>();
+            Products.CollectionChanged += Products_CollectionChanged; // Koleksiyon değişikliklerini dinliyoruz.
             SearchCommand = new RelayCommand(MyBasketSearchProduct);
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
@@ -33,11 +34,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             MyBasketProductTotalPrice();
         }
 
-        private void MyBasketProductTotalPrice()
-        {
-            TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
-        }
-
+        private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => MyBasketProductTotalPrice();
+        private void MyBasketProductTotalPrice() => TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
         private void IncreaseQuantity(Product product)
         {
             if (product != null && product.Quantity < 30)
