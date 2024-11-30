@@ -42,13 +42,15 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Header Texts (Name, Price, Count) -->
             <TextBlock Text="Name" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
             <TextBlock Text="Price" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
             <TextBlock Text="Count" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-            <!--<TextBlock Text="Total price" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>-->
             <TextBlock Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
 
+            <!-- Saat göstergesi -->
+            <TextBlock Text="{Binding CurrentTime}" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12"/>
+        </Grid>
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Products}">
                 <ItemsControl.ItemsPanel>
@@ -67,41 +69,21 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="50"/>
                             </Grid.ColumnDefinitions>
-
                             <Image Source="{Binding ImagePath}" Width="60" Height="60" Margin="5" Grid.Column="0" VerticalAlignment="Center"/>
-
                             <TextBlock Text="{Binding Name}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Grid.Column="1"/>
-
                             <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Grid.Column="2"/>
-
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3">
-
-
-
-                                <!---->
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3">
-                                    <!-- Decrease Quantity Button -->
                                     <Button Width="30" Height="30" FontSize="14" Padding="0" Margin="2" 
                                             Command="{Binding DataContext.DecreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding}" 
                                             Content="-" Background="#4CAF50" Foreground="White" BorderBrush="#4CAF50" BorderThickness="1"/>
-
-                                    <!-- Quantity Display -->
                                     <TextBlock Text="{Binding Quantity}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-
-                                    <!-- Increase Quantity Button -->
                                     <Button Width="30" Height="30" FontSize="14" Padding="0" Margin="2" 
                                             Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                             CommandParameter="{Binding}" 
                                             Content="+" Background="#4CAF50" Foreground="White" BorderBrush="#4CAF50" BorderThickness="1"/>
                                 </StackPanel>
-
-
-
-                                <!---->
-
-
-
                             </StackPanel>
 
                             <!--<StackPanel Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center">

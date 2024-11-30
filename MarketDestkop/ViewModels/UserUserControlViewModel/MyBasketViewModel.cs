@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Threading;
+using Argon;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketWpfProject.Data;
@@ -22,18 +24,40 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private decimal? _totalPrice;
         public decimal? TotalPrice { get => _totalPrice; set { _totalPrice = value; OnPropertyChanged(nameof(TotalPrice)); } }
+
+        private DispatcherTimer _timer;
+        private string _currentTime;
+
+        public string CurrentTime
+        {
+            get => _currentTime;
+            set
+            {
+                _currentTime = value;
+                OnPropertyChanged(nameof(CurrentTime));
+            }
+        }
         public MyBasketViewModel()
         {
             Products = new ObservableCollection<Product>();
-            Products.CollectionChanged += Products_CollectionChanged; // Koleksiyon değişikliklerini dinliyoruz.
+            Products.CollectionChanged += Products_CollectionChanged;
             SearchCommand = new RelayCommand(MyBasketSearchProduct);
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
-            LoadProduct();
             MyBasketProductTotalPrice();
+            LoadProduct();
+            ActiveClockShow();
         }
-
+        private void ActiveClockShow()
+        {
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _timer.Tick += (s, e) => CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+            _timer.Start();
+        }
         private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => MyBasketProductTotalPrice();
         private void MyBasketProductTotalPrice() => TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
         private void IncreaseQuantity(Product product)
@@ -41,6 +65,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (product != null && product.Quantity < 30)
             {
                 product.Quantity++;
+                MyBasketProductTotalPrice();
+                DB.JsonWrite<Product>(_userpath, Products);
             }
         }
         private void DecreaseQuantity(Product product)
@@ -48,6 +74,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (product != null && product.Quantity > 1)
             {
                 product.Quantity--;
+                MyBasketProductTotalPrice();
+                DB.JsonWrite<Product>(_userpath, Products);
             }
         }
         private void MyBasketSearchProduct()

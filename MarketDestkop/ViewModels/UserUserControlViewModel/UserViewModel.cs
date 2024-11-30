@@ -5,6 +5,7 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
@@ -21,6 +22,19 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private string? _searchTb;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
+        private DispatcherTimer _timer;
+        private string _currentTime;
+
+        public string CurrentTime
+        {
+            get => _currentTime;
+            set
+            {
+                _currentTime = value;
+                OnPropertyChanged(nameof(CurrentTime));
+            }
+        }
+
         public UserViewModel()
         {
             LoadProduct();
@@ -28,8 +42,17 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
+            ActiveClockShow();
         }
-
+        private void ActiveClockShow()
+        {
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _timer.Tick += (s, e) => CurrentTime = DateTime.Now.ToString("HH:mm:ss");
+            _timer.Start();
+        }
         private void IncreaseQuantity(Product product)
         {
             if (product != null && product.Quantity < 30)
