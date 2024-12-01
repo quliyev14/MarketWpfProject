@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketWpfProject.Views"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Market" 
         Height="600" 
         Width="1000"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Icon="https://img.freepik.com/premium-vector/bustling-farmers-market-with-overflowing-stalls_961875-456033.jpg">
 
     <Grid>
         <Grid.ColumnDefinitions>
