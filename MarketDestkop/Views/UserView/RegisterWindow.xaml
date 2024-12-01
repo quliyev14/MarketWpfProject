@@ -10,61 +10,96 @@
         Height="520"
         Width="400" 
         ResizeMode="NoResize">
-    <Grid>
-        <Rectangle Height="500" VerticalAlignment="Center" >
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="white" />
-                    <GradientStop Color="black" Offset="1" />
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Width="280" 
-                   Height="300" 
-                   Fill="White" 
-                   Effect="{DynamicResource MaterialDesignShadowDepth5}" 
-                   RadiusX="13.667" 
-                   RadiusY="13.667"  >
-        </Rectangle>
-        <Grid Width="280" 
-              Height="288" 
-              VerticalAlignment="Top" 
-              Margin="35,104,35,0">
-            <TextBlock Text="LOGIN" 
-                       VerticalAlignment="top" 
-                       HorizontalAlignment="Center"  
-                       Margin="50" 
-                       FontWeight="Bold" 
-                       FontSize="20" 
-                       Foreground="#333399" />
-            <StackPanel VerticalAlignment="Center" 
-                        Margin="15,0,15,0" 
-                        Height="100">
-                <TextBox Text="{Binding User.GmailService.Email, UpdateSourceTrigger=PropertyChanged}"  
-                         materialDesign:HintAssist.Hint="Email" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Height="37"/>
+
+    <Border Width="300"
+            Height="400"
+            Background="White"
+            CornerRadius="6">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15"
+                              Direction ="-90" 
+                              RenderingBias ="Quality" 
+                              ShadowDepth ="2" 
+                              Color ="Gray" />
+        </Border.Effect>
+        <StackPanel Orientation="Vertical"
+                    Margin="20">
+            <TextBlock Text="Login" 
+                       FontSize="25"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       FontWeight="Bold"
+                       Padding="10"
+                       />
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox  Grid.Column="1"
+                  Text="{Binding User.GmailService.Email, UpdateSourceTrigger=PropertyChanged}"
+                  Grid.Row="1"
+                  Padding="0,5"
+                  Width="255"
+                  Height="37"
+                  BorderThickness="0,0,0,1"
+                  HorizontalAlignment="Left"
+                  materialDesign:HintAssist.Hint="Email" />
+
 
                 <TextBox Text="{Binding User.GmailService.Password, UpdateSourceTrigger=PropertyChanged}" 
-                         materialDesign:HintAssist.Hint="Password" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Height="37"/>
+                      Grid.Row="3"
+                      materialDesign:HintAssist.Hint="Password" 
+                      Padding="0,5"                           
+                      Width="255"
+                      Height="37"
+                      BorderThickness="0,0,0,1"
+                      HorizontalAlignment="Left"/>
+            </Grid>
+            <TextBlock Text="forgot password?" 
+                       HorizontalAlignment="Right"/>
+            <Button 
+                    Content="Login" 
+                    Command="{Binding LoginCommand}"  
+                    Foreground="White"
+                    Background="Black"
+                    Margin="0,25"
+                    Height="35"
+                    Width="250">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
+                                            CornerRadius="16">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="AliceBlue" TargetName="LoginBorder"  />
+                                            <Setter Property="TextBlock.Foreground" Value="Black"  TargetName="LoginBorder" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
 
-            </StackPanel>
-            <Button  VerticalAlignment="Top" 
-                     Content="Login" 
-                     Command="{Binding LoginCommand}"  
-                     Margin="40,229,40,0" 
-                     Height="37" 
-                     Effect="{DynamicResource MaterialDesignShadowDepth2}" 
-                     Background="#FF7C38F5" />
-        </Grid>
-        <Button  Command="{Binding SignUpCommand}" 
+            <Button  Command="{Binding SignUpCommand}" 
                  Background="Green" 
                  Foreground="White" 
                  Content="Signup" 
-                 Margin="76,437,76,15" 
-                 Effect="{DynamicResource MaterialDesignShadowDepth2}" 
-                 BorderBrush="#FF391678" />
-    </Grid>
+                 Height="35"
+                 Width="250"
+                 Margin="0,10" 
+                 Effect="{DynamicResource MaterialDesignShadowDepth2}"  />
+        </StackPanel>
+    </Border>
 </Window>
