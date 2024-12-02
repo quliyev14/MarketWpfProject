@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketWpfProject.Views"
         mc:Ignorable="d"
-        Title="MainAdminPanelWindow" 
+        Title="Admin Panel" 
         Height="740" 
-        Width="1280" 
-        ResizeMode="NoResize">
+        Width="1280" >
 
     <Window.Resources>
         <Style x:Key="RoundButtonStyle" TargetType="Button">
@@ -59,7 +58,7 @@
             <TextBlock Text="Users" FontSize="20" Foreground="White" Margin="20,30,0,10"/>
 
             <Button Content="View Users" Width="180" Height="50" Margin="0,10"
-                    Style="{StaticResource RoundButtonStyle}" Command="{Binding ViewUsersCommand}"/>
+                    Style="{StaticResource RoundButtonStyle}" Command="{Binding UserViewCommand}"/>
         </StackPanel>
 
         <Border Grid.Column="1" Background="#FFECF0F1"></Border>

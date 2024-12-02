@@ -1,5 +1,4 @@
-﻿using MarketWpfProject.ViewModels;
-using MarketWpfProject.ViewModels.AdminPanelUserControlViewModel;
+﻿using MarketWpfProject.ViewModels.AdminPanelUserControlViewModel;
 using System.Windows;
 
 namespace MarketWpfProject.Views

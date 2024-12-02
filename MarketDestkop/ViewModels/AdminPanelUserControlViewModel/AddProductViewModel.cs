@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using MarketDestkop;
 using MarketWpfProject.Data;
 using MarketWpfProject.Moduls;
 using MarketWpfProject.Views;
@@ -13,7 +14,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
     {
         private readonly static object _prso = new();
 
-        private static string path = "products.json";
+        private static string path = App.ProductPath;
         private static string log = "products.log";
         public ObservableCollection<Product> Products { get; set; }
 
@@ -45,6 +46,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 OnPropertyChanged(nameof(SelectedProduct));
             }
         }
+
         private void AddProduct()
         {
             if (!string.IsNullOrWhiteSpace(Product.Name) && Product.Count > 0 && Product.Price > 0)
@@ -75,10 +77,9 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             }
             MessageBox.Show("Please Listbox item select");
         }
-
-        private  void LoadProductsFromJson()
+        private void LoadProductsFromJson()
         {
-            var products =  DB.JsonRead<Product>(path);
+            var products = DB.JsonRead<Product>(path);
 
             if (products is not null)
                 foreach (var product in products)
@@ -93,7 +94,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             if (openFileDialog.ShowDialog() == true)
                 Product.ImagePath = openFileDialog.FileName;
         }
-
         private void EditProduct()
         {
             if (SelectedProduct != null)
