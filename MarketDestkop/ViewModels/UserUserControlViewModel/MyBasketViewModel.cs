@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Threading;
-using Argon;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketWpfProject.Data;
@@ -14,9 +14,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     {
         private readonly string _userpath = $"{App.CurrentUser?.GmailService.Email}.json";
         public ObservableCollection<Product> Products { get; set; }
-        public RelayCommand<Product> DeleteFromBasketCommand { get; set; }
-        public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
-        public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
+        public RelayCommand<Product> DeleteFromBasketCommand { get; }
+        public RelayCommand<Product> IncreaseQuantityCommand { get; }
+        public RelayCommand<Product> DecreaseQuantityCommand { get; }
+        public RelayCommand MoveTrashCommand { get; }
+        public RelayCommand PaymentCommand { get; }
         public RelayCommand SearchCommand { get; set; }
 
         private string? _searchTb;
@@ -27,7 +29,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private DispatcherTimer _timer;
         private string _currentTime;
-
         public string CurrentTime
         {
             get => _currentTime;
@@ -45,10 +46,39 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
+            MoveTrashCommand = new RelayCommand(MoveTrash);
             MyBasketProductTotalPrice();
             LoadProduct();
             ActiveClockShow();
         }
+
+        private void MoveTrash()
+        {
+            var result = MessageBox.Show(
+                "Are you sure you want to delete all purchased items?",
+                "Products delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Products.Clear();
+
+                if (PathCheck.OpenOrClosed(_userpath))
+                    DB.JsonWrite<Product>(_userpath, Products);
+                TotalPrice = 0;
+                MessageBox.Show("All product succesfult be deleted.", "Succesfuly", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+                MessageBox.Show("Products could not be deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Payment()
+        {
+
+        }
+
         private void ActiveClockShow()
         {
             _timer = new DispatcherTimer

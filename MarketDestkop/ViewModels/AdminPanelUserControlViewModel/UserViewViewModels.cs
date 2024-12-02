@@ -25,7 +25,6 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                 OnPropertyChanged(nameof(SelectedUser));
             }
         }
-
         public UserViewViewModels()
         {
             Users = new ObservableCollection<User>();

@@ -16,11 +16,11 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <TextBox materialDesign:HintAssist.Hint="Search..."
-             Text="{Binding SearchTb, UpdateSourceTrigger=PropertyChanged}"
-             Width="300" Height="45" Margin="0,0,10,0"
-             VerticalContentAlignment="Center" Padding="10"
-             BorderBrush="#D3D3D3" BorderThickness="1"
-             HorizontalContentAlignment="Left"/>
+                     Text="{Binding SearchTb, UpdateSourceTrigger=PropertyChanged}"
+                     Width="300" Height="45" Margin="0,0,10,0"
+                     VerticalContentAlignment="Center" Padding="10"
+                     BorderBrush="#D3D3D3" BorderThickness="1"
+                     HorizontalContentAlignment="Left"/>
 
             <Button Content="Search"
             Command="{Binding SearchCommand}"
@@ -50,14 +50,23 @@
                                 Height="280" 
                                 Padding="10" 
                                 Background="White">
-                            
+
                             <StackPanel HorizontalAlignment="Center">
-                                <CheckBox IsChecked="{Binding IsFavorite, Mode=TwoWay}" 
-                                          Content="" Width="30" Height="30" Background="#4CAF50" Foreground="Black"
-                                          Command="{Binding ToggleFavoriteCommand}" 
-                                          CommandParameter="{Binding}"
-                                          Style="{StaticResource MaterialDesignFlatButton}" 
-                                          VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,5,0"/>
+                                <Button Width="30" Height="30" 
+        Background="Transparent"
+        CommandParameter="{Binding}" 
+        Command="{Binding ToggleFavoriteCommand}" 
+        Style="{StaticResource MaterialDesignFlatButton}" 
+        VerticalAlignment="Top" 
+        HorizontalAlignment="Right" 
+        Margin="0,0,0,0"
+        Padding="0"
+        ClipToBounds="True">
+
+                                    <Image Source="C:\Users\elgun668icloud.com\MarketWpfProject\MarketDestkop\Images\unfavoriteimage.png" 
+           VerticalAlignment="Center" 
+           HorizontalAlignment="Center"/>
+                                </Button>
 
                                 <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>
@@ -67,7 +76,7 @@
             Background="#4CAF50" Foreground="White" 
             Command="{Binding DataContext.DecreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
             CommandParameter="{Binding}" 
-            Style="{StaticResource MaterialDesignFlatButton}" />
+            Style="{StaticResource MaterialDesignFlatButton}"/>
 
                                     <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
              Width="50" Height="30" TextAlignment="Center"  
@@ -78,7 +87,7 @@
             Background="#4CAF50" Foreground="White" 
             Command="{Binding DataContext.IncreaseQuantityCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
             CommandParameter="{Binding}" 
-            Style="{StaticResource MaterialDesignFlatButton}" />
+            Style="{StaticResource MaterialDesignFlatButton}"/>
                                 </StackPanel>
 
 

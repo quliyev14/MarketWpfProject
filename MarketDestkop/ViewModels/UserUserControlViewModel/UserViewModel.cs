@@ -14,17 +14,16 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private string _productPath = App.ProductPath;
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         public ObservableCollection<Product> Products { get; set; } = new();
-        public RelayCommand SearchCommand { get; set; }
-        public RelayCommand<Product> IncreaseQuantityCommand { get; set; }
-        public RelayCommand<Product> DecreaseQuantityCommand { get; set; }
-        public RelayCommand<Product> AddToPacketCommand { get; set; }
+        public RelayCommand SearchCommand { get; }
+        public RelayCommand<Product> IncreaseQuantityCommand { get; }
+        public RelayCommand<Product> DecreaseQuantityCommand { get; }
+        public RelayCommand<Product> AddToPacketCommand { get; }
 
         private string? _searchTb;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
         private DispatcherTimer _timer;
         private string _currentTime;
-
         public string CurrentTime
         {
             get => _currentTime;
@@ -44,6 +43,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
             ActiveClockShow();
         }
+
         private void ActiveClockShow()
         {
             _timer = new DispatcherTimer
