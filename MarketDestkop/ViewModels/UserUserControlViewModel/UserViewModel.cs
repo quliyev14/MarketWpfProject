@@ -5,6 +5,7 @@ using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -13,11 +14,14 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     {
         private string _productPath = App.ProductPath;
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
+        private string _userFavoriteProducts = $"{App.CurrentUser?.GmailService.Email}FavoriteProduct.json";
         public ObservableCollection<Product> Products { get; set; } = new();
+        public ObservableCollection<Product> FavoriteProducts { get; set; } = new();
         public RelayCommand SearchCommand { get; }
         public RelayCommand<Product> IncreaseQuantityCommand { get; }
         public RelayCommand<Product> DecreaseQuantityCommand { get; }
         public RelayCommand<Product> AddToPacketCommand { get; }
+        //public RelayCommand<Product> ToggleFavoriteCommand { get; }
 
         private string? _searchTb;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
@@ -33,7 +37,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 OnPropertyChanged(nameof(CurrentTime));
             }
         }
-
         public UserViewModel()
         {
             LoadProduct();
@@ -41,8 +44,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             AddToPacketCommand = new RelayCommand<Product>(AddProductToUserPacket);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
+            //ToggleFavoriteCommand = new RelayCommand<Product>(ToggleFavorite);
             ActiveClockShow();
         }
+
+        //private void ToggleFavorite(Product product)
+        //{
+        //    if (product is null) MessageBox.Show("Product select is null");
+
+        //    else
+        //    {
+        //        if (PathCheck.OpenOrClosed(_userFavoriteProducts))
+        //        {
+        //            Products.Add(product);
+        //            DB.JsonWrite<Product>(_userFavoriteProducts, Products);
+        //        }
+        //    }
+        //}
 
         private void ActiveClockShow()
         {

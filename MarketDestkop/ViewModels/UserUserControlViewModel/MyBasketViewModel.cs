@@ -4,9 +4,12 @@ using System.Windows;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
+using MarketDestkop.Views;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
+using MarketWpfProject.Views;
+using MarketWpfProject.Views.UserView;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
@@ -47,6 +50,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
             MoveTrashCommand = new RelayCommand(MoveTrash);
+            PaymentCommand = new RelayCommand(OpenPaymentrWindow);
             MyBasketProductTotalPrice();
             LoadProduct();
             ActiveClockShow();
@@ -73,10 +77,10 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             else
                 MessageBox.Show("Products could not be deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        private void Payment()
+        private void OpenPaymentrWindow()
         {
-
+            var pw = new PaymentWindow();
+            pw.Show();
         }
 
         private void ActiveClockShow()
