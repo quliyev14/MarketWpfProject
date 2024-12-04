@@ -13,7 +13,6 @@
         Background="White">
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="350" Margin="20">
-            <!-- Title -->
             <TextBlock Text="Card Payment" 
                        FontSize="20" 
                        FontWeight="Bold" 
@@ -59,6 +58,7 @@
 
             <!-- Cardholder Name -->
             <TextBox materialDesign:HintAssist.Hint="Cardholder Name"
+                     Text="{Binding CardHolder}"
                      FontSize="14" 
                      Padding="10"
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" 
@@ -66,21 +66,24 @@
 
             <!-- Card Number -->
             <TextBox materialDesign:HintAssist.Hint="Card Number"
+                     Text="{Binding CardNumber}"
                      FontSize="14" 
-                     Padding="10"
+                     Padding="10" 
                      Style="{StaticResource MaterialDesignOutlinedTextBox}" 
-                     MaxLength="16" 
+                     MaxLength="19" 
                      Margin="0,10"/>
 
             <!-- Expiry Date and CVV -->
             <StackPanel Orientation="Horizontal" Margin="0,10">
                 <TextBox materialDesign:HintAssist.Hint="MM/YY"
+                         Text="04/24"
                          Margin="5"
                          Width="150" 
                          FontSize="14" 
                          Padding="10"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}" />
-                <TextBox materialDesign:HintAssist.Hint="CVV"
+                <TextBox materialDesign:HintAssist.Hint="CVC"
+                         Text="{Binding CvC}"
                          Margin="5"
                          Width="100" 
                          FontSize="14" 
@@ -89,7 +92,6 @@
                          MaxLength="3" />
             </StackPanel>
 
-            <!-- Payment Button -->
             <Button Content="Submit Payment" 
                     Width="150" 
                     Height="40" 
@@ -103,7 +105,7 @@
                     Width="150" 
                     Height="40" 
                     HorizontalAlignment="Center" 
-                    Command="{Binding CanselCommand}" 
+                    Command="{Binding CancelCommand}" 
                     Style="{StaticResource MaterialDesignOutlinedButton}" 
                     Margin="0,10,0,0"/>
         </StackPanel>

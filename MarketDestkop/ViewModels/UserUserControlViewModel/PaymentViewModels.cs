@@ -12,13 +12,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             CardPaymentCommand = new RelayCommand(OpenWithCardPayment);
         }
-
         private void OpenWithCardPayment()
         {
             CardPayment();
             System.Windows.Application.Current.Windows.OfType<PaymentWindow>().FirstOrDefault()?.Close();
         }
-
         private void CardPayment()
         {
             var pwc = new PaymentWithCard();

@@ -25,7 +25,7 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
             CancelCommand = new RelayCommand(CancelEditWindow);
         }
 
-        private async void SaveProduct()
+        private  void SaveProduct()
         {
             var products =  DB.JsonRead<Product>(path) ?? throw new ArgumentNullException("");
             var existingProduct = products.FirstOrDefault(p =>

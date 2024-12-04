@@ -4,11 +4,9 @@ using System.Windows;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
-using MarketDestkop.Views;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
-using MarketWpfProject.Views;
 using MarketWpfProject.Views.UserView;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -93,7 +91,12 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             _timer.Start();
         }
         private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => MyBasketProductTotalPrice();
-        private void MyBasketProductTotalPrice() => TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
+        public decimal MyBasketProductTotalPrice()
+        {
+            TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));
+            App.TotalAmount = (decimal)TotalPrice;
+            return (decimal)TotalPrice;
+        }
         private void IncreaseQuantity(Product product)
         {
             if (product != null && product.Quantity < 30)
