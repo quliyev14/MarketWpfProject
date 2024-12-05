@@ -10,7 +10,8 @@
         WindowStartupLocation="CenterOwner"
         Width="420" Height="570"
         ResizeMode="NoResize"
-        Background="White">
+        Background="White"
+        Icon="https://cdn-icons-png.flaticon.com/512/5088/5088218.png">
     <Grid>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="350" Margin="20">
             <TextBlock Text="Card Payment" 

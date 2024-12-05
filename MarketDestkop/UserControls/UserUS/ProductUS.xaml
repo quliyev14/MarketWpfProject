@@ -91,7 +91,7 @@
                                 </StackPanel>
 
 
-                                <Button Content="Add Packet"
+                                <Button Content="Add Basket"
                                         Width="120" Height="25"
                                         FontSize="14" FontWeight="Bold"
                                         Margin="5" Background="#4CAF50"

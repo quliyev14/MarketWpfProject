@@ -8,7 +8,8 @@ namespace MarketWpfProject.Views.UserView
         public PaymentWithCard()
         {
             InitializeComponent();
-            DataContext = new PaymentWithCardViewModels();
+            var pwcvw = new PaymentWithCardViewModels();
+            DataContext = pwcvw;
         }
     }
 }

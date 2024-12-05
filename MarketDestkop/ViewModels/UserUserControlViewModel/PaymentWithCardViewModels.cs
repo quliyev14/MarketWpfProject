@@ -16,7 +16,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private string? _cardNumber;
         private string? _cardCVC;
         //private string? _mmyy;
-        public RelayCommand SubmitPaymentCommand { get; }
         public RelayCommand CancelCommand { get; }
         public decimal TotalAmount { get => _totalAmount; set { _totalAmount = value; OnPropertyChanged(nameof(TotalAmount)); UpdateRemainingAmount(); } }
         public string? CardHolder { get => _cardHolder; set { _cardHolder = value; OnPropertyChanged(nameof(CardHolder)); } }
@@ -27,26 +26,36 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
 
+        public RelayCommand SubmitPaymentCommand { get; }
         public PaymentWithCardViewModels()
         {
+
             TotalAmount = App.TotalAmount;
-            CardHolder = App.CurrentUser?.Name;
+            CardHolder = $"{App.CurrentUser?.Surname} {App.CurrentUser?.Name}";
             UserPayment = 0m;
             CardNumber = RandomCardGenerator.RandomForCvcAndCardNumber(16) ?? "4169 9178 9017 7612";
             CvC = RandomCardGenerator.RandomForCvcAndCardNumber(3) ?? "187";
             //MMYY = "04/24";
-            CancelCommand = new RelayCommand(CancelPayment);
+            CancelCommand = new RelayCommand(PaymentWindowQuit);
             SubmitPaymentCommand = new RelayCommand(SubmitPayment);
         }
-
-        private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
         private void SubmitPayment()
         {
-            if (RemainingAmount <= 0) MessageBox.Show("Payment successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            if (RemainingAmount <= 0)
+            {
+                MessageBox.Show("Payment successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                PaymentWindowQuit();
+                OpenForOrderMap();
+            }
             else MessageBox.Show($"Remaining amount: {RemainingAmount:C}", "Payment Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
-        private void CancelPayment() => System.Windows.Application.Current.Windows.OfType<PaymentWithCard>().FirstOrDefault()?.Close();
+        private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
+        private void OpenForOrderMap()
+        {
+            var fom = new ForOrderMap();
+            fom.Show();
+        }
+        private void PaymentWindowQuit() => System.Windows.Application.Current.Windows.OfType<PaymentWithCard>().FirstOrDefault()?.Close();
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
