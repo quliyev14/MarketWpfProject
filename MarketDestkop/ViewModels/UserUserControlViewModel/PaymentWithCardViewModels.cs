@@ -30,7 +30,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
 
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
-        private string userHistoryFileName = App.HistoryPath;
+        private string userHistoryFileName = $"{App.CurrentUser?.GmailService.Email}_PurchasedHistory.json";
         public RelayCommand SubmitPaymentCommand { get; }
         public PaymentWithCardViewModels()
         {

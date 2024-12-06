@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.UserUS"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
+  
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -23,7 +23,10 @@
                  BorderBrush="Gray" BorderThickness="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" FontSize="16" Margin="5" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" FontSize="16" Margin="5" />
+                        <Button Content="Delete" Command="{Binding DataContext.DeleteHistoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Margin="5"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

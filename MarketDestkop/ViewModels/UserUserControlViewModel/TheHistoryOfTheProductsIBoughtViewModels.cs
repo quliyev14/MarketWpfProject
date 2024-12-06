@@ -1,4 +1,5 @@
 ﻿using Argon;
+using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
@@ -47,16 +48,22 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             }
         }
 
+        public RelayCommand<DateTime?> DeleteHistoryCommand { get; }
+
         public TheHistoryOfTheProductsIBoughtViewModels()
         {
             PurchaseHistoryDates = new ObservableCollection<DateTime?>();
             SelectedDateProducts = new ObservableCollection<Product>();
+            DeleteHistoryCommand = new RelayCommand<DateTime?>(DeleteHistory);
             LoadPurchaseHistory();
         }
 
         private void LoadPurchaseHistory()
         {
-            var history = JsonConvert.DeserializeObject<List<PurchaseHistory>>(File.ReadAllText(userHistoryFileName));
+            var jsonData = File.ReadAllText(userHistoryFileName);
+
+            var history = JsonConvert.DeserializeObject<List<PurchaseHistory>>(jsonData);
+            PurchaseHistoryDates.Clear(); 
             foreach (var purchase in history)
             {
                 PurchaseHistoryDates.Add(purchase.PurchaseDate);
@@ -65,7 +72,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private void LoadProductsForSelectedDate(DateTime? date)
         {
-            var history = JsonConvert.DeserializeObject<List<PurchaseHistory>>(File.ReadAllText(userHistoryFileName));
+            var jsonData = File.ReadAllText(userHistoryFileName);
+
+            var history = JsonConvert.DeserializeObject<List<PurchaseHistory>>(jsonData);
             var selectedHistory = history.FirstOrDefault(h => h.PurchaseDate == date);
 
             if (selectedHistory != null && selectedHistory.Products != null)
@@ -74,6 +83,34 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 foreach (var product in selectedHistory.Products)
                 {
                     SelectedDateProducts.Add(product);
+                }
+            }
+        }
+
+        private void DeleteHistory(DateTime? selectedDate)
+        {
+            if (selectedDate == null)
+                return;
+
+            var jsonData = File.ReadAllText(userHistoryFileName);
+
+            var history = JsonConvert.DeserializeObject<List<PurchaseHistory>>(jsonData);
+            var historyToRemove = history.FirstOrDefault(h => h.PurchaseDate == selectedDate);
+
+            if (historyToRemove != null)
+            {
+                history.Remove(historyToRemove);
+                File.WriteAllText(userHistoryFileName, JsonConvert.SerializeObject(history, Formatting.Indented));
+
+                PurchaseHistoryDates.Remove(selectedDate);
+
+                SelectedDateProducts.Clear();
+
+                LoadPurchaseHistory();
+
+                if (PurchaseHistoryDates.Any())
+                {
+                    SelectedDate = PurchaseHistoryDates.First(); 
                 }
             }
         }

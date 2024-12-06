@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MarketWpfProject.UserControls.UserUS" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d"  
-             d:DesignHeight="450" d:DesignWidth="1000" Background="White">
+             d:DesignHeight="450" d:DesignWidth="1000" Background="White"> 
 
     <Grid Background="White">
         <Grid.RowDefinitions>
