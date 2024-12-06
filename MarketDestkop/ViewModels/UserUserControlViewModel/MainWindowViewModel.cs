@@ -17,6 +17,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand GoBackCommand { get; }
         public RelayCommand WishlistCommand { get; }
         public RelayCommand ProfileSettingsCommand { get; }
+        public RelayCommand HistoryCommand { get; }
 
         private readonly Frame? _frame;
 
@@ -38,12 +39,14 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             GoBackCommand = new RelayCommand(GoBackRegisterWindow);
             ProfileSettingsCommand = new RelayCommand(ProfilSetting);
             WishlistCommand = new RelayCommand(OpenMyFavoriteProduct);
+            HistoryCommand = new RelayCommand(OpenHistory);
             Name = App.CurrentUser?.Name;
             Surname = App.CurrentUser?.Surname;
             UserFullName = $"{App.CurrentUser?.Name?[0]} {App.CurrentUser?.Surname?[0]}";
         }
 
         private void OpenProductsUserControl() => _frame?.Navigate(new ProductUS());
+        private void OpenHistory() => _frame?.Navigate(new TheHistoryOfTheProductsIBought());
         private void OpenMyFavoriteProduct() => _frame?.Navigate(new MyFavoriteProduct());
         private void OpenMyBasketUserControl() => _frame?.Navigate(new MyBasketUS());
         private void ProfilSetting() => _frame?.Navigate(new ProfileSettingUS());

@@ -46,7 +46,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 RegisterCloseWindow();
             }
         }
-
         private void RegisterCloseWindow() => System.Windows.Application.Current.Windows.OfType<RegisterWindow>().FirstOrDefault()?.Close();
 
         private void ClearMethod() => User = new();
@@ -64,6 +63,5 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     }
 }

@@ -2,7 +2,10 @@
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
+using MarketWpfProject.Data;
 using MarketWpfProject.Helper;
+using MarketWpfProject.Models;
+using MarketWpfProject.Moduls;
 using MarketWpfProject.Views.UserView;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -26,10 +29,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
 
+        private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
+        private string userHistoryFileName = App.HistoryPath;
         public RelayCommand SubmitPaymentCommand { get; }
         public PaymentWithCardViewModels()
         {
-
             TotalAmount = App.TotalAmount;
             CardHolder = $"{App.CurrentUser?.Surname} {App.CurrentUser?.Name}";
             UserPayment = 0m;
@@ -44,11 +48,42 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (RemainingAmount <= 0)
             {
                 MessageBox.Show("Payment successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MoveBoughtProductsToHistory();
+
+                ClearUserBasket();
+
                 PaymentWindowQuit();
-                OpenForOrderMap();
             }
-            else MessageBox.Show($"Remaining amount: {RemainingAmount:C}", "Payment Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+                MessageBox.Show($"Remaining amount: {RemainingAmount:C}", "Payment Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+
+        private void ClearUserBasket() => DB.JsonWrite(_userFileName, new List<Product>());
+
+        private void MoveBoughtProductsToHistory()
+        {
+            var userBasketProducts = DB.JsonRead<Product>(_userFileName) ?? new List<Product>();
+
+            if (userBasketProducts.Count == 0)
+            {
+                MessageBox.Show("Basket is empty. Nothing to save to history.", "Info", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var purchaseHistory = DB.JsonRead<PurchaseHistory>(userHistoryFileName) ?? new List<PurchaseHistory>();
+
+            var newPurchase = new PurchaseHistory
+            {
+                PurchaseDate = DateTime.Now,
+                Products = userBasketProducts
+            };
+
+            purchaseHistory.Add(newPurchase);
+
+            DB.JsonWrite(userHistoryFileName, purchaseHistory);
+        }
+
         private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
         private void OpenForOrderMap()
         {

@@ -12,7 +12,7 @@ namespace MarketWpfProject.Views.UserView
         {
             InitializeComponent();
         }
-        private Location marketLocation = new Location(40.4489, 49.7653); // Başlangıçta marketin yeri (Xırdalan)
+        private Location marketLocation = new Location(40.4489, 49.7653); 
         private Location userSelectedLocation;
 
         // Kullanıcı bir yere tıklayarak konum seçtiğinde

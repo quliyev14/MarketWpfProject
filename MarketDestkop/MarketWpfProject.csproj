@@ -16,6 +16,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
+    <PackageReference Include="ModernUI" Version="2.0.0" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="SimpleInjector" Version="5.5.0" />
     <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />

@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:MarketWpfProject.Views"
         mc:Ignorable="d"
         Title="Market" 
-        Height="600" 
-        Width="1000"
-        ResizeMode="NoResize"
+        MinHeight="600"
+        MaxHeight="600" 
+        Width="auto"
         Icon="https://img.freepik.com/premium-vector/bustling-farmers-market-with-overflowing-stalls_961875-456033.jpg">
 
     <Grid>
@@ -40,7 +40,7 @@
                     <TextBlock Text="My Basket" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Command="{Binding OrderHistoryCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
+            <Button Command="{Binding HistoryCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Order History" VerticalAlignment="Center"/>
                 </StackPanel>
