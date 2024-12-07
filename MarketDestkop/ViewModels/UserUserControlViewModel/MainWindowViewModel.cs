@@ -21,11 +21,14 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
         private readonly Frame? _frame;
 
-        private string? _name;
-        public string? Name { get => _name; set { _name = value; OnPropertyChanged(nameof(Name)); } }
+        private string? _nameSurname;
+        public string? NameAndSurname { get => _nameSurname; set { _nameSurname = value; OnPropertyChanged(nameof(NameAndSurname)); } }
 
-        private string? _surname;
-        public string? Surname { get => _surname; set { _surname = value; OnPropertyChanged(nameof(Surname)); } }
+        private string? _phone;
+        public string? Phone { get => _phone; set { _phone = value; OnPropertyChanged(nameof(Phone)); } }
+
+        private string? _email;
+        public string? Email { get => _email; set { _email = value; OnPropertyChanged(nameof(Email)); } }
 
         private string? _userfullname;
         public string? UserFullName { get => _userfullname; set { _userfullname = value; OnPropertyChanged(nameof(UserFullName)); } }
@@ -40,8 +43,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             ProfileSettingsCommand = new RelayCommand(ProfilSetting);
             WishlistCommand = new RelayCommand(OpenMyFavoriteProduct);
             HistoryCommand = new RelayCommand(OpenHistory);
-            Name = App.CurrentUser?.Name;
-            Surname = App.CurrentUser?.Surname;
+            NameAndSurname = $"{App.CurrentUser?.Name} {App.CurrentUser?.Surname}";
+            Email = App.CurrentUser?.GmailService?.Email;
+            Phone = App.CurrentUser?.Mobile;
             UserFullName = $"{App.CurrentUser?.Name?[0]} {App.CurrentUser?.Surname?[0]}";
         }
 

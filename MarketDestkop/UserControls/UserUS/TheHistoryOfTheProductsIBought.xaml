@@ -13,7 +13,6 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Tarih Listesi -->
         <ListBox x:Name="DateListBox" 
                  ItemsSource="{Binding PurchaseHistoryDates}" 
                  SelectedItem="{Binding SelectedDate, Mode=TwoWay}" 
@@ -25,13 +24,12 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding}" FontSize="16" Margin="5" />
-                        <Button Content="Delete" Command="{Binding DataContext.DeleteHistoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Margin="5"/>
+                        <Button Content="Delete" Background="Red" Command="{Binding DataContext.DeleteHistoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Margin="5"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- Ürün Detayları -->
         <DataGrid x:Name="ProductDetailsGrid" 
                   Grid.Column="1"
                   ItemsSource="{Binding SelectedDateProducts}"
