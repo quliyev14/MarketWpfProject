@@ -1,9 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketDestkop.Views;
+using MarketWpfProject.Data;
+using MarketWpfProject.Models;
 using MarketWpfProject.UserControls.UserUS;
 using MarketWpfProject.Views;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -33,6 +36,18 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private string? _userfullname;
         public string? UserFullName { get => _userfullname; set { _userfullname = value; OnPropertyChanged(nameof(UserFullName)); } }
 
+        private decimal? _balance;
+        public decimal? Balance
+        {
+            get => _balance;
+            set
+            {
+                _balance = value;
+                OnPropertyChanged(nameof(Balance));
+                UpdateBalanceInJson();
+            }
+        }
+
         public MainWindowViewModel(Frame frame)
         {
             _frame = frame;
@@ -47,6 +62,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             Email = App.CurrentUser?.GmailService?.Email;
             Phone = App.CurrentUser?.Mobile;
             UserFullName = $"{App.CurrentUser?.Name?[0]} {App.CurrentUser?.Surname?[0]}";
+            Balance = App.CurrentUser?.Balance;
         }
 
         private void OpenProductsUserControl() => _frame?.Navigate(new ProductUS());
@@ -57,8 +73,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private void GoBackRegisterWindow()
         {
             OpenRegisterWindow();
-            Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
+            MainWindowExit();
         }
+        private void MainWindowExit() => Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
         private void OpenRegisterWindow()
         {
             var rw = new RegisterWindow();
@@ -69,6 +86,23 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             MessageBoxResult mbr = MessageBox.Show("Sign Out?", "Sign Out", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (mbr == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
+        }
+
+        private void UpdateBalanceInJson()
+        {
+            if (App.CurrentUser == null)
+                return;
+
+            var usersPath = App.UserPath;
+            var allUsers = DB.JsonRead<User>(usersPath) ?? new List<User>();
+
+            var currentUser = allUsers.FirstOrDefault(u => u.GmailService.Email == App.CurrentUser.GmailService.Email);
+            if (currentUser != null)
+            {
+                currentUser.Balance = Balance ?? 0m; 
+            }
+
+            DB.JsonWrite(usersPath, allUsers); 
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

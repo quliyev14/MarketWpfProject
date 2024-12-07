@@ -1,4 +1,4 @@
-﻿using MarketDestkop;
+﻿ using MarketDestkop;
 using MarketDestkop.Views;
 using MarketWpfProject.Command;
 using MarketWpfProject.Data;
@@ -48,6 +48,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 GmailService = new GmailService() { Email = User?.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User?.GmailService?.Password) },
                 DateTime = User?.DateTime,
                 Mobile = User?.Mobile,
+                Balance = 0,
                 CountryMobileCode = User?.CountryMobileCode
             };
             users.Add(user);

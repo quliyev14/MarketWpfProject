@@ -12,25 +12,36 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 {
     public class PaymentWithCardViewModels : INotifyPropertyChanged
     {
-        private decimal _totalAmount;
-        private decimal _userPayment;
-        private decimal _remainingAmount;
+        private decimal? _totalAmount;
+        private decimal? _userPayment;
+        private decimal? _remainingAmount;
         private string? _cardHolder;
         private string? _cardNumber;
         private string? _cardCVC;
         //private string? _mmyy;
         public RelayCommand CancelCommand { get; }
-        public decimal TotalAmount { get => _totalAmount; set { _totalAmount = value; OnPropertyChanged(nameof(TotalAmount)); UpdateRemainingAmount(); } }
+        public decimal? TotalAmount { get => _totalAmount; set { _totalAmount = value; OnPropertyChanged(nameof(TotalAmount)); UpdateRemainingAmount(); } }
         public string? CardHolder { get => _cardHolder; set { _cardHolder = value; OnPropertyChanged(nameof(CardHolder)); } }
-        public decimal UserPayment { get => _userPayment; set { _userPayment = value; OnPropertyChanged(nameof(UserPayment)); UpdateRemainingAmount(); } }
-        public decimal RemainingAmount { get => _remainingAmount; private set { _remainingAmount = value; OnPropertyChanged(nameof(RemainingAmount)); } }
+        public decimal? UserPayment { get => _userPayment; set { _userPayment = value; OnPropertyChanged(nameof(UserPayment)); UpdateRemainingAmount(); } }
+        public decimal? RemainingAmount { get => _remainingAmount; private set { _remainingAmount = value; OnPropertyChanged(nameof(RemainingAmount)); } }
         public string? CardNumber { get => _cardNumber; set { _cardNumber = value; OnPropertyChanged(nameof(CardNumber)); } }
         public string? CvC { get => _cardCVC; set { _cardCVC = value; OnPropertyChanged(nameof(CvC)); } }
-
+        public decimal? Balance
+        {
+            get => App.CurrentUser?.Balance ?? 0m;
+            set
+            {
+                if (App.CurrentUser != null)
+                {
+                    App.CurrentUser.Balance = value;
+                    OnPropertyChanged(nameof(Balance)); // UI'yi güncelle
+                }
+            }
+        }
         //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
-
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         private string userHistoryFileName = $"{App.CurrentUser?.GmailService.Email}_PurchasedHistory.json";
+        private string _userPath = App.UserPath;
         public RelayCommand SubmitPaymentCommand { get; }
         public PaymentWithCardViewModels()
         {
@@ -42,25 +53,55 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             //MMYY = "04/24";
             CancelCommand = new RelayCommand(PaymentWindowQuit);
             SubmitPaymentCommand = new RelayCommand(SubmitPayment);
+            TotalAmount -= App.CurrentUser?.Balance;
         }
         private void SubmitPayment()
         {
-            if (RemainingAmount <= 0)
+            if (UserPayment >= TotalAmount)
             {
+                var changeAmount = UserPayment - TotalAmount;
+                Balance = changeAmount;
+
+                UpdateUserBalanceInJson();
+
                 MessageBox.Show("Payment successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 MoveBoughtProductsToHistory();
-
                 ClearUserBasket();
-
                 PaymentWindowQuit();
             }
             else
-                MessageBox.Show($"Remaining amount: {RemainingAmount:C}", "Payment Incomplete", MessageBoxButton.OK, MessageBoxImage.Warning);
+                RemainingAmount = TotalAmount - UserPayment;
+        }
+
+        private void UpdateUserBalanceInJson()
+        {
+            var allUsers = DB.JsonRead<User>(_userPath) ?? new List<User>();
+
+            var currentUser = allUsers.FirstOrDefault(u => u.GmailService.Email == App.CurrentUser?.GmailService.Email);
+
+            if (currentUser is not null)
+                currentUser.Balance = Balance;
+
+            else
+            {
+                allUsers.Add(new User
+                {
+                    Name = App.CurrentUser?.Name,
+                    Surname = App.CurrentUser?.Surname,
+                    GmailService = new GmailService()
+                    {
+                        Email = App.CurrentUser?.GmailService.Email,
+                        Password = App.CurrentUser?.GmailService?.Password
+                    },
+                    Mobile = App.CurrentUser?.Mobile,
+                    Balance = Balance
+                });
+            }
+            DB.JsonWrite(_userPath, allUsers);
         }
 
         private void ClearUserBasket() => DB.JsonWrite(_userFileName, new List<Product>());
-
         private void MoveBoughtProductsToHistory()
         {
             var userBasketProducts = DB.JsonRead<Product>(_userFileName) ?? new List<Product>();
@@ -83,13 +124,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             DB.JsonWrite(userHistoryFileName, purchaseHistory);
         }
-
         private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
-        private void OpenForOrderMap()
-        {
-            var fom = new ForOrderMap();
-            fom.Show();
-        }
         private void PaymentWindowQuit() => System.Windows.Application.Current.Windows.OfType<PaymentWithCard>().FirstOrDefault()?.Close();
 
         public event PropertyChangedEventHandler? PropertyChanged;
