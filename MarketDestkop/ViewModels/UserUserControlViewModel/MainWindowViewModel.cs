@@ -6,7 +6,6 @@ using MarketWpfProject.Models;
 using MarketWpfProject.UserControls.UserUS;
 using MarketWpfProject.Views;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -47,7 +46,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 UpdateBalanceInJson();
             }
         }
-
         public MainWindowViewModel(Frame frame)
         {
             _frame = frame;
@@ -64,7 +62,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             UserFullName = $"{App.CurrentUser?.Name?[0]} {App.CurrentUser?.Surname?[0]}";
             Balance = App.CurrentUser?.Balance;
         }
-
         private void OpenProductsUserControl() => _frame?.Navigate(new ProductUS());
         private void OpenHistory() => _frame?.Navigate(new TheHistoryOfTheProductsIBought());
         private void OpenMyFavoriteProduct() => _frame?.Navigate(new MyFavoriteProduct());
@@ -87,7 +84,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             if (mbr == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
         }
-
         private void UpdateBalanceInJson()
         {
             if (App.CurrentUser == null)
@@ -99,10 +95,10 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             var currentUser = allUsers.FirstOrDefault(u => u.GmailService.Email == App.CurrentUser.GmailService.Email);
             if (currentUser != null)
             {
-                currentUser.Balance = Balance ?? 0m; 
+                currentUser.Balance = Balance ?? 0m;
             }
 
-            DB.JsonWrite(usersPath, allUsers); 
+            DB.JsonWrite(usersPath, allUsers);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -20,13 +20,24 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand<Product> DecreaseQuantityCommand { get; }
         public RelayCommand MoveTrashCommand { get; }
         public RelayCommand PaymentCommand { get; }
-        public RelayCommand SearchCommand { get; set; }
+        public RelayCommand SearchCommand { get; }
 
         private string? _searchTb;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
         private decimal? _totalPrice;
         public decimal? TotalPrice { get => _totalPrice; set { _totalPrice = value; OnPropertyChanged(nameof(TotalPrice)); } }
+
+        private bool _isPaymentEnabled;
+        public bool IsPaymentEnabled
+        {
+            get => _isPaymentEnabled;
+            set
+            {
+                _isPaymentEnabled = value;
+                OnPropertyChanged(nameof(IsPaymentEnabled));
+            }
+        }
 
         private DispatcherTimer _timer;
         private string _currentTime;
@@ -43,6 +54,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             Products = new ObservableCollection<Product>();
             Products.CollectionChanged += Products_CollectionChanged;
+            IsPaymentEnabled = Products.Any();
             SearchCommand = new RelayCommand(MyBasketSearchProduct);
             DeleteFromBasketCommand = new RelayCommand<Product>(MyBasketDelete);
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
@@ -80,7 +92,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             var pw = new PaymentWindow();
             pw.Show();
         }
-
         private void ActiveClockShow()
         {
             _timer = new DispatcherTimer
@@ -90,7 +101,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             _timer.Tick += (s, e) => CurrentTime = DateTime.Now.ToString("HH:mm:ss");
             _timer.Start();
         }
-        private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => MyBasketProductTotalPrice();
+        private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            MyBasketProductTotalPrice();
+            IsPaymentEnabled = Products.Any(); 
+        }
         public decimal MyBasketProductTotalPrice()
         {
             TotalPrice = Products.Sum(p => (p.Quantity ?? 1) * (p.Price ?? 0));

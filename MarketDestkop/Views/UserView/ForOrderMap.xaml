@@ -8,7 +8,6 @@
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         Title="ForOrderMap" Height="450" Width="800">
     <Grid>
-        <!-- Harita Kontrolü -->
         <m:Map x:Name="MapControl"
                CredentialsProvider="Your_Bing_Maps_Key"
                Center="40.4489,49.7653" ZoomLevel="12"
@@ -16,7 +15,6 @@
             <m:MapLayer x:Name="RouteLayer" />
         </m:Map>
 
-        <!-- Kullanıcı Arayüzü -->
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Background="White" >
             <TextBlock Text="Enter User Location (Azerbaijani supported)" Margin="0,0,0,10" />
             <TextBox x:Name="UserLocationInput" Width="200" Height="30" />

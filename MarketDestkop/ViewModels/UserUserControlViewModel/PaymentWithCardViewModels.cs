@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper;
 using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
+using MarketWpfProject.UserControls.UserUS;
 using MarketWpfProject.Views.UserView;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -38,13 +40,18 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 }
             }
         }
+
+        //private readonly Frame? _frame;
+
         //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         private string userHistoryFileName = $"{App.CurrentUser?.GmailService.Email}_PurchasedHistory.json";
         private string _userPath = App.UserPath;
         public RelayCommand SubmitPaymentCommand { get; }
+        public RelayCommand GoBackCommand { get; }
         public PaymentWithCardViewModels()
         {
+            //_frame = frame;
             TotalAmount = App.TotalAmount;
             CardHolder = $"{App.CurrentUser?.Surname} {App.CurrentUser?.Name}";
             UserPayment = 0m;
@@ -53,6 +60,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             //MMYY = "04/24";
             CancelCommand = new RelayCommand(PaymentWindowQuit);
             SubmitPaymentCommand = new RelayCommand(SubmitPayment);
+            GoBackCommand = new RelayCommand(GoOpenPaymentWindow);
             TotalAmount -= App.CurrentUser?.Balance;
         }
         private void SubmitPayment()
@@ -69,11 +77,13 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 MoveBoughtProductsToHistory();
                 ClearUserBasket();
                 PaymentWindowQuit();
+                //CloseWithCardPaymentOpenProductsWindow();
             }
             else
                 RemainingAmount = TotalAmount - UserPayment;
         }
 
+        //private void CloseWithCardPaymentOpenProductsWindow() => _frame?.Navigate(new ProductUS());
         private void UpdateUserBalanceInJson()
         {
             var allUsers = DB.JsonRead<User>(_userPath) ?? new List<User>();
@@ -100,7 +110,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             }
             DB.JsonWrite(_userPath, allUsers);
         }
-
+        private void GoOpenPaymentWindow()
+        {
+            OpenPaymentWindow();
+            PaymentWindowQuit();
+        }
         private void ClearUserBasket() => DB.JsonWrite(_userFileName, new List<Product>());
         private void MoveBoughtProductsToHistory()
         {
@@ -123,6 +137,11 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             purchaseHistory.Add(newPurchase);
 
             DB.JsonWrite(userHistoryFileName, purchaseHistory);
+        }
+        private void OpenPaymentWindow()
+        {
+            var pw = new PaymentWindow();
+            pw.Show();
         }
         private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
         private void PaymentWindowQuit() => System.Windows.Application.Current.Windows.OfType<PaymentWithCard>().FirstOrDefault()?.Close();
