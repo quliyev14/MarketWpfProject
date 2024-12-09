@@ -6,7 +6,7 @@ namespace MarketWpfProject.Moduls
     {
         public string? Name { get; set; } = string.Empty;
         public decimal? Price { get; set; } = 0;
-        public int Count { get; set; } = 0;
+        public int? Count { get; set; } = 0;
         public string? ImagePath { get; set; } = "C:\\Users\\elgun668icloud.com\\MarketWpfProject\\MarketDestkop\\Images\\image_default.png";
 
         private int? _quantity = 1;

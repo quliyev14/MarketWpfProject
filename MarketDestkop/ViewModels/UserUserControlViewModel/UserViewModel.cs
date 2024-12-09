@@ -23,20 +23,12 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         public RelayCommand<Product> AddToPacketCommand { get; }
         //public RelayCommand<Product> ToggleFavoriteCommand { get; }
 
+        private DispatcherTimer _timer;
         private string? _searchTb;
+        private string _currentTime;
         public string? SearchTb { get => _searchTb; set { _searchTb = value; OnPropertyChanged(nameof(SearchTb)); } }
 
-        private DispatcherTimer _timer;
-        private string _currentTime;
-        public string CurrentTime
-        {
-            get => _currentTime;
-            set
-            {
-                _currentTime = value;
-                OnPropertyChanged(nameof(CurrentTime));
-            }
-        }
+        public string CurrentTime { get => _currentTime; set { _currentTime = value; OnPropertyChanged(nameof(CurrentTime)); } }
         public UserViewModel()
         {
             LoadProduct();
@@ -47,21 +39,6 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             //ToggleFavoriteCommand = new RelayCommand<Product>(ToggleFavorite);
             ActiveClockShow();
         }
-
-        //private void ToggleFavorite(Product product)
-        //{
-        //    if (product is null) MessageBox.Show("Product select is null");
-
-        //    else
-        //    {
-        //        if (PathCheck.OpenOrClosed(_userFavoriteProducts))
-        //        {
-        //            Products.Add(product);
-        //            DB.JsonWrite<Product>(_userFavoriteProducts, Products);
-        //        }
-        //    }
-        //}
-
         private void ActiveClockShow()
         {
             _timer = new DispatcherTimer
@@ -73,30 +50,79 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
         private void IncreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity < 30)
+            if (product != null && product.Quantity < product.Count) 
             {
                 product.Quantity++;
+            }
+            else
+            {
+                MessageBox.Show("There is not enough product in the warehouse");
             }
         }
         private void DecreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity > 1)
+            if (product != null && product.Quantity > 1) 
             {
                 product.Quantity--;
             }
         }
         private void AddProductToUserPacket(Product product)
         {
+            if (product == null || product.Quantity <= 0) return;
+
+            var userProductList = new List<Product>();
             var productList = new List<Product>();
+
             if (PathCheck.OpenOrClosed(_userFileName))
             {
                 var existingProducts = DB.JsonRead<Product>(_userFileName);
                 if (existingProducts is not null)
-                    productList.AddRange(existingProducts);
+                    userProductList.AddRange(existingProducts); 
             }
-            productList.Add(product);
-            DB.JsonWrite(_userFileName, productList);
+
+            var existingProductInUserList = userProductList.FirstOrDefault(p => p.Name == product.Name);
+            if (existingProductInUserList != null)
+            {
+                existingProductInUserList.Quantity += product.Quantity; 
+            }
+            else
+            {
+                userProductList.Add(new Product
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = product.Quantity,
+                    ImagePath = product.ImagePath
+                });
+            }
+
+            if (PathCheck.OpenOrClosed(_productPath))
+            {
+                productList = DB.JsonRead<Product>(_productPath);
+                var productInList = productList.FirstOrDefault(p => p.Name == product.Name);
+                if (productInList != null)
+                {
+                    productInList.Count -= product.Quantity; 
+                    if (productInList.Count < 0) productInList.Count = 0; 
+                }
+
+                DB.JsonWrite(_productPath, productList); 
+            }
+
+            DB.JsonWrite(_userFileName, userProductList);
+
+            MessageBox.Show($"{product.Quantity} {product.Name} added to the basket!");
+
+            RefreshProducts();
         }
+
+        private void RefreshProducts()
+        {
+            Products.Clear();
+            LoadProduct();
+        }
+
+
         private void LoadProduct()
         {
             if (PathCheck.OpenOrClosed(_productPath))

@@ -1,5 +1,6 @@
 ﻿using MarketWpfProject.Models;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MarketDestkop
 {
@@ -10,7 +11,6 @@ namespace MarketDestkop
         public static decimal TotalAmount = 0;
         public static User? CurrentUser { get; set; }
         public static string? Password { get; set; }
-
         public App()
         {
             CurrentUser = null;

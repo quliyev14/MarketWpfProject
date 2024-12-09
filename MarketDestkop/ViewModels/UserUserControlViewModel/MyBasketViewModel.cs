@@ -77,15 +77,37 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
 
             if (result == MessageBoxResult.Yes)
             {
-                Products.Clear();
+                var userProductList = new List<Product>();
 
                 if (PathCheck.OpenOrClosed(_userpath))
-                    DB.JsonWrite<Product>(_userpath, Products);
+                {
+                    var existingProducts = DB.JsonRead<Product>(_userpath);
+                    if (existingProducts is not null)
+                        userProductList.AddRange(existingProducts);
+
+                    if (PathCheck.OpenOrClosed("products.json"))
+                    {
+                        var productList = DB.JsonRead<Product>("products.json");
+                        foreach (var product in userProductList)
+                        {
+                            var productInList = productList.FirstOrDefault(p => p.Name == product.Name);
+                            if (productInList != null)
+                            {
+                                productInList.Count += product.Quantity;
+                            }
+                        }
+                        DB.JsonWrite("products.json", productList);
+                    }
+
+                    DB.JsonWrite<Product>(_userpath, new List<Product>());
+                }
+
+                Products.Clear();
                 TotalPrice = 0;
-                MessageBox.Show("All product succesfult be deleted.", "Succesfuly", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MessageBox.Show("All products successfully deleted.", "Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefreshProducts();
             }
-            else
-                MessageBox.Show("Products could not be deleted.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void OpenPaymentrWindow()
         {
@@ -104,7 +126,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         private void Products_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             MyBasketProductTotalPrice();
-            IsPaymentEnabled = Products.Any(); 
+            IsPaymentEnabled = Products.Any();
         }
         public decimal MyBasketProductTotalPrice()
         {
@@ -114,21 +136,20 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
         private void IncreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity < 30)
-            {
-                product.Quantity++;
-                MyBasketProductTotalPrice();
-                DB.JsonWrite<Product>(_userpath, Products);
-            }
+            if (product == null) return;
+
+            product.Quantity++;
+            MyBasketProductTotalPrice();
+            UpdateProductInJson(product);
         }
+
         private void DecreaseQuantity(Product product)
         {
-            if (product != null && product.Quantity > 1)
-            {
-                product.Quantity--;
-                MyBasketProductTotalPrice();
-                DB.JsonWrite<Product>(_userpath, Products);
-            }
+            if (product == null || product.Quantity <= 1) return;
+
+            product.Quantity--;
+            MyBasketProductTotalPrice();
+            UpdateProductInJson(product);
         }
         private void MyBasketSearchProduct()
         {
@@ -151,16 +172,50 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
         private void MyBasketDelete(Product product)
         {
-            if (Products is not null)
-            {
-                var products = DB.JsonRead<Product>(_userpath) ?? new List<Product>();
+            if (product == null) return;
 
-                if (products is not null)
+            var productList = DB.JsonRead<Product>("products.json");
+            var userProductList = DB.JsonRead<Product>(_userpath);
+
+            if (userProductList != null && productList != null)
+            {
+                var productInUserList = userProductList.FirstOrDefault(p => p.Name == product.Name);
+                var productInList = productList.FirstOrDefault(p => p.Name == product.Name);
+
+                if (productInUserList != null)
                 {
-                    Products.Remove(product);
-                    DB.JsonWrite<Product>(_userpath, Products);
+                    if (productInList != null)
+                    {
+                        productInList.Count += productInUserList.Quantity;
+                    }
+
+                    userProductList.Remove(productInUserList);
+                }
+
+                DB.JsonWrite(_userpath, userProductList);
+                DB.JsonWrite("products.json", productList);
+            }
+
+            Products.Remove(product);
+            RefreshProducts();
+        }
+        private void UpdateProductInJson(Product product)
+        {
+            var userProductList = DB.JsonRead<Product>(_userpath);
+            if (userProductList != null)
+            {
+                var productToUpdate = userProductList.FirstOrDefault(p => p.Name == product.Name);
+                if (productToUpdate != null)
+                {
+                    productToUpdate.Quantity = product.Quantity;
+                    DB.JsonWrite(_userpath, userProductList);
                 }
             }
+        }
+        private void RefreshProducts()
+        {
+            Products.Clear();
+            LoadProduct();
         }
         private void LoadProduct()
         {
