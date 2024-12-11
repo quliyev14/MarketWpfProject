@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="MarketWpfProject.UserControls.SuperAdminUS.AdminViewUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MarketWpfProject.UserControls.SuperAdminUS"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="Admins" FontSize="24" FontWeight="Bold" 
+                       HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListView Background="White"
+                          ItemsSource="{Binding Admins}"
+                          SelectedItem="{Binding SelectedAdmin, Mode=TwoWay}"
+                          BorderBrush="#D3D3D3" BorderThickness="1"
+                          MaxHeight="300">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" 
+                                            Width="150" 
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Surname" 
+                                            Width="150" 
+                                            DisplayMemberBinding="{Binding Surname}"/>
+                            <GridViewColumn Header="Email" 
+                                            Width="200" 
+                                            DisplayMemberBinding="{Binding GmailService.Email}"/>
+                            <GridViewColumn Width="200" 
+                                            Header="Actions">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" 
+                                                    HorizontalAlignment="Center">
+                                            <Button Content="Update" 
+                                                    Width="80" 
+                                                    Margin="5,0"
+                                                    Command="{Binding DataContext.UpdateCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Content="Delete" 
+                                                    Width="80" 
+                                                    Margin="5,0"
+                                                    Command="{Binding DataContext.DeleteCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                    CommandParameter="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</UserControl>

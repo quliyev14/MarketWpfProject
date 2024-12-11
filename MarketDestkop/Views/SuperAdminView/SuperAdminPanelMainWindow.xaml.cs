@@ -1,29 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using MarketWpfProject.ViewModels;
 
 namespace MarketWpfProject.Views.SuperAdminView
 {
-    /// <summary>
-    /// Interaction logic for SuperAdminPanelMainWindow.xaml
-    /// </summary>
     public partial class SuperAdminPanelMainWindow : Window
     {
         public SuperAdminPanelMainWindow()
         {
             InitializeComponent();
-            DataContext = new SuperAdminPanelWewModels();
+            var sapwm = new SuperAdminPanelWewModels(ContentFrame);
+            DataContext = sapwm;
         }
     }
 }

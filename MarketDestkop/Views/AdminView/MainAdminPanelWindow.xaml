@@ -64,7 +64,7 @@
         <Border Grid.Column="1" Background="#FFECF0F1"></Border>
 
         <Border Grid.Column="1" Background="#FFECF0F1">
-            <Frame x:Name="ContentFrame" />
+            <Frame x:Name="ContentFrame"/>
         </Border>
     </Grid>
 </Window>

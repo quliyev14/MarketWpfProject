@@ -5,27 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarketWpfProject.Views.SuperAdminView"
         mc:Ignorable="d"
-        Title="Super Admin Panel" Height="450" Width="800">
+        Title="Super Admin Panel" Height="450" Width="auto">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <!-- Sol Menü -->
             <ColumnDefinition Width="*"/>
-            <!-- Sağ İçerik -->
         </Grid.ColumnDefinitions>
 
-        <!-- Sol Menü -->
-        <StackPanel Grid.Column="0" Background="LightGray" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Button Content="AllShow User" Width="180" Height="50" Margin="10" Background="LightBlue" FontSize="14" HorizontalAlignment="Center" />
-            <Button Command="{Binding SignUpCommand}" Content="Sign Up" Width="180" Height="50" Margin="10" Background="LightGreen" FontSize="14" HorizontalAlignment="Center" />
-            <Button Content="Log Out" Width="180" Height="50" Margin="10" Background="LightCoral" FontSize="14" HorizontalAlignment="Center" />
+        <StackPanel Background="#EEE" VerticalAlignment="Stretch">
+            <Button Content="All Show User" Height="40" Margin="10" Command="{Binding AllShowUserCommand}"/>
+            <Button Content="Signup" Height="40" Margin="10" Command="{Binding SignUpCommand}"/>
+            <Button Content="Go back" Height="40" Margin="10" Command="{Binding GoBackCommand}"/>
         </StackPanel>
 
-        <!-- Sağ İçerik -->
-        <Grid Grid.Column="1" Background="White">
-            <TextBlock Text="Sağ tarafta içerik gösterilecek." 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" 
-                       FontSize="16" Foreground="Gray"/>
-        </Grid>
+        <Frame Name="ContentFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

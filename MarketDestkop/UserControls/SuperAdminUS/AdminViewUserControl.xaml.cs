@@ -1,14 +1,14 @@
 ﻿using System.Windows.Controls;
-using MarketWpfProject.ViewModels;
+using MarketWpfProject.ViewModels.SuperAdminUserControlViewModels;
 
-namespace MarketWpfProject.UserControls
+namespace MarketWpfProject.UserControls.SuperAdminUS
 {
     public partial class AdminViewUserControl : UserControl
     {
         public AdminViewUserControl()
         {
             InitializeComponent();
-            //DataContext = new AdminViewUserControlViewModels()
+            DataContext = new AdminViewUserControlViewModel();
         }
     }
 }
