@@ -39,24 +39,31 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            var users = DB.JsonRead<User>(_userPath) ?? throw new FileNotFoundException(nameof(_userPath));
+            try
+            {
+                var users = DB.JsonRead<User>(_userPath) ?? throw new FileNotFoundException(nameof(_userPath));
 
-            var user = new User()
+                var user = new User()
+                {
+                    Name = User?.Name,
+                    Surname = User?.Surname,
+                    GmailService = new GmailService() { Email = User?.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User?.GmailService?.Password) },
+                    DateTime = User?.DateTime,
+                    Mobile = User?.Mobile,
+                    Balance = 0,
+                    CountryMobileCode = User?.CountryMobileCode
+                };
+                users.Add(user);
+                if (mbb == MessageBoxResult.Yes)
+                {
+                    lock (_prso)
+                        DB.JsonWrite<User>(_userPath, users);
+                    ClearFields(parametr);
+                }
+            }
+            catch (Exception ex)
             {
-                Name = User?.Name,
-                Surname = User?.Surname,
-                GmailService = new GmailService() { Email = User?.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(User?.GmailService?.Password) },
-                DateTime = User?.DateTime,
-                Mobile = User?.Mobile,
-                Balance = 0,
-                CountryMobileCode = User?.CountryMobileCode
-            };
-            users.Add(user);
-            if (mbb == MessageBoxResult.Yes)
-            {
-                lock (_prso)
-                    DB.JsonWrite<User>(_userPath, users);
-                ClearFields(parametr);
+                MessageBox.Show($"{ex.Message}");
             }
         }
         private void ClearFields(object? parametr) => User = new();

@@ -22,10 +22,11 @@ namespace MarketWpfProject.ViewModels
             var sapw = new SuperAdminPanelMainWindow();
             sapw.Show();
         }
+      
         private void OpenAdminWindow()
         {
-            var apw = new AdminPanelWindow();
-            apw.Show();
+            var mapw = new AdminPanelWindow();
+            mapw.Show();
         }
         private void OpenUserWindow()
         {

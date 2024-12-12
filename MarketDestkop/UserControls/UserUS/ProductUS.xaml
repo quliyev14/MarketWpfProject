@@ -52,7 +52,7 @@
                                 Background="White">
 
                             <StackPanel HorizontalAlignment="Center">
-                                <Button Width="30" Height="30" 
+                                <!--<Button Width="30" Height="30" 
         Background="Transparent"
         CommandParameter="{Binding}" 
         Command="{Binding ToggleFavoriteCommand}" 
@@ -66,7 +66,7 @@
                                     <Image Source="https://cdn3.iconfinder.com/data/icons/basic-ui-181/24/Basic_UI_Glyph_Add_to_Bookmark-512.png" 
            VerticalAlignment="Center" 
            HorizontalAlignment="Center"/>
-                                </Button>
+                                </Button>-->
 
                                 <Image Source="{Binding ImagePath}" Width="100" Height="100" Margin="5"/>
                                 <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="Bold" TextAlignment="Center" Margin="5,2,5,0"/>

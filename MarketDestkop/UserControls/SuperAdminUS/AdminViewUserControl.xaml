@@ -34,12 +34,12 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" 
                                                     HorizontalAlignment="Center">
-                                            <Button Content="Update" 
+                                            <!--<Button Content="Update" 
                                                     Width="80" 
                                                     Margin="5,0"
                                                     Command="{Binding DataContext.UpdateCommand, 
                                                     RelativeSource={RelativeSource AncestorType=ListView}}"
-                                                    CommandParameter="{Binding}" />
+                                                    CommandParameter="{Binding}" />-->
                                             <Button Content="Delete" 
                                                     Width="80" 
                                                     Margin="5,0"

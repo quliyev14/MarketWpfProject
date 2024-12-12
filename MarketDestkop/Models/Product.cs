@@ -7,7 +7,7 @@ namespace MarketWpfProject.Moduls
         public string? Name { get; set; } = string.Empty;
         public decimal? Price { get; set; } = 0;
         public int? Count { get; set; } = 0;
-        public string? ImagePath { get; set; } = "C:\\Users\\Quliy_cy96\\Source\\Repos\\MarketWpfProject\\MarketDestkop\\Images\\image_default.png";
+        public string? ImagePath { get; set; } = "C:\\Users\\Quliy_cy96\\MarketWpfProject\\MarketDestkop\\Images\\image_default.png";
 
         private int? _quantity = 1;
         public int? Quantity { get => _quantity; set { { if (value < 1) _quantity = 1; else if (value > 30) _quantity = 30; else _quantity = value; OnPropertyChanged(nameof(Quantity)); } } }

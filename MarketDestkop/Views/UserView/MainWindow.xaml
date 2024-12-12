@@ -58,7 +58,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" VerticalAlignment="Top" Background="#F0F4F8" Height="584">
+            <StackPanel Grid.Column="0" VerticalAlignment="Top" Background="#F0F4F8" Height="1000">
                 <TextBlock Text="Main" FontSize="16" FontWeight="SemiBold" Margin="10,10,0,5" Foreground="#555"/>
                 <Button Command="{Binding ProductsCommand}" CommandParameter="Category1UserControl" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD">
                     <StackPanel Orientation="Horizontal">
@@ -82,11 +82,11 @@
                         <TextBlock Text="Profile Settings" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding WishlistCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD">
+                <!--<Button Command="{Binding WishlistCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Favorites / Wishlist" VerticalAlignment="Center"/>
                     </StackPanel>
-                </Button>
+                </Button>-->
 
                 <StackPanel VerticalAlignment="Bottom" Margin="5">
                     <Button Command="{Binding SignOutCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD">

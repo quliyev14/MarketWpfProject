@@ -39,22 +39,30 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
         {
             MessageBoxResult mbb = MessageBox.Show("Data is saved?", "Sign Up", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            var admin = new Admin()
+            try
             {
-                Name = Admin.Name,
-                Surname = Admin.Surname,
-                GmailService = new GmailService() { Email = Admin.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(Admin.GmailService?.Password) },
-            };
+                var admin = new Admin()
+                {
+                    Name = Admin.Name,
+                    Surname = Admin.Surname,
+                    GmailService = new GmailService() { Email = Admin.GmailService?.Email, Password = DatasIsHashed.WithSHA256PasswordHash(Admin.GmailService?.Password) },
+                };
 
-            admins.Add(admin);
+                admins.Add(admin);
 
-            if (mbb == MessageBoxResult.Yes)
-            {
-                lock (_psro)
-                    DB.JsonWrite<Admin>(path,admins);
+                if (mbb == MessageBoxResult.Yes)
+                {
+                    lock (_psro)
+                        DB.JsonWrite<Admin>(path, admins);
+                }
+                ClearFields();
+                return;
             }
-            ClearFields();
-            return;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
+
         }
 
         private void ClearFields() => Admin = new();

@@ -112,8 +112,8 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         }
         private void OpenPaymentWindow()
         {
-            var pw = new PaymentWindow();
-            pw.Show();
+            var pwc = new PaymentWithCard();
+            pwc.Show();
         }
         private void ActiveClockShow()
         {

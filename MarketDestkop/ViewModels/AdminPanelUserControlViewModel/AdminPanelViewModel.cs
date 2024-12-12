@@ -34,8 +34,8 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                     admin.GmailService?.Password == DatasIsHashed.WithSHA256PasswordHash(Admin?.GmailService?.Password))
                     OpenMainWindowShow();
             }
-            RefreshMethod();
             QuitAdminPanelWindow();
+            RefreshMethod();
         }
 
         private void QuitAdminPanelWindow() => System.Windows.Application.Current.Windows.OfType<AdminPanelWindow>().FirstOrDefault()?.Close();
