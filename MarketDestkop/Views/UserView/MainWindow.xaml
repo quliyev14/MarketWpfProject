@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Market" 
         MinHeight="600"
-        MaxHeight="600" 
-        Width="auto"
+        Width="800"
+        ResizeMode="CanResizeWithGrip"
         Icon="https://img.freepik.com/premium-vector/bustling-farmers-market-with-overflowing-stalls_961875-456033.jpg">
 
     <Grid>
@@ -17,6 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Üst Header -->
         <Grid Background="#3F51B5" Height="100" VerticalAlignment="Top" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -33,74 +34,56 @@
                         <Label Content="Full Name:" Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
                         <TextBlock Text="{Binding NameAndSurname}" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
-
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Phone:" Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
                         <TextBlock Text="{Binding Phone}" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
-
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Email:" Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
                         <TextBlock Text="{Binding Email}" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0">
-                <TextBlock Text="{Binding Balance, StringFormat='Balance: {0:C}', Mode=TwoWay}" 
-                           Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"/>
-            </StackPanel>
         </Grid>
 
+        <!-- Ana İçerik -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" VerticalAlignment="Top" Background="#F0F4F8" Height="584" >
-                <TextBlock Text="Main" FontSize="16" FontWeight="SemiBold" Margin="10,10,0,5" Foreground="#555"/>
-                <Button Command="{Binding ProductsCommand}" CommandParameter="Category1UserControl" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Products" VerticalAlignment="Center"/>
-                    </StackPanel>
+            <!-- Sol Menü -->
+            <StackPanel Grid.Column="0" Background="#F0F0F0">
+                <TextBlock Text="Main" FontSize="16" FontWeight="SemiBold" Margin="10,10,0,5" Foreground="#333"/>
+                <Button Command="{Binding ProductsCommand}" CommandParameter="Category1UserControl" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="Products" VerticalAlignment="Center" Foreground="#333"/>
                 </Button>
-                <Button Command="{Binding MyBasketCommand}" CommandParameter="Category2UserControl" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="My Basket" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <Button Command="{Binding MyBasketCommand}" CommandParameter="Category2UserControl" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="My Basket" VerticalAlignment="Center" Foreground="#333"/>
                 </Button>
-                <Button Command="{Binding HistoryCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Order History" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <Button Command="{Binding HistoryCommand}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="Order History" VerticalAlignment="Center" Foreground="#333"/>
                 </Button>
 
-                <TextBlock Text="User" FontSize="16" FontWeight="SemiBold" Margin="10,20,0,5" Foreground="#555"/>
-                <Button Command="{Binding ProfileSettingsCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Profile Settings" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <TextBlock Text="User" FontSize="16" FontWeight="SemiBold" Margin="10,20,0,5" Foreground="#333"/>
+                <Button Command="{Binding ProfileSettingsCommand}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="Profile Settings" VerticalAlignment="Center" Foreground="#333"/>
                 </Button>
-                <Button Command="{Binding WishlistCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Favorites / Wishlist" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <Button Command="{Binding WishlistCommand}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1">
+                    <TextBlock Text="Favorites / Wishlist" VerticalAlignment="Center" Foreground="#333"/>
                 </Button>
 
                 <StackPanel VerticalAlignment="Bottom" Margin="5">
-                    <Button Command="{Binding SignOutCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Foreground="#C62828">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Sign Out" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Button Command="{Binding SignOutCommand}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1" Foreground="#C62828">
+                        <TextBlock Text="Sign Out" VerticalAlignment="Center"/>
                     </Button>
-                    <Button Command="{Binding GoBackCommand}" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" Padding="10,5" Foreground="#1E88E5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Go Back" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Button Command="{Binding GoBackCommand}" Margin="5" Padding="10,5" Background="White" BorderBrush="#DDD" BorderThickness="1" Foreground="#1E88E5">
+                        <TextBlock Text="Go Back" VerticalAlignment="Center"/>
                     </Button>
                 </StackPanel>
             </StackPanel>
+
             <Grid Grid.Column="1">
                 <Frame Name="ContentFrame" />
             </Grid>

@@ -107,7 +107,7 @@
 
             <Button Content="Submit Payment" 
                     Width="150" 
-                    Height="40" 
+                    Height="auto" 
                     HorizontalAlignment="Center" 
                     Command="{Binding SubmitPaymentCommand}" 
                     Style="{StaticResource MaterialDesignRaisedButton}" 
@@ -115,7 +115,7 @@
 
             <Button Content="Cancel" 
                     Width="150" 
-                    Height="40" 
+                    Height="auto" 
                     HorizontalAlignment="Center" 
                     Command="{Binding CancelCommand}" 
                     Style="{StaticResource MaterialDesignOutlinedButton}" 

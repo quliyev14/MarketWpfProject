@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using GalaSoft.MvvmLight.Command;
 using MarketDestkop;
+using MarketDestkop.Views;
 using MarketWpfProject.Data;
 using MarketWpfProject.Helper;
 using MarketWpfProject.Models;
 using MarketWpfProject.Moduls;
-using MarketWpfProject.UserControls.UserUS;
+using MarketWpfProject.Views;
 using MarketWpfProject.Views.UserView;
 
 namespace MarketWpfProject.ViewModels.UserUserControlViewModel
@@ -36,14 +36,10 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 if (App.CurrentUser != null)
                 {
                     App.CurrentUser.Balance = value;
-                    OnPropertyChanged(nameof(Balance)); // UI'yi güncelle
+                    OnPropertyChanged(nameof(Balance));
                 }
             }
         }
-
-        //private readonly Frame? _frame;
-
-        //public string? MMYY { get => _mmyy; private set { _mmyy = value; OnPropertyChanged(nameof(MMYY)); } }
         private string _userFileName = $"{App.CurrentUser?.GmailService.Email}.json";
         private string userHistoryFileName = $"{App.CurrentUser?.GmailService.Email}_PurchasedHistory.json";
         private string _userPath = App.UserPath;
@@ -77,13 +73,13 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 MoveBoughtProductsToHistory();
                 ClearUserBasket();
                 PaymentWindowQuit();
-                //CloseWithCardPaymentOpenProductsWindow();
+                QuitMainWindow();
+                OpenSignIn();
             }
             else
                 RemainingAmount = TotalAmount - UserPayment;
         }
 
-        //private void CloseWithCardPaymentOpenProductsWindow() => _frame?.Navigate(new ProductUS());
         private void UpdateUserBalanceInJson()
         {
             var allUsers = DB.JsonRead<User>(_userPath) ?? new List<User>();
@@ -143,9 +139,15 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             var pw = new PaymentWindow();
             pw.Show();
         }
+
+        private void OpenSignIn()
+        {
+            var rw = new RegisterWindow();
+            rw.Show();
+        }
+        private void QuitMainWindow() => System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
         private void UpdateRemainingAmount() => RemainingAmount = TotalAmount - UserPayment;
         private void PaymentWindowQuit() => System.Windows.Application.Current.Windows.OfType<PaymentWithCard>().FirstOrDefault()?.Close();
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

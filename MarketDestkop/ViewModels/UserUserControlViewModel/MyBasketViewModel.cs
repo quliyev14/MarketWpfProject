@@ -14,6 +14,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
     public class MyBasketViewModel : INotifyPropertyChanged
     {
         private readonly string _userpath = $"{App.CurrentUser?.GmailService.Email}.json";
+        private readonly string _productPath = $"{App.ProductPath}";
         public ObservableCollection<Product> Products { get; set; }
         public RelayCommand<Product> DeleteFromBasketCommand { get; }
         public RelayCommand<Product> IncreaseQuantityCommand { get; }
@@ -60,7 +61,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
             IncreaseQuantityCommand = new RelayCommand<Product>(IncreaseQuantity);
             DecreaseQuantityCommand = new RelayCommand<Product>(DecreaseQuantity);
             MoveTrashCommand = new RelayCommand(MoveTrash);
-            PaymentCommand = new RelayCommand(OpenPaymentrWindow);
+            PaymentCommand = new RelayCommand(OpenPaymentWindow);
             MyBasketProductTotalPrice();
             LoadProduct();
             ActiveClockShow();
@@ -85,9 +86,9 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                     if (existingProducts is not null)
                         userProductList.AddRange(existingProducts);
 
-                    if (PathCheck.OpenOrClosed("products.json"))
+                    if (PathCheck.OpenOrClosed(_productPath))
                     {
-                        var productList = DB.JsonRead<Product>("products.json");
+                        var productList = DB.JsonRead<Product>(_productPath);
                         foreach (var product in userProductList)
                         {
                             var productInList = productList.FirstOrDefault(p => p.Name == product.Name);
@@ -96,7 +97,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                                 productInList.Count += product.Quantity;
                             }
                         }
-                        DB.JsonWrite("products.json", productList);
+                        DB.JsonWrite(_productPath, productList);
                     }
 
                     DB.JsonWrite<Product>(_userpath, new List<Product>());
@@ -109,7 +110,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 RefreshProducts();
             }
         }
-        private void OpenPaymentrWindow()
+        private void OpenPaymentWindow()
         {
             var pw = new PaymentWindow();
             pw.Show();
@@ -174,7 +175,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
         {
             if (product == null) return;
 
-            var productList = DB.JsonRead<Product>("products.json");
+            var productList = DB.JsonRead<Product>(_productPath);
             var userProductList = DB.JsonRead<Product>(_userpath);
 
             if (userProductList != null && productList != null)
@@ -193,7 +194,7 @@ namespace MarketWpfProject.ViewModels.UserUserControlViewModel
                 }
 
                 DB.JsonWrite(_userpath, userProductList);
-                DB.JsonWrite("products.json", productList);
+                DB.JsonWrite(_productPath, productList);
             }
 
             Products.Remove(product);

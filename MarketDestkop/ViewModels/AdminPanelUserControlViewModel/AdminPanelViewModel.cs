@@ -4,6 +4,7 @@ using MarketWpfProject.Hashed;
 using MarketWpfProject.Helper.PathHelper;
 using MarketWpfProject.Moduls;
 using MarketWpfProject.Views;
+using MarketWpfProject.Views.UserView;
 using System.ComponentModel;
 
 namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
@@ -34,8 +35,10 @@ namespace MarketWpfProject.ViewModels.AdminPanelUserControlViewModel
                     OpenMainWindowShow();
             }
             RefreshMethod();
+            QuitAdminPanelWindow();
         }
 
+        private void QuitAdminPanelWindow() => System.Windows.Application.Current.Windows.OfType<AdminPanelWindow>().FirstOrDefault()?.Close();
         private void OpenMainWindowShow()
         {
             var signUpWindow = new MainAdminPanelWindow();
